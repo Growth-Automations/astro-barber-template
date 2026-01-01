@@ -1,0 +1,13 @@
+{
+  "title": "Signature Matte Pomade",
+  "slug": "signature-matte-pomade",
+  "price": "$24",
+  "description": "Water-based clay pomade with cedar and citrus notes, engineered for all-day hold without the crunch. Washes out clean, holds all day.",
+  "highlight": "Member favorite",
+  "image": {
+    "src": "~/assets/images/photos/service-industrial.jpg",
+    "alt": "GrowthAutomations matte pomade tin on a barber workstation."
+  },
+  "tags": ["hold", "matte"],
+  "featured": true
+}

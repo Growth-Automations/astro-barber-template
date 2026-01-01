@@ -1,0 +1,214 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { resolveAsset } from '../../lib/assets';
+
+export interface Props {
+  testimonials: CollectionEntry<'testimonials'>[];
+  eyebrow?: string;
+  heading: string;
+  subheading?: string;
+}
+
+const { testimonials, eyebrow, heading, subheading } = Astro.props as Props;
+const carouselId = `testimonials-${Math.random().toString(36).slice(2, 8)}`;
+const bgImage = resolveAsset('~/assets/images/photos/barber_happy_clients.jpg');
+---
+
+<section class="relative overflow-hidden bg-surface-alt py-24 dark:bg-background">
+  {/* Background image with barber interacting with happy clients */}
+  <div class="absolute inset-0 h-full w-full">
+    <img
+      class="h-full w-full object-cover object-center opacity-20 dark:opacity-30"
+      src={bgImage}
+      alt="Barber interacting with happy clients in modern barbershop"
+      loading="lazy"
+    />
+  </div>
+
+  {/* Transparent overlays for content separation */}
+  <div class="pointer-events-none absolute inset-0">
+    {/* Light mode: dark overlay */}
+    <div class="absolute inset-0 bg-background/30 dark:hidden" />
+    {/* Dark mode: light overlay */}
+    <div class="absolute inset-0 hidden bg-white/25 dark:block" />
+
+    {/* Decorative circles */}
+    <div class="absolute -left-8 bottom-10 h-28 w-28 rounded-full border border-border/10 dark:border-white/10" />
+    <div class="absolute right-12 top-10 h-24 w-24 rounded-full border border-border/10 dark:border-white/10" />
+  </div>
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      {eyebrow && (
+        <p class="text-xs font-semibold uppercase tracking-[0.45em] text-secondary dark:text-secondary">{eyebrow}</p>
+      )}
+      <h2 class="mt-4 text-3xl font-semibold text-text-primary dark:text-text-primary md:text-4xl">
+        {heading}
+      </h2>
+      {subheading && <p class="mt-3 text-lg text-text-secondary dark:text-text-secondary">{subheading}</p>}
+    </div>
+    <div class="mt-12 flex items-center justify-between gap-4">
+      <button
+        class="hidden rounded-full border border-border bg-white p-3 text-text-secondary shadow-md transition hover:border-primary hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:border-primary/40 dark:hover:text-primary/90 md:inline-flex"
+        type="button"
+        aria-label="Previous testimonial"
+        data-prev
+      >
+        <span aria-hidden="true">‹</span>
+      </button>
+      <div class="relative flex-1 overflow-hidden">
+        <ul
+          id={carouselId}
+          class="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pt-2 scrollbar-hide"
+          data-testimonials-carousel
+          data-track
+        >
+          {testimonials.map((entry, index) => (
+            <li
+              class="group min-w-[85%] snap-center rounded-[28px] border-2 border-border dark:border-border bg-white dark:bg-white p-8 text-center shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30 md:min-w-[45%] lg:min-w-[32%]"
+            >
+              <figure class="flex h-full min-h-[320px] flex-col items-center justify-center gap-6">
+                {/* Client Avatar */}
+                {entry.data.avatar && (
+                  <div class="relative h-20 w-20 overflow-hidden rounded-full border-4 border-primary/30 shadow-lg transition-all duration-500 group-hover:border-primary/60 group-hover:scale-110">
+                    <img
+                      class="h-full w-full object-cover"
+                      src={resolveAsset(entry.data.avatar)}
+                      alt={entry.data.name}
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+
+                {/* Star Rating */}
+                <div class="flex gap-1" aria-label="5 star rating">
+                  {[...Array(5)].map(() => (
+                    <svg class="h-5 w-5 fill-primary text-primary transition-transform duration-300 group-hover:scale-110" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+
+                {/* Quote */}
+                <blockquote class="text-lg leading-relaxed text-text-secondary transition-colors duration-500 group-hover:text-primary">
+                  "{entry.data.quote}"
+                </blockquote>
+
+                {/* Client Info */}
+                <figcaption class="mt-auto">
+                  <p class="text-base font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary">{entry.data.name}</p>
+                  {entry.data.role && (
+                    <p class="mt-1 text-sm text-text-secondary transition-colors duration-500 group-hover:text-primary">{entry.data.role}</p>
+                  )}
+                  {entry.data.company && !entry.data.role && (
+                    <p class="mt-1 text-sm text-text-secondary transition-colors duration-500 group-hover:text-primary">{entry.data.company}</p>
+                  )}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button
+        class="hidden rounded-full border border-border bg-white p-3 text-text-secondary shadow-md transition hover:border-primary hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:border-primary/40 dark:hover:text-primary/90 md:inline-flex"
+        type="button"
+        aria-label="Next testimonial"
+        data-next
+      >
+        <span aria-hidden="true">›</span>
+      </button>
+    </div>
+    <div class="mt-8 flex justify-center gap-2" data-dots>
+      {testimonials.map((_, index) => (
+        <button
+          class={`h-2.5 w-2.5 rounded-full border transition-all duration-300 hover:scale-125 ${
+            index === 0
+              ? 'border-primary/70 bg-primary'
+              : 'border-border bg-transparent dark:border-white/30'
+          }`}
+          type="button"
+          aria-label={`Go to testimonial ${index + 1}`}
+          data-dot
+          data-index={index}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+<script>
+  const carouselRoot = document.currentScript?.previousElementSibling?.previousElementSibling?.closest('section');
+  const container = carouselRoot?.querySelector('[data-testimonials-carousel]');
+  if (container) {
+    const prevButton = carouselRoot.querySelector('[data-prev]');
+    const nextButton = carouselRoot.querySelector('[data-next]');
+    const dots = Array.from(carouselRoot.querySelectorAll('[data-dot]'));
+    const slides = Array.from(container.children);
+
+    const scrollToIndex = (index) => {
+      const target = slides[index];
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle('bg-primary', dotIndex === index);
+        dot.classList.toggle('border-primary/70', dotIndex === index);
+        dot.classList.toggle('bg-transparent', dotIndex !== index);
+        dot.classList.toggle('border-border', dotIndex !== index);
+        dot.classList.toggle('dark:border-white/30', dotIndex !== index);
+      });
+      container.setAttribute('data-active-index', String(index));
+    };
+
+    const getActiveIndex = () => {
+      const current = Number(container.getAttribute('data-active-index') ?? '0');
+      return Number.isNaN(current) ? 0 : current;
+    };
+
+    prevButton?.addEventListener('click', () => {
+      const nextIndex = (getActiveIndex() - 1 + slides.length) % slides.length;
+      scrollToIndex(nextIndex);
+    });
+
+    nextButton?.addEventListener('click', () => {
+      const nextIndex = (getActiveIndex() + 1) % slides.length;
+      scrollToIndex(nextIndex);
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => scrollToIndex(index));
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const currentIndex = slides.indexOf(entry.target);
+            if (currentIndex >= 0) {
+              dots.forEach((dot, dotIndex) => {
+                dot.classList.toggle('bg-primary', dotIndex === currentIndex);
+                dot.classList.toggle('border-primary/70', dotIndex === currentIndex);
+                dot.classList.toggle('bg-transparent', dotIndex !== currentIndex);
+                dot.classList.toggle('border-border', dotIndex !== currentIndex);
+                dot.classList.toggle('dark:border-white/30', dotIndex !== currentIndex);
+              });
+              container.setAttribute('data-active-index', String(currentIndex));
+            }
+          }
+        });
+      },
+      { root: container, threshold: 0.5 }
+    );
+
+    slides.forEach((slide) => observer.observe(slide));
+    container.setAttribute('data-active-index', '0');
+  }
+</script>

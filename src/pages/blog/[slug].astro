@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogDetailBody from '../../components/sections/BlogDetailBody.astro';
+import BlogList from '../../components/sections/BlogList.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const allPosts = await getCollection('blog');
+const related = allPosts.filter((post) => post.slug !== entry.slug).slice(0, 3);
+const description = entry.data.excerpt ?? entry.data.content.slice(0, 160);
+---
+
+<BaseLayout title={`${entry.data.title} | GrowthAutomations Blog`} description={description}>
+  <section class="bg-white">
+    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <BlogDetailBody entry={entry} />
+    </div>
+  </section>
+  {related.length > 0 && (
+    <BlogList
+      entries={related}
+      eyebrow="In case you missed it"
+      heading="More from GrowthAutomations"
+      subheading="Keep exploring the rituals, product picks, and lounge stories our team is sharing."
+    />
+  )}
+</BaseLayout>

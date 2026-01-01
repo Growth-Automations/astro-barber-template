@@ -1,0 +1,13 @@
+{
+  "title": "Youth Mentorship Program",
+  "slug": "youth-mentorship",
+  "description": "Supporting the next generation of barbers through apprenticeships, skill development, and entrepreneurship training. We're always looking for junior devs... er, barbers.",
+  "date": "Year-round",
+  "image": {
+    "src": "~/assets/images/photos/barber_lifestyle_1.jpg",
+    "alt": "Master barber mentoring young apprentice"
+  },
+  "featured": true,
+  "ctaLabel": "Get involved",
+  "ctaHref": "/contact"
+}

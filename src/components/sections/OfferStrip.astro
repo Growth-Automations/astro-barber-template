@@ -1,0 +1,82 @@
+---
+import { resolveAsset } from '../../lib/assets';
+
+export interface Link {
+  label: string;
+  href: string;
+}
+
+export interface ImageConfig {
+  src: string;
+  alt: string;
+}
+
+export interface Props {
+  eyebrow?: string;
+  heading: string;
+  subheading?: string;
+  badge?: string;
+  primaryCta: Link;
+  secondaryCta?: Link;
+  backgroundImage?: ImageConfig;
+  patternWord?: string;
+}
+
+const {
+  eyebrow,
+  heading,
+  subheading,
+  badge,
+  primaryCta,
+  secondaryCta,
+  backgroundImage,
+  patternWord = 'OFFERS'
+} = Astro.props as Props;
+
+const backgroundSrc = backgroundImage ? resolveAsset(backgroundImage.src) : undefined;
+---
+
+<section class="relative overflow-hidden bg-primary/20 py-16 text-text-primary">
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 bg-gradient-to-br from-background via-surface to-background/90" />
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(209,160,90,0.2),transparent_55%)]" />
+    <div class="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 text-[18vw] font-semibold uppercase tracking-[0.35em] text-white/5 md:text-[12rem]">
+      {patternWord}
+    </div>
+    {backgroundSrc && (
+      <div class="absolute inset-0 opacity-20">
+        <img class="h-full w-full object-cover" src={backgroundSrc} alt="" loading="lazy" />
+      </div>
+    )}
+  </div>
+  <div class="relative mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 text-center sm:px-6 lg:flex-row lg:justify-between lg:text-left">
+    <div class="max-w-3xl">
+      {badge && (
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-primary">
+          <span class="inline-flex h-2 w-2 rounded-full bg-primary" />
+          {badge}
+        </span>
+      )}
+      {eyebrow && (
+        <p class="mt-4 text-xs font-semibold uppercase tracking-[0.45em] text-secondary">{eyebrow}</p>
+      )}
+      <h2 class="mt-4 text-3xl font-semibold md:text-4xl">
+        {heading}
+      </h2>
+      {subheading && <p class="mt-4 text-lg text-text-secondary">{subheading}</p>}
+    </div>
+    <div class="flex flex-col items-center gap-3 sm:flex-row lg:items-center">
+      <a class="btn btn-primary min-w-[12rem] shadow-lg shadow-primary/40" href={primaryCta.href}>
+        {primaryCta.label}
+      </a>
+      {secondaryCta && (
+        <a
+          class="btn border border-white/30 bg-transparent text-white hover:bg-white/10 focus:ring-white/40"
+          href={secondaryCta.href}
+        >
+          {secondaryCta.label}
+        </a>
+      )}
+    </div>
+  </div>
+</section>

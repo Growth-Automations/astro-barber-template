@@ -1,0 +1,34 @@
+{
+  "title": "Kids & Teens Studio",
+  "slug": "kids-teens-studio",
+  "summary": "Age-appropriate cuts with streaming entertainment and comfort-first finishes.",
+  "description": "Our stylists specialize in first cuts and back-to-school refreshes with patience, tactile tools, and entertainment built in. Parents can join at the styling chair or relax in the lounge while we deliver a confident, photo-ready finish.",
+  "category": "Family",
+  "duration": "35 min",
+  "price": "$30",
+  "ctaLabel": "Book the studio",
+  "featured": false,
+  "processTitle": "Kid-approved from check-in to photo finish",
+  "processDescription": "Parents can relax while we guide little ones through the experience with patience, distraction, and pro styling.",
+  "processSteps": [
+    {
+      "title": "Warm welcome & setup",
+      "description": "Choose the right station, entertainment, and cape so every child feels comfortable.",
+      "duration": "05 min"
+    },
+    {
+      "title": "Texture-aware cut",
+      "description": "Gentle clipper and shear work paced to each child, with sensory breaks whenever needed.",
+      "duration": "20 min"
+    },
+    {
+      "title": "Reveal & parent tips",
+      "description": "Final style, celebratory photo moment, and guidance to keep the look fresh between visits.",
+      "duration": "10 min"
+    }
+  ],
+  "processImage": {
+    "src": "~/assets/images/photos/service_kids_haircut.jpg",
+    "alt": "Young client smiling while getting a haircut at a modern barbershop."
+  }
+}

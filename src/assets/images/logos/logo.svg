@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
+  <rect x="10" y="10" width="40" height="40" rx="8" fill="#2563eb"/>
+  <text x="30" y="37" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">A</text>
+  <text x="65" y="35" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">Auto Repair</text>
+</svg>

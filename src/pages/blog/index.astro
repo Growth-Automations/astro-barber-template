@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogList from '../../components/sections/BlogList.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+<BaseLayout title="Blog" description="Grooming guidance, product picks, and event styling tips from GrowthAutomations Barbershop.">
+  <BlogList
+    entries={posts}
+    eyebrow="Barber insights"
+    heading="Fresh cuts, lounge stories, and grooming rituals"
+    subheading="Read tips from our barbers, concierge, and color directors to keep you sharp between visits."
+  />
+</BaseLayout>

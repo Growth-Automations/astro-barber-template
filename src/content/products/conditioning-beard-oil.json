@@ -1,0 +1,12 @@
+{
+  "title": "Conditioning Beard Oil",
+  "slug": "conditioning-beard-oil",
+  "price": "$28",
+  "description": "Argan and jojoba blend that softens, adds sheen, and keeps every beard camera ready. Responsive design for your face.",
+  "image": {
+    "src": "~/assets/images/photos/service-repair.jpg",
+    "alt": "Dropper bottle of beard oil next to grooming tools."
+  },
+  "tags": ["grooming", "beard"],
+  "featured": true
+}

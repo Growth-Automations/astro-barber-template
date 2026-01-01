@@ -1,0 +1,15 @@
+{
+  "name": "Fresh Fade Club",
+  "slug": "fresh-fade-club",
+  "price": "$120/mo",
+  "description": "Two Signature Look visits every month plus concierge perks and retail savings. Consistent grooming, consistent results.",
+  "features": [
+    "2x Signature Look appointments monthly",
+    "Priority scheduling with concierge SMS reminders",
+    "10% savings on retail products and add-on services",
+    "Member-only grooming workshops and lounge events"
+  ],
+  "badge": "Membership",
+  "ctaLabel": "Join the Club",
+  "ctaHref": "/appointment?service=vip-grooming-experience"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "Classic Cuts & Fades",
+  "slug": "classic-cuts-fades",
+  "summary": "Precision shear and clipper work with a styling finish tailored to your daily routine.",
+  "description": "From executive tapers to skin fades with textured tops, every cut begins with a consultation that maps your growth patterns and lifestyle. Expect a precision cut, neck shave, hot towel finish, and styling tutorial so you can recreate the look at home.",
+  "category": "Barbering",
+  "duration": "45 min",
+  "price": "$35",
+  "ctaLabel": "Book this service",
+  "highlight": "Complimentary hot towel finish",
+  "featured": true,
+  "processTitle": "Our signature process",
+  "processDescription": "Every visit begins with a style consultation, precision clipper work, and a styling tutorial so you leave confident maintaining the look at home.",
+  "processSteps": [
+    {
+      "title": "Consult & plan",
+      "description": "We map growth patterns, cowlicks, and daily styling goals before the first snip. Your preferences go on file for next time.",
+      "duration": "05 min"
+    },
+    {
+      "title": "Precision cut & detail",
+      "description": "Clipper, shear, and razor work blend seamlessly for a fade that grows in clean. Systematic technique, consistent results.",
+      "duration": "30 min"
+    },
+    {
+      "title": "Finish & style coaching",
+      "description": "Hot towel neck shave, product recommendation, and a quick styling walkthrough so you can maintain the look between visits.",
+      "duration": "10 min"
+    }
+  ],
+  "processImage": {
+    "src": "~/assets/images/photos/service_classic_fade.jpg",
+    "alt": "Barber blending a skin fade with clippers."
+  }
+}

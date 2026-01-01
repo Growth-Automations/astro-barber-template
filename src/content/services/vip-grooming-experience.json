@@ -1,0 +1,35 @@
+{
+  "title": "VIP Grooming Experience",
+  "slug": "vip-grooming-experience",
+  "summary": "Our 75-minute signature ritual with scalp massage, facial treatment, and beverage service.",
+  "description": "Arrive to a reserved lounge chair, craft beverage, and a dedicated concierge barber. The VIP ritual includes a full cut, deluxe straight-razor shave, rejuvenating facial, scalp massage, and styling product consultation. The complete grooming experience.",
+  "category": "Experiences",
+  "duration": "75 min",
+  "price": "$120",
+  "ctaLabel": "Reserve the lounge",
+  "highlight": "Includes craft beverage service",
+  "featured": true,
+  "processTitle": "Every detail of the VIP lounge",
+  "processDescription": "Your concierge barber choreographs a full sensory reset—from hot towel shaves to scalp therapy—without you watching the clock.",
+  "processSteps": [
+    {
+      "title": "Concierge welcome",
+      "description": "Slip into the private lounge, select your beverage, and outline grooming goals with your dedicated barber.",
+      "duration": "10 min"
+    },
+    {
+      "title": "Signature grooming ritual",
+      "description": "Cut, straight-razor shave, facial treatment, and scalp massage flow together for a head-to-toe refresh.",
+      "duration": "50 min"
+    },
+    {
+      "title": "Finish & product pairing",
+      "description": "Detailed styling, photo-ready finish, and curated product recommendations for home care.",
+      "duration": "15 min"
+    }
+  ],
+  "processImage": {
+    "src": "~/assets/images/photos/service_vip_lounge.jpg",
+    "alt": "Barber detailing a client's beard in a premium grooming lounge."
+  }
+}

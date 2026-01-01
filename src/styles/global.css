@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* color-scheme is now set per-theme in themes.css */
+
+  body {
+    @apply bg-background text-text-primary antialiased;
+    font-family: var(--font-body);
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply absolute left-4 top-4 -translate-y-full rounded bg-primary px-4 py-2 text-sm font-medium text-white focus:translate-y-0;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-on-primary focus:ring-primary offset-background hover:bg-primary-dark;
+  }
+
+  .btn-outline {
+    @apply border border-primary text-primary hover:bg-primary/10 focus:ring-primary;
+  }
+
+  .btn-inverse {
+    @apply bg-white text-primary hover:bg-surface-alt focus:ring-white;
+  }
+
+  .prose {
+    @apply max-w-none;
+  }
+}
+
+@layer utilities {
+  .offset-background {
+    --tw-ring-offset-color: rgb(var(--color-background) / 1);
+  }
+
+  /* Stagger delay utilities for data-animate transitions */
+  .stagger-0 { transition-delay: 0ms; animation-delay: 0ms; }
+  .stagger-1 { transition-delay: 50ms; animation-delay: 50ms; }
+  .stagger-2 { transition-delay: 100ms; animation-delay: 100ms; }
+  .stagger-3 { transition-delay: 150ms; animation-delay: 150ms; }
+  .stagger-4 { transition-delay: 200ms; animation-delay: 200ms; }
+  .stagger-5 { transition-delay: 250ms; animation-delay: 250ms; }
+  .stagger-6 { transition-delay: 300ms; animation-delay: 300ms; }
+  .stagger-7 { transition-delay: 350ms; animation-delay: 350ms; }
+  .stagger-8 { transition-delay: 400ms; animation-delay: 400ms; }
+  .stagger-9 { transition-delay: 450ms; animation-delay: 450ms; }
+  .stagger-10 { transition-delay: 500ms; animation-delay: 500ms; }
+  .stagger-11 { transition-delay: 550ms; animation-delay: 550ms; }
+  .stagger-12 { transition-delay: 600ms; animation-delay: 600ms; }
+
+  /* Overlay utilities for image backgrounds */
+  .overlay-light {
+    background-color: rgb(var(--overlay-light));
+  }
+  .overlay-medium {
+    background-color: rgb(var(--overlay-medium));
+  }
+  .overlay-heavy {
+    background-color: rgb(var(--overlay-heavy));
+  }
+}

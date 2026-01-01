@@ -1,0 +1,27 @@
+---
+import type { ImageMetadata } from 'astro';
+
+export interface HeroProps {
+  eyebrow?: string;
+  heading: string;
+  subheading: string;
+  image?: ImageMetadata;
+}
+
+const hero = Astro.props as HeroProps;
+---
+
+<section class="bg-background text-text-primary">
+  <div class="mx-auto grid max-w-5xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
+    <div class="space-y-4">
+      {hero.eyebrow && <p class="text-xs font-semibold uppercase tracking-[0.3em] text-secondary">{hero.eyebrow}</p>}
+      <h1 class="text-3xl font-semibold md:text-4xl">{hero.heading}</h1>
+      <p class="text-lg text-text-secondary">{hero.subheading}</p>
+    </div>
+    {hero.image && (
+      <div class="overflow-hidden rounded-xl border border-white/10">
+        <img class="h-full w-full object-cover" src={hero.image.src} alt={hero.subheading} loading="lazy" />
+      </div>
+    )}
+  </div>
+</section>

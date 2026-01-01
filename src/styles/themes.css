@@ -1,0 +1,121 @@
+/* Theme CSS Variables
+ * Convention: data-theme attribute on :root (html element)
+ * Light theme is default, dark theme via [data-theme="ga-dark"]
+ * RGB format for Tailwind alpha support: rgb(var(--color-*) / <alpha-value>)
+ */
+
+/* ==========================================================================
+   LIGHT THEME (Default)
+   ========================================================================== */
+:root,
+:root[data-theme="ga-light"] {
+  color-scheme: light;
+
+  /* Primary brand colors (golden/amber) */
+  --color-primary: 184 138 74;
+  --color-primary-dark: 158 115 55;
+  --color-primary-light: 209 160 90;
+
+  /* Accent colors (warm brown) */
+  --color-accent: 112 88 70;
+  --color-accent-dark: 86 65 49;
+  --color-accent-light: 150 122 100;
+
+  /* Background colors */
+  --color-background: 250 248 245;
+  --color-surface: 255 255 255;
+  --color-surface-alt: 245 242 238;
+
+  /* Border color */
+  --color-border: 220 215 208;
+
+  /* Text colors */
+  --color-text-primary: 35 30 25;
+  --color-text-secondary: 85 78 70;
+  --color-text-muted: 140 132 122;
+
+  /* Contrast colors (text on colored backgrounds) */
+  --color-on-primary: 255 255 255;
+  --color-on-accent: 255 255 255;
+
+  /* Shadow variables */
+  --shadow-color: 0 0 0;
+  --shadow-opacity-sm: 0.05;
+  --shadow-opacity-md: 0.1;
+  --shadow-opacity-lg: 0.15;
+
+  /* Overlay variables (for image backgrounds) */
+  --overlay-light: 0 0 0 / 0.3;
+  --overlay-medium: 0 0 0 / 0.5;
+  --overlay-heavy: 0 0 0 / 0.7;
+}
+
+/* ==========================================================================
+   DARK THEME
+   ========================================================================== */
+:root[data-theme="ga-dark"],
+:root.dark[data-theme="ga-light"],
+:root.dark:not([data-theme]) {
+  color-scheme: dark;
+
+  /* Primary brand colors (golden/amber - slightly lighter for dark bg) */
+  --color-primary: 209 160 90;
+  --color-primary-dark: 184 138 74;
+  --color-primary-light: 230 194 132;
+
+  /* Accent colors (warm brown - lighter variant) */
+  --color-accent: 150 122 100;
+  --color-accent-dark: 112 88 70;
+  --color-accent-light: 180 155 135;
+
+  /* Background colors */
+  --color-background: 9 9 14;
+  --color-surface: 26 24 32;
+  --color-surface-alt: 38 36 46;
+
+  /* Border color */
+  --color-border: 58 56 66;
+
+  /* Text colors */
+  --color-text-primary: 246 245 248;
+  --color-text-secondary: 193 191 200;
+  --color-text-muted: 108 106 118;
+
+  /* Contrast colors (text on colored backgrounds) */
+  --color-on-primary: 18 18 24;
+  --color-on-accent: 246 245 248;
+
+  /* Shadow variables (higher opacity for dark mode) */
+  --shadow-color: 0 0 0;
+  --shadow-opacity-sm: 0.2;
+  --shadow-opacity-md: 0.3;
+  --shadow-opacity-lg: 0.4;
+
+  /* Overlay variables (for image backgrounds) */
+  --overlay-light: 0 0 0 / 0.4;
+  --overlay-medium: 0 0 0 / 0.6;
+  --overlay-heavy: 0 0 0 / 0.8;
+}
+
+/* ==========================================================================
+   FOOTER TOKENS (Always dark - constant across themes)
+   ========================================================================== */
+:root,
+:root[data-theme="ga-light"],
+:root[data-theme="ga-dark"] {
+  --color-footer-accent: 230 194 132;
+  --color-footer-accent-dark: 209 160 90;
+  --color-footer-text: 246 245 248;
+  --color-footer-text-secondary: 193 191 200;
+  --color-footer-text-muted: 108 106 118;
+  --color-footer-surface: 18 16 24;
+  --color-footer-border: 38 36 46;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY (from brand config)
+   ========================================================================== */
+:root {
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Roboto', sans-serif;
+}

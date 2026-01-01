@@ -1,0 +1,17 @@
+{
+  "name": "Pro",
+  "slug": "silver",
+  "description": "Enhanced perks for the regular who values the complete experience.",
+  "benefits": [
+    "15% off all services",
+    "Priority booking with preferred barber",
+    "Complimentary hot towel treatment",
+    "20% off retail products",
+    "Quarterly product sample box",
+    "Free beard trim with haircut"
+  ],
+  "price": "$45/month",
+  "badge": "Most Popular",
+  "featured": true,
+  "icon": "⚡"
+}

@@ -1,0 +1,39 @@
+{
+  "name": "GrowthAutomations Barbershop",
+  "tagline": "Precision cuts. Systematic style.",
+  "colors": {
+    "primary": {
+      "DEFAULT": "209 160 90",
+      "dark": "184 138 74",
+      "light": "230 194 132"
+    },
+    "accent": {
+      "DEFAULT": "112 88 70",
+      "dark": "86 65 49",
+      "light": "150 122 100"
+    },
+    "background": "9 9 14",
+    "surface": "26 24 32",
+    "surfaceAlt": "38 36 46",
+    "border": "58 56 66",
+    "text": {
+      "primary": "246 245 248",
+      "secondary": "193 191 200",
+      "muted": "108 106 118"
+    },
+    "onPrimary": "18 18 24",
+    "onAccent": "246 245 248",
+    "footer": {
+      "accent": "230 194 132",
+      "text": "246 245 248",
+      "textSecondary": "193 191 200",
+      "textMuted": "108 106 118",
+      "surface": "18 16 24",
+      "border": "38 36 46"
+    }
+  },
+  "typography": {
+    "heading": "'Oswald', sans-serif",
+    "body": "'Roboto', sans-serif"
+  }
+}

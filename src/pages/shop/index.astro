@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductGrid from '../../components/sections/ProductGrid.astro';
+import { getCollection } from 'astro:content';
+
+const products = await getCollection('products');
+const featured = products.filter((product) => product.data.featured);
+const rest = products.filter((product) => !product.data.featured);
+const orderedProducts = [...featured, ...rest];
+---
+
+<BaseLayout title="Shop" description="GrowthAutomations grooming essentials and barber-approved retail favorites.">
+  <ProductGrid
+    products={orderedProducts}
+    eyebrow="Shop"
+    heading="Grooming goods for the GrowthAutomations lifestyle"
+    subheading="From matte pomade to conditioning oils, every product is vetted by our barbers for performance between visits."
+  />
+</BaseLayout>

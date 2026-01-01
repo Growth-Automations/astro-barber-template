@@ -1,0 +1,71 @@
+---
+import type { SiteSettings } from '../../lib/types';
+
+export interface Props {
+  settings: SiteSettings;
+}
+
+const { settings } = Astro.props as Props;
+const { contact, hours, social } = settings;
+
+const addressLines = [
+  contact.address.line1,
+  contact.address.line2,
+  `${contact.address.city}, ${contact.address.state} ${contact.address.postalCode}`
+]
+  .filter(Boolean)
+  .join('\n');
+---
+
+<footer class="bg-background text-text-primary">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[2fr_1fr_1fr] lg:px-8">
+    <div>
+      <h2 class="text-xl font-semibold text-white">{settings.name}</h2>
+      <p class="mt-2 max-w-lg text-text-secondary">{settings.description}</p>
+      <div class="mt-6 space-y-1 text-sm text-text-secondary">
+        <a class="block hover:text-white" href={`tel:${contact.phone.value}`}>
+          {contact.phone.display}
+        </a>
+        <a class="block hover:text-white" href={`mailto:${contact.email}`}>
+          {contact.email}
+        </a>
+        <p class="mt-4 whitespace-pre-line">
+          {addressLines}
+        </p>
+      </div>
+    </div>
+    <div>
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-text-secondary">Hours</h3>
+      <ul class="mt-4 space-y-2 text-sm text-text-secondary">
+        {hours.map((entry) => (
+          <li class="flex justify-between gap-6" aria-label={`${entry.label} ${entry.value}`}>
+            <span>{entry.label}</span>
+            <span class="font-medium text-text-primary">{entry.value}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-text-secondary">Connect</h3>
+      <ul class="mt-4 space-y-2 text-sm text-text-secondary">
+        {settings.navigation.map((item) => (
+          <li>
+            <a class="hover:text-white" href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+      {social && (
+        <div class="mt-6 flex gap-3 text-sm">
+          {social.map((item) => (
+            <a class="rounded bg-white/10 px-3 py-1 hover:bg-white/20" href={item.href}>
+              {item.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+  <div class="border-t border-white/10 py-6 text-center text-xs text-text-muted">
+    © {new Date().getFullYear()} {settings.name}. All rights reserved.
+  </div>
+</footer>

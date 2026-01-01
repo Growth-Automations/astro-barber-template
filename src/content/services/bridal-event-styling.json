@@ -1,0 +1,35 @@
+{
+  "title": "Bridal & Event Styling",
+  "slug": "bridal-event-styling",
+  "summary": "On-location or in-shop grooming for groomsmen, photo shoots, and red-carpet moments.",
+  "description": "Turn wedding mornings and high-profile events into a curated grooming lounge. We handle timeline coordination, touch-up stations, and signature looks for every member of the party. Travel-ready kits and finishing sprays included.",
+  "category": "Events",
+  "duration": "Half-day",
+  "price": "Custom quote",
+  "ctaLabel": "Plan your event",
+  "highlight": "Travel-ready grooming lounge setup",
+  "featured": false,
+  "processTitle": "How we run your event grooming lounge",
+  "processDescription": "From the first consult to final touch-ups, we coordinate logistics so every member of the party steps out camera ready.",
+  "processSteps": [
+    {
+      "title": "Vision & logistics consult",
+      "description": "We confirm location, party size, timeline, and desired looks, then build a run-of-show tailored to your event.",
+      "duration": "30 min planning call"
+    },
+    {
+      "title": "On-site lounge setup",
+      "description": "Our team arrives early with mobile stations, lighting, grooming tools, and refreshments.",
+      "duration": "Setup prior to call time"
+    },
+    {
+      "title": "Touch-ups & finale",
+      "description": "We manage chair rotation, final checks, and pack-up so you transition seamlessly into photos or ceremony.",
+      "duration": "Runs through event start"
+    }
+  ],
+  "processImage": {
+    "src": "~/assets/images/photos/service_wedding_grooming.jpg",
+    "alt": "Groomsmen getting final grooming touches together before a wedding."
+  }
+}

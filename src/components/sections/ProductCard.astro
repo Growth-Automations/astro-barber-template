@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { resolveAsset } from '../../lib/assets';
+
+export interface Props {
+  product: CollectionEntry<'products'>;
+  highlight?: boolean;
+}
+
+const { product, highlight = false } = Astro.props as Props;
+const imageSrc = product.data.image ? resolveAsset(product.data.image.src) : undefined;
+---
+
+<article
+  class="group relative flex h-full min-h-[520px] flex-col overflow-hidden rounded-[32px] border-2 border-border dark:border-border bg-white dark:bg-white shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30"
+>
+  {imageSrc && (
+    <div class="relative aspect-square overflow-hidden">
+      <img
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+        src={imageSrc}
+        alt={product.data.image?.alt ?? product.data.title}
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-surface/30 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-70 dark:from-black/80 dark:via-black/30" />
+    </div>
+  )}
+  <div class="flex flex-1 flex-col gap-4 p-8">
+    <div class="space-y-3">
+      {product.data.highlight && (
+        <span class="inline-flex items-center rounded-full border border-primary/40 bg-primary/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-primary transition-all duration-500 group-hover:scale-105">
+          {product.data.highlight}
+        </span>
+      )}
+      <h3 class="text-xl font-bold text-text-primary transition-colors duration-500 group-hover:text-primary">{product.data.title}</h3>
+      <p class="text-sm leading-relaxed text-text-secondary transition-colors duration-500 group-hover:text-primary">{product.data.description}</p>
+    </div>
+    <div class="mt-auto flex flex-wrap items-center justify-between gap-4 pt-4">
+      <span class="text-xl font-bold text-primary transition-transform duration-500 group-hover:scale-110">{product.data.price}</span>
+      <a
+        class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white shadow-md shadow-primary/30 transition-all duration-500 hover:scale-[1.05] hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/40"
+        href={`/shop/${product.data.slug}`}
+      >
+        View product
+      </a>
+    </div>
+  </div>
+</article>

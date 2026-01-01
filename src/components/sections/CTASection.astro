@@ -1,0 +1,60 @@
+---
+import { resolveAsset } from '../../lib/assets';
+
+export interface Link {
+  label: string;
+  href: string;
+}
+
+export interface ImageConfig {
+  src: string;
+  alt: string;
+}
+
+export interface Props {
+  eyebrow?: string;
+  heading: string;
+  body: string;
+  primaryCta: Link;
+  secondaryCta?: Link;
+  finePrint?: string;
+  backgroundImage?: ImageConfig;
+}
+
+const props = Astro.props as Props;
+const backgroundImage = props.backgroundImage ? resolveAsset(props.backgroundImage.src) : undefined;
+---
+
+<section class="relative overflow-hidden bg-background text-text-primary">
+  {backgroundImage && (
+    <div aria-hidden="true" class="absolute inset-0">
+      <img class="h-full w-full object-cover opacity-40" src={backgroundImage} alt="" loading="lazy" />
+      <div class="absolute inset-0 bg-background/80" />
+    </div>
+  )}
+  <div class="absolute inset-0">
+    <div class="pointer-events-none absolute -top-24 right-24 h-64 w-64 rounded-full border border-white/10" />
+    <div class="pointer-events-none absolute bottom-0 left-1/2 h-48 w-[120%] -translate-x-1/2 bg-gradient-to-t from-background via-background/40 to-transparent" />
+  </div>
+  <div class="relative mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      {props.eyebrow && (
+        <p class="text-xs font-semibold uppercase tracking-[0.45em] text-secondary">{props.eyebrow}</p>
+      )}
+      <h2 class="mt-4 text-3xl font-semibold md:text-4xl">{props.heading}</h2>
+      <p class="mt-4 text-lg text-text-secondary">{props.body}</p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a class="btn btn-primary shadow-lg shadow-primary/40" href={props.primaryCta.href}>{props.primaryCta.label}</a>
+        {props.secondaryCta && (
+          <a
+            class="btn border border-white/30 bg-white/5 text-white hover:bg-white/10 hover:text-white focus:ring-white/40"
+            href={props.secondaryCta.href}
+          >
+            {props.secondaryCta.label}
+          </a>
+        )}
+      </div>
+      {props.finePrint && <p class="mt-6 text-sm text-text-muted">{props.finePrint}</p>}
+    </div>
+  </div>
+</section>

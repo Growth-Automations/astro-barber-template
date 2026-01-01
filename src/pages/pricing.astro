@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroPrimary from '../components/sections/HeroPrimary.astro';
+import PricingTable from '../components/sections/PricingTable.astro';
+import OfferStrip from '../components/sections/OfferStrip.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { getCollection } from 'astro:content';
+import { getSiteSettings } from '../lib/site';
+
+const [pricingCollection, faqsCollection, servicesCollection] = await Promise.all([
+  getCollection('pricing'),
+  getCollection('faqs'),
+  getCollection('services')
+]);
+
+const siteSettings = await getSiteSettings();
+
+const pricingTiers = pricingCollection
+  .sort((a, b) => Number(b.data.recommended) - Number(a.data.recommended))
+  .map((entry) => ({
+    name: entry.data.name,
+    price: entry.data.price,
+    duration: entry.data.duration,
+    description: entry.data.description,
+    features: entry.data.features,
+    badge: entry.data.badge,
+    recommended: entry.data.recommended,
+    cta:
+      entry.data.ctaLabel && entry.data.ctaHref
+        ? { label: entry.data.ctaLabel, href: entry.data.ctaHref }
+        : undefined
+  }));
+
+const addOns = servicesCollection
+  .filter((service) => service.data.featured && service.data.price)
+  .map((service) => ({
+    title: service.data.title,
+    summary: service.data.summary,
+    price: service.data.price
+  }));
+
+const pricingFaqs = faqsCollection.filter((entry) => entry.data.category === 'Pricing');
+---
+
+<BaseLayout
+  title="Pricing & Membership"
+  description="GrowthAutomations Barbershop offers transparent grooming packages, memberships, and concierge lounge pricing."
+>
+  <HeroPrimary
+    eyebrow="Pricing & Membership"
+    heading="Pick a ritual, keep your cadence"
+    subheading="Every service includes a lifestyle consult, precision finish, and take-home product recommendations tailored to you."
+    highlight="Members save 10% on retail and receive priority scheduling."
+    primaryCta={{ label: 'Join the Fresh Fade Club', href: '#pricing-table' }}
+    secondaryCta={{ label: 'Book a single visit', href: '/appointment' }}
+    image={{ src: '~/assets/images/photos/barber_lifestyle_2.jpg', alt: 'Clients relaxing in a modern barbershop lounge.' }}
+    accentImage={{ src: '~/assets/images/photos/barber_retail_1.jpg', alt: 'Grooming products displayed on illuminated shelving.' }}
+    stats={[
+      { label: 'Avg. visit length', value: '45 min' },
+      { label: 'Member retention', value: '92%' },
+      { label: 'Concierge events', value: '40+/yr' }
+    ]}
+  />
+
+  <section class="bg-white dark:bg-background py-24 sm:py-28" id="pricing-table">
+    <div class="mx-auto max-w-4xl px-6 text-center sm:px-8">
+      <p class="text-xs font-bold uppercase tracking-[0.35em] text-secondary dark:text-secondary-light">Signature packages</p>
+      <h2 class="mt-5 text-4xl font-bold text-black dark:text-white md:text-5xl">Transparent grooming tiers</h2>
+      <p class="mt-5 text-xl font-semibold text-text-primary dark:text-text-primary leading-relaxed">
+        Whether you're booking a quick refresh or a full concierge ritual, every tier combines consultation,
+        craftsmanship, and hospitality. Upgrade with add-on services or bundle color, beard work, and styling in one visit.
+      </p>
+    </div>
+    <div class="mt-16">
+      <PricingTable
+        eyebrow="Packages"
+        heading="Choose the cadence that fits your lifestyle"
+        subheading="All packages include a precision cut, styling tutorial, and product pairing recommendation."
+        tiers={pricingTiers}
+        footnote="Membership pricing reflects introductory rates for new clients. On-location lounge pricing available on request."
+      />
+    </div>
+  </section>
+
+  {addOns.length > 0 && (
+    <section class="bg-background py-20 text-text-primary">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col gap-6 text-center md:text-left">
+          <p class="text-xs font-semibold uppercase tracking-[0.45em] text-secondary">Add-ons & upgrades</p>
+          <h2 class="text-3xl font-semibold md:text-4xl">Dial in the details</h2>
+          <p class="text-lg text-text-secondary md:max-w-3xl">
+            Layer a hot towel shave, color tune-up, or event styling session onto any package. Share your goals at booking and
+            our concierge will craft the perfect combo.
+          </p>
+        </div>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {addOns.map((service) => (
+            <div class="rounded-3xl border border-white/10 bg-background/60 p-6 shadow-lg backdrop-blur">
+              <h3 class="text-lg font-semibold text-white">{service.title}</h3>
+              <p class="mt-3 text-sm text-text-secondary">{service.summary}</p>
+              <p class="mt-4 text-base font-semibold text-secondary">{service.price}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <OfferStrip
+    badge="Fresh Fade Club"
+    eyebrow="Membership perks"
+    heading="Lock in bi-weekly visits with concierge scheduling"
+    subheading="Two signature looks each month, priority booking, retail savings, and text-to-schedule access to the GrowthAutomations team."
+    primaryCta={{ label: 'Activate membership', href: '/appointment?service=vip-grooming-experience' }}
+    secondaryCta={{ label: 'View membership details', href: '/appointment' }}
+    backgroundImage={{ src: '~/assets/images/photos/barber_lifestyle_3.jpg', alt: 'GrowthAutomations barber delivering a VIP grooming ritual.' }}
+    patternWord="MEMBER"
+  />
+
+  <FAQAccordion
+    eyebrow="Questions answered"
+    heading="Pricing & membership FAQs"
+    subheading="From deposits to payment options, here’s everything to know before you book."
+    faqs={pricingFaqs}
+  />
+
+  <CTASection
+    eyebrow="Plan your visit"
+    heading="Ready to confirm your next appointment?"
+    body="Submit your ideal date and service. Our concierge will confirm availability, suggest add-ons, and handle the rest."
+    primaryCta={{ label: 'Book appointment', href: '/appointment' }}
+    secondaryCta={{ label: `Call ${siteSettings.contact.phone.display}`, href: `tel:${siteSettings.contact.phone.value}` }}
+    finePrint="Need the traveling GrowthAutomations lounge? Mention your event date and venue details and we'll send a tailored quote."
+    backgroundImage={{ src: '~/assets/images/photos/barber_services_1.jpg', alt: 'Straight razor shave in progress with hot towel treatment.' }}
+  />
+</BaseLayout>

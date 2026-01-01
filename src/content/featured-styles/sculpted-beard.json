@@ -1,0 +1,12 @@
+{
+  "name": "Sculpted Beard Shape",
+  "slug": "sculpted-beard-shape",
+  "description": "Precision beard sculpting with hot towel treatment and line-up. Tailored to enhance your facial structure. Clean lines, no bugs.",
+  "image": {
+    "src": "~/assets/images/photos/featured_beard_sculpting.jpg",
+    "alt": "Barber performing precision beard lineup and shaping"
+  },
+  "featured": true,
+  "category": "Beard",
+  "bookingLink": "/appointment?service=beard-shaping-hot-towel-shaves"
+}

@@ -1,0 +1,36 @@
+{
+  "title": "Modern Fade Reinvention",
+  "slug": "modern-fade-reinvention",
+  "summary": "Textured skin fade and tailored styling plan for a creative professional's rebrand shoot.",
+  "description": "Our style team mapped growth patterns, introduced texturizing powder for volume, and documented at-home maintenance. The final look held through a full day of studio lighting.",
+  "category": "Editorial",
+  "featured": true,
+  "thumbnail": {
+    "src": "~/assets/images/photos/modern-fade-editorial.jpg",
+    "alt": "Barber performing a textured skin fade with precision clipper work."
+  },
+  "gallery": [
+    {
+      "src": "~/assets/images/photos/service-industrial.jpg",
+      "alt": "Close-up of fade blending at the back of the head."
+    },
+    {
+      "src": "~/assets/images/photos/service-mobile.jpg",
+      "alt": "Stylist applying finishing product before the photoshoot."
+    }
+  ],
+  "results": [
+    {
+      "label": "Shoot ready in",
+      "value": "90 min"
+    },
+    {
+      "label": "Hold rating",
+      "value": "12 hrs"
+    },
+    {
+      "label": "Prep sessions",
+      "value": "2 consults"
+    }
+  ]
+}

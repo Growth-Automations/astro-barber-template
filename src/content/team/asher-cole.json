@@ -1,0 +1,15 @@
+{
+  "name": "Cliff Trimmer",
+  "role": "Master Barber & Founder",
+  "bio": "Cliff brings precision engineering to the art of the fade. He built our scheduling system that eliminates wait times without rushing the craft. Twelve years behind the chair, zero shortcuts.",
+  "specialty": "Signature fades & grooming rituals",
+  "image": {
+    "src": "~/assets/images/photos/asher-cole.jpg",
+    "alt": "Professional portrait of Cliff Trimmer, Master Barber and Founder."
+  },
+  "socials": [
+    { "label": "Instagram", "href": "https://instagram.com/growthautomations" },
+    { "label": "GitHub", "href": "https://github.com/growthautomations" },
+    { "label": "LinkedIn", "href": "https://linkedin.com/company/growthautomations" }
+  ]
+}

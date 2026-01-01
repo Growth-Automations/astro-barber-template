@@ -1,0 +1,16 @@
+---
+/**
+ * BrandTheme.astro
+ * Injects typography CSS variables from brand config.
+ * Color variables are defined in themes.css with data-theme selectors.
+ */
+import { brand } from '../../config/brand';
+
+const { typography } = brand;
+const lines = [
+  `--font-heading: ${typography.heading};`,
+  `--font-body: ${typography.body};`
+];
+---
+
+<style is:inline set:html={`:root {\n    ${lines.join('\n    ')}\n  }`} />

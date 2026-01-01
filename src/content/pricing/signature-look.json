@@ -1,0 +1,17 @@
+{
+  "name": "Signature Look",
+  "slug": "signature-look",
+  "price": "$65",
+  "duration": "45 min",
+  "description": "Haircut and beard sculpt with deluxe steam towel treatment and finish. The pro tier.",
+  "features": [
+    "Detailed fade or shear work with blow-dry styling",
+    "Beard sculpt with razor lining and conditioning oil",
+    "Hot steam towel experience with essential oil blend",
+    "Post-service styling tutorial matched to your routine"
+  ],
+  "badge": "Most Booked",
+  "recommended": true,
+  "ctaLabel": "Reserve Signature",
+  "ctaHref": "/appointment?service=beard-shaping-hot-towel-shaves"
+}

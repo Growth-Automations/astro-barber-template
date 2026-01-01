@@ -1,0 +1,13 @@
+{
+  "title": "Community Cut Day",
+  "slug": "community-cut-day",
+  "description": "Monthly free haircut event for community members in need. Join us every first Saturday as we give back — because everyone deserves to look sharp.",
+  "date": "First Saturday of every month",
+  "image": {
+    "src": "~/assets/images/photos/barber_events_1.jpg",
+    "alt": "Barbers providing free haircuts at community event"
+  },
+  "featured": true,
+  "ctaLabel": "Learn more",
+  "ctaHref": "/about"
+}

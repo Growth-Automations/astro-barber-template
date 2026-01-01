@@ -1,0 +1,34 @@
+{
+  "title": "Color & Texture Services",
+  "slug": "color-texture-services",
+  "summary": "Gray blending, creative color, and texture enhancements engineered for men's styles.",
+  "description": "Blend seamlessly with custom gray coverage, go bold with editorial-inspired color, or refresh curls with a texture-perm service. Each session includes a strand check, tone refinement, and take-home care plan tailored to your goals.",
+  "category": "Color Lab",
+  "duration": "90 min",
+  "price": "From $95",
+  "ctaLabel": "Plan your color session",
+  "featured": false,
+  "processTitle": "Your roadmap to a flawless color shift",
+  "processDescription": "From strand testing to tone-lock finishing, we protect the health of your hair while achieving the shade and texture you envisioned.",
+  "processSteps": [
+    {
+      "title": "Consult & strand test",
+      "description": "We review inspo photos, lifestyle, and maintenance expectations before testing pigment on a hidden section.",
+      "duration": "15 min"
+    },
+    {
+      "title": "Custom blend application",
+      "description": "Layered lightening, toning, or texture solutions are applied in phases to balance lift, tone, and integrity.",
+      "duration": "55 min"
+    },
+    {
+      "title": "Tone lock & care plan",
+      "description": "Glossing, conditioning, and a take-home regimen ensure the color stays luminous between visits.",
+      "duration": "20 min"
+    }
+  ],
+  "processImage": {
+    "src": "~/assets/images/photos/service_color_treatment.jpg",
+    "alt": "Stylist applying color foils during a barbershop service."
+  }
+}

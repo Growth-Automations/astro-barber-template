@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import { getEntry, getCollection } from 'astro:content';
+
+const page = await getEntry('pages', 'faq');
+const { Content } = await page.render();
+const faqs = await getCollection('faqs');
+---
+
+<BaseLayout title={page.data.seo.title} description={page.data.seo.description}>
+  {page.data.hero && <PageHero {...page.data.hero} />}
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-5xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8">
+      <div class="prose prose-neutral">
+        <Content />
+      </div>
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="rounded-lg border border-border bg-surface-alt p-4">
+            <summary class="cursor-pointer text-sm font-semibold text-text-primary">{faq.data.question}</summary>
+            <p class="mt-2 text-sm text-text-secondary">{faq.data.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

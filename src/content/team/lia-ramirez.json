@@ -1,0 +1,14 @@
+{
+  "name": "Toni Blendwell",
+  "role": "Color Director",
+  "bio": "Toni transforms texture and color for editorial shoots, weddings, and high-profile clients. She created our color-matching protocol that ensures consistent results from first application to touch-up.",
+  "specialty": "Creative color & gray blending",
+  "image": {
+    "src": "~/assets/images/photos/lia-ramirez.jpg",
+    "alt": "Professional portrait of Toni Blendwell, Color Director."
+  },
+  "socials": [
+    { "label": "Instagram", "href": "https://instagram.com/growthautomations" },
+    { "label": "TikTok", "href": "https://tiktok.com/@growthautomations" }
+  ]
+}

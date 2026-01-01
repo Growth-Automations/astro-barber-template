@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PortfolioCaseStudy from '../../components/sections/PortfolioCaseStudy.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const portfolio = await getCollection('portfolio');
+  return portfolio.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const title = `${entry.data.title} | Portfolio`;
+---
+
+<BaseLayout title={title} description={entry.data.summary}>
+  <section class="bg-background py-16 text-text-primary">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6">
+      <PortfolioCaseStudy entry={entry} />
+    </div>
+  </section>
+  <CTASection
+    eyebrow="Plan your own activation"
+    heading="Bring the GrowthAutomations experience to your next moment"
+    body="Tell us about your event, shoot, or grooming goals and we’ll build a tailored session plan."
+    primaryCta={{ label: 'Start a project', href: '/appointment' }}
+    secondaryCta={{ label: 'View services', href: '/services' }}
+  />
+</BaseLayout>

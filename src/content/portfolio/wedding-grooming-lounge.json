@@ -1,0 +1,36 @@
+{
+  "title": "Wedding Grooming Lounge",
+  "slug": "wedding-grooming-lounge",
+  "summary": "On-location lounge with five barbers, skincare station, and first-look touch-ups.",
+  "description": "We set up a full GrowthAutomations grooming lounge in a hotel suite with ambient lighting, custom playlists, and tailored service menus. Guests rotated through haircut refinements, beard detailing, and stress-relief scalp treatments. Everyone was ready on time.",
+  "category": "Events",
+  "featured": true,
+  "thumbnail": {
+    "src": "~/assets/images/photos/wedding-grooming-event.jpg",
+    "alt": "On-location grooming lounge setup with multiple barbers."
+  },
+  "gallery": [
+    {
+      "src": "~/assets/images/photos/service-repair.jpg",
+      "alt": "Groom receiving hot towel treatment before the ceremony."
+    },
+    {
+      "src": "~/assets/images/photos/service-industrial.jpg",
+      "alt": "Barber aligning beard edges with straight razor."
+    }
+  ],
+  "results": [
+    {
+      "label": "Guests served",
+      "value": "14"
+    },
+    {
+      "label": "Setup time",
+      "value": "60 min"
+    },
+    {
+      "label": "Touch-up waves",
+      "value": "3 rounds"
+    }
+  ]
+}

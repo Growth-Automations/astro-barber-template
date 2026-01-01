@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { resolveAsset } from '../../lib/assets';
+
+export interface Props {
+  entries: CollectionEntry<'timeline'>[];
+  eyebrow?: string;
+  heading: string;
+  subheading?: string;
+}
+
+const props = Astro.props as Props;
+const ordered = [...props.entries].sort((a, b) => Number(a.data.year) - Number(b.data.year));
+const bgImage = resolveAsset('~/assets/images/photos/barber_lifestyle_3.jpg');
+---
+
+<section class="relative overflow-hidden bg-white dark:bg-background py-24 sm:py-28 lg:py-32">
+  <!-- VISIBLE heritage background image - classic barbershop interior -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src={bgImage}
+      alt=""
+      class="w-full h-full object-cover object-center opacity-30 dark:opacity-25"
+      aria-hidden="true"
+    />
+  </div>
+
+  <!-- STRONG overlay for perfect text contrast -->
+  <div class="absolute inset-0 z-[1] bg-white/60 dark:bg-background/70"></div>
+
+  <!-- Content Container with generous padding -->
+  <div class="relative z-10 mx-auto max-w-4xl px-6 sm:px-8 lg:px-10">
+    <!-- Rounded container with generous, balanced padding -->
+    <div class="bg-white/90 dark:bg-background/85 backdrop-blur-md rounded-2xl px-10 py-14 sm:px-14 sm:py-18 lg:px-16 lg:py-20 shadow-lg">
+      <!-- Header Section -->
+      <div class="text-center">
+        {props.eyebrow && (
+          <p class="text-xs font-bold uppercase tracking-[0.45em] text-secondary dark:text-secondary-light">{props.eyebrow}</p>
+        )}
+        <h2 class="mt-4 text-3xl font-bold text-black dark:text-white md:text-4xl lg:text-5xl">{props.heading}</h2>
+        {props.subheading && <p class="mt-4 text-lg font-semibold text-text-primary dark:text-text-primary leading-relaxed">{props.subheading}</p>}
+      </div>
+
+      <!-- Timeline Section -->
+      <div class="mt-20 space-y-12 border-l-2 border-border dark:border-border pl-8 sm:pl-10">
+        {ordered.map((entry) => (
+          <div class="relative">
+            <span class="absolute -left-[42px] sm:-left-[44px] inline-flex h-4 w-4 items-center justify-center rounded-full border-[3px] border-primary dark:border-primary-light bg-white dark:bg-background ring-4 ring-white/60 dark:ring-background/60" />
+            <p class="text-xs font-bold uppercase tracking-[0.35em] text-secondary dark:text-secondary-light">{entry.data.year}</p>
+            <h3 class="mt-3 text-xl font-bold text-black dark:text-white lg:text-2xl">{entry.data.title}</h3>
+            <p class="mt-3 font-semibold text-text-primary dark:text-text-primary leading-[1.75]">{entry.data.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

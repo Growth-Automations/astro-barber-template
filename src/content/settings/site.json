@@ -1,0 +1,41 @@
+{
+  "name": "GrowthAutomations Barbershop",
+  "tagline": "Precision cuts. Systematic style.",
+  "description": "GrowthAutomations Barbershop delivers precision grooming with the same systematic approach we bring to everything. Fades, beard work, and hot towel rituals — all on schedule.",
+  "contact": {
+    "phone": {
+      "display": "(555) 012-3456",
+      "value": "+15550123456"
+    },
+    "email": "barbers@growthautomations.com",
+    "address": {
+      "line1": "1250 Market Street",
+      "line2": "Suite 105",
+      "city": "Portland",
+      "state": "OR",
+      "postalCode": "97204"
+    }
+  },
+  "hours": [
+    { "label": "Monday – Thursday", "value": "9:00 AM – 7:00 PM" },
+    { "label": "Friday", "value": "9:00 AM – 8:00 PM" },
+    { "label": "Saturday", "value": "8:00 AM – 5:00 PM" },
+    { "label": "Sunday", "value": "By appointment" }
+  ],
+  "social": [
+    { "label": "Instagram", "href": "https://instagram.com/growthautomations" },
+    { "label": "TikTok", "href": "https://tiktok.com/@growthautomations" },
+    { "label": "Facebook", "href": "https://facebook.com/growthautomations" }
+  ],
+  "navigation": [
+    { "label": "Home", "href": "/" },
+    { "label": "Services", "href": "/services" },
+    { "label": "Appointment", "href": "/appointment" },
+    { "label": "Team", "href": "/about" },
+    { "label": "Pricing", "href": "/pricing" },
+    { "label": "Portfolio", "href": "/portfolio" },
+    { "label": "Shop", "href": "/shop" },
+    { "label": "Blog", "href": "/blog" },
+    { "label": "Contact", "href": "/contact" }
+  ]
+}

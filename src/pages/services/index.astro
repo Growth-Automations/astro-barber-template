@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServicesGrid from '../../components/sections/ServicesGrid.astro';
+import PricingTable from '../../components/sections/PricingTable.astro';
+import { getCollection } from 'astro:content';
+
+const services = await getCollection('services');
+const pricing = await getCollection('pricing');
+const pricingTiers = pricing.map((entry) => ({
+  name: entry.data.name,
+  price: entry.data.price,
+  duration: entry.data.duration,
+  description: entry.data.description,
+  features: entry.data.features,
+  badge: entry.data.badge,
+  recommended: entry.data.recommended,
+  cta:
+    entry.data.ctaLabel && entry.data.ctaHref
+      ? { label: entry.data.ctaLabel, href: entry.data.ctaHref }
+      : undefined
+}));
+---
+
+<BaseLayout title="Services" description="Explore signature grooming experiences from GrowthAutomations Barbershop.">
+  <section class="bg-background py-16 text-text-primary">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6">
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-secondary">Service Menu</p>
+      <h1 class="mt-4 text-4xl font-semibold">Precision grooming for every milestone</h1>
+      <p class="mt-4 text-text-secondary">
+        From quick fades to on-location wedding lounges, choose the experience that matches your schedule, style goals, and celebration plans.
+      </p>
+    </div>
+  </section>
+  <ServicesGrid
+    services={services}
+    eyebrow="Service Categories"
+    heading="All services"
+    subheading="Browse the full GrowthAutomations menu or filter by your next occasion."
+    highlightFirst
+    cta={{ label: 'Ready to book?', href: '/appointment' }}
+  />
+  <PricingTable
+    eyebrow="Pricing & Membership"
+    heading="Transparent grooming packages"
+    subheading="Every service includes a consultation to personalize your cut, beard work, or color plan."
+    tiers={pricingTiers}
+    footnote="Need a custom quote for events or on-location grooming? Reach out via our contact form."
+  />
+</BaseLayout>

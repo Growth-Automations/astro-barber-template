@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroPrimary from '../components/sections/HeroPrimary.astro';
+import FeatureHighlights from '../components/sections/FeatureHighlights.astro';
+import FeaturedStyles from '../components/sections/FeaturedStyles.astro';
+import ServicesGrid from '../components/sections/ServicesGrid.astro';
+import PortfolioGrid from '../components/sections/PortfolioGrid.astro';
+import OfferStrip from '../components/sections/OfferStrip.astro';
+import PricingTable from '../components/sections/PricingTable.astro';
+import ProductGrid from '../components/sections/ProductGrid.astro';
+import BlogList from '../components/sections/BlogList.astro';
+import TestimonialsCarousel from '../components/sections/TestimonialsCarousel.astro';
+import MembershipProgram from '../components/sections/MembershipProgram.astro';
+import CommunityEvents from '../components/sections/CommunityEvents.astro';
+import TeamPreview from '../components/sections/TeamPreview.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { getEntry, getCollection } from 'astro:content';
+
+const homeEntry = await getEntry('home', 'default');
+const services = await getCollection('services');
+const portfolio = await getCollection('portfolio');
+const blogPosts = await getCollection('blog');
+const pricing = await getCollection('pricing');
+const testimonials = await getCollection('testimonials');
+const products = await getCollection('products');
+const featuredStyles = await getCollection('featured-styles');
+const events = await getCollection('events');
+const membershipTiers = await getCollection('membership-tiers');
+const team = await getCollection('team');
+
+const featuredServices = homeEntry.data.featuredServices
+  ? services.filter((service) => homeEntry.data.featuredServices?.includes(service.data.slug))
+  : services;
+
+const pricingTiers = homeEntry.data.pricing
+  ? homeEntry.data.pricing.tiers
+      .map((slug) => pricing.find((tier) => tier.data.slug === slug))
+      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
+      .map((entry) => ({
+        name: entry.data.name,
+        price: entry.data.price,
+        duration: entry.data.duration,
+        description: entry.data.description,
+        features: entry.data.features,
+        badge: entry.data.badge,
+        recommended: entry.data.recommended,
+        cta:
+          entry.data.ctaLabel && entry.data.ctaHref
+            ? { label: entry.data.ctaLabel, href: entry.data.ctaHref }
+            : undefined
+      }))
+  : [];
+
+const featuredPortfolio = homeEntry.data.featuredPortfolio
+  ? homeEntry.data.featuredPortfolio
+      .map((slug) => portfolio.find((item) => item.data.slug === slug))
+      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
+  : portfolio;
+
+const latestBlogPosts = [...blogPosts].sort(
+  (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+);
+
+const featuredProducts = homeEntry.data.featuredProducts
+  ? homeEntry.data.featuredProducts
+      .map((slug) => products.find((product) => product.data.slug === slug))
+      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
+  : products.filter((product) => product.data.featured);
+---
+
+<BaseLayout title={homeEntry.data.hero.heading} description={homeEntry.data.hero.subheading}>
+  <HeroPrimary {...homeEntry.data.hero} />
+  <FeatureHighlights
+    eyebrow={homeEntry.data.intro.eyebrow}
+    heading={homeEntry.data.intro.heading}
+    description={homeEntry.data.intro.body}
+    highlights={homeEntry.data.highlights}
+  />
+  {featuredStyles.length > 0 && (
+    <FeaturedStyles
+      styles={featuredStyles}
+      eyebrow="Featured Styles"
+      heading="This Month's Top Styles"
+      subheading="Explore the latest trends crafted by our expert barbers"
+      cta={{ label: 'Book This Style', href: '/appointment' }}
+    />
+  )}
+  <ServicesGrid
+    services={featuredServices}
+    eyebrow="Service Menu"
+    heading="Signature grooming experiences"
+    subheading="Choose the ritual that matches your schedule, your goals, and your next big moment."
+    highlightFirst
+    cta={{ label: 'View full menu', href: '/services' }}
+  />
+  {homeEntry.data.offerStrip && <OfferStrip {...homeEntry.data.offerStrip} />}
+  <TestimonialsCarousel
+    testimonials={testimonials}
+    heading={homeEntry.data.testimonialsHeading ?? 'What clients are saying'}
+    eyebrow="Client love"
+    subheading="Real people, real rituals. Here's how GrowthAutomations keeps our community feeling sharp."
+  />
+  {membershipTiers.length > 0 && (
+    <MembershipProgram
+      tiers={membershipTiers}
+      eyebrow="Membership"
+      heading="Join The Qutter Club"
+      subheading="Exclusive perks for our regular clients"
+      cta={{ label: 'View all membership benefits', href: '/pricing' }}
+    />
+  )}
+  {homeEntry.data.pricing && pricingTiers.length > 0 && (
+    <PricingTable
+      eyebrow={homeEntry.data.pricing.eyebrow}
+      heading={homeEntry.data.pricing.heading}
+      subheading={homeEntry.data.pricing.subheading}
+      tiers={pricingTiers}
+      footnote={homeEntry.data.pricing.footnote}
+      backgroundWord={homeEntry.data.pricing.backgroundWord}
+    />
+  )}
+  {featuredPortfolio.length > 0 && (
+    <PortfolioGrid
+      entries={featuredPortfolio}
+      eyebrow="Recent work"
+      heading="Cuts, color, and lounge experiences we're proud of"
+      subheading="Browse a few favorites from the GrowthAutomations portfolio — from on-location lounges to editorial color."
+      cta={{ label: 'View all projects', href: '/portfolio' }}
+    />
+  )}
+  {team.length > 0 && (
+    <TeamPreview
+      team={team}
+      eyebrow="Our Team"
+      heading="Meet Our Experts"
+      subheading="The skilled team behind every great haircut"
+      cta={{ label: 'Meet the full team', href: '/about' }}
+      limit={4}
+    />
+  )}
+  {featuredProducts.length > 0 && (
+    <ProductGrid
+      products={featuredProducts}
+      eyebrow="GrowthAutomations retail"
+      heading="Carry the GrowthAutomations finish home"
+      subheading="Curated grooming essentials hand-selected by our barbers to pair with every ritual."
+      cta={{ label: 'Browse the shop', href: '/shop' }}
+    />
+  )}
+  {events.length > 0 && (
+    <CommunityEvents
+      events={events}
+      eyebrow="Community"
+      heading="Our Community"
+      subheading="See how Qutter Barbers gives back and builds connections beyond the chair"
+      cta={{ label: 'Join Our Next Event', href: '/about' }}
+    />
+  )}
+  {latestBlogPosts.length > 0 && (
+    <BlogList
+      entries={latestBlogPosts.slice(0, 3)}
+      eyebrow="Latest on the blog"
+      heading="Fresh looks, grooming rituals, and insider tips"
+      subheading="Stay on top of the routines our barbers recommend between visits and the events we're prepping for."
+      cta={{ label: 'View all posts', href: '/blog' }}
+    />
+  )}
+  {homeEntry.data.cta && <CTASection {...homeEntry.data.cta} />}
+</BaseLayout>
+const featuredProducts = homeEntry.data.featuredProducts
+  ? homeEntry.data.featuredProducts
+      .map((slug) => products.find((product) => product.data.slug === slug))
+      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
+  : products.filter((product) => product.data.featured);

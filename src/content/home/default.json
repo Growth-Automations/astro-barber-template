@@ -1,0 +1,141 @@
+{
+  "hero": {
+    "eyebrow": "GrowthAutomations Barbershop",
+    "heading": "Precision cuts. Zero wait times.",
+    "subheading": "Fades, beard sculpts, and hot towel rituals — delivered with the same systematic precision we bring to everything we do.",
+    "highlight": "New client special: 20% off your first visit",
+    "primaryCta": {
+      "label": "Book Appointment",
+      "href": "/appointment"
+    },
+    "secondaryCta": {
+      "label": "Explore Services",
+      "href": "/services"
+    },
+    "image": {
+      "src": "~/assets/images/photos/barber_hero.jpg",
+      "alt": "Barber detailing a clean fade under warm shop lighting"
+    },
+    "accentImage": {
+      "src": "~/assets/images/photos/barber_lifestyle_1.jpg",
+      "alt": "Curated barber tools arranged on a workstation"
+    },
+    "stats": [
+      {
+        "label": "Years of craft",
+        "value": "12+"
+      },
+      {
+        "label": "Weekly appointments",
+        "value": "180+"
+      },
+      {
+        "label": "On-time rate",
+        "value": "98%"
+      }
+    ],
+    "appointment": {
+      "title": "Book your chair in minutes",
+      "description": "Choose your service, pick your barber, and lock in your time slot.",
+      "primaryCta": {
+        "label": "Start booking",
+        "href": "/appointment"
+      },
+      "phone": {
+        "display": "Call (555) 012-3456",
+        "href": "tel:+15550123456"
+      },
+      "note": "*First-month pricing for new members only."
+    }
+  },
+  "intro": {
+    "eyebrow": "Why clients choose us",
+    "heading": "Sharp fades. Smooth operations.",
+    "body": "From express fades to wedding-day grooming lounges, GrowthAutomations Barbershop blends old-world technique with a systematic approach to craft. Expect personalized consultations, style recommendations on file, and a shop culture built around community."
+  },
+  "highlights": [
+    {
+      "eyebrow": "Consultations",
+      "title": "Tailored consultations",
+      "description": "Every visit begins with a check-in on your style goals, hair health, and upcoming events. We keep notes so your barber always knows where you left off.",
+      "icon": "consultation"
+    },
+    {
+      "eyebrow": "Membership",
+      "title": "Membership perks",
+      "description": "Join the Fresh Fade Club for priority scheduling, exclusive workshops, and retail savings. Consistent grooming on a consistent schedule.",
+      "icon": "membership"
+    },
+    {
+      "eyebrow": "On-location",
+      "title": "On-location grooming",
+      "description": "Bring the GrowthAutomations experience to weddings, corporate activations, and editorial shoots. We set up anywhere.",
+      "icon": "concierge"
+    }
+  ],
+  "featuredServices": [
+    "classic-cuts-fades",
+    "beard-shaping-hot-towel-shaves",
+    "vip-grooming-experience"
+  ],
+  "featuredPortfolio": [
+    "modern-fade-reinvention",
+    "wedding-grooming-lounge",
+    "editorial-color-session"
+  ],
+  "testimonialsHeading": "Why regulars trust GrowthAutomations with every milestone",
+  "offerStrip": {
+    "badge": "Fresh Fade Club",
+    "eyebrow": "Membership perks",
+    "heading": "Ready for consistent grooming?",
+    "subheading": "Lock in bi-weekly visits, priority scheduling, and members-only grooming events. Your chair is always waiting.",
+    "primaryCta": {
+      "label": "Join the club",
+      "href": "/appointment?service=vip-grooming-experience"
+    },
+    "secondaryCta": {
+      "label": "View membership perks",
+      "href": "/pricing"
+    },
+    "backgroundImage": {
+      "src": "~/assets/images/photos/barber_lifestyle_2.jpg",
+      "alt": "Guests relaxing in a modern barbershop lounge"
+    },
+    "patternWord": "FRESH"
+  },
+  "pricing": {
+    "eyebrow": "Pricing & Offers",
+    "heading": "Find the ritual that fits your schedule",
+    "subheading": "Choose a one-off service or enroll in the Fresh Fade Club to guarantee chair time when you need it most.",
+    "tiers": [
+      "essential-grooming",
+      "signature-look",
+      "luxury-ritual",
+      "fresh-fade-club"
+    ],
+    "footnote": "*Fresh Fade Club pricing reflects introductory offer for new members."
+  },
+  "featuredProducts": [
+    "signature-matte-pomade",
+    "conditioning-beard-oil",
+    "heritage-shave-kit"
+  ],
+  "cta": {
+    "eyebrow": "Book your chair",
+    "heading": "Ready when you are",
+    "body": "Book online or call the shop to schedule your next cut with your favorite barber.",
+    "primaryCta": {
+      "label": "Book Appointment",
+      "href": "/appointment"
+    },
+    "secondaryCta": {
+      "label": "Call the Shop",
+      "href": "tel:+15550123456"
+    },
+    "finePrint": "*First-month pricing for new members only.",
+    "backgroundImage": {
+      "src": "~/assets/images/photos/barber_retail_1.jpg",
+      "alt": "Barbershop retail display featuring grooming products"
+    }
+  }
+}

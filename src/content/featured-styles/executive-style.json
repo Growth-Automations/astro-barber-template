@@ -1,0 +1,12 @@
+{
+  "name": "Executive Classic",
+  "slug": "executive-classic",
+  "description": "Timeless sophistication meets modern grooming. A refined cut with styling consultation perfect for boardroom to happy hour. Enterprise-ready.",
+  "image": {
+    "src": "~/assets/images/photos/featured_executive_classic.jpg",
+    "alt": "Professional barbershop haircut service with classic business styling"
+  },
+  "featured": true,
+  "category": "Classic",
+  "bookingLink": "/appointment?service=vip-grooming-experience"
+}

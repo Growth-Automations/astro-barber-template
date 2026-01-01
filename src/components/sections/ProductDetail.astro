@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { resolveAsset } from '../../lib/assets';
+
+export interface Props {
+  product: CollectionEntry<'products'>;
+}
+
+const { product } = Astro.props as Props;
+const mainImage = product.data.image ? resolveAsset(product.data.image.src) : undefined;
+const gallery = product.data.gallery?.map((image) => ({
+  alt: image.alt,
+  src: resolveAsset(image.src)
+}));
+---
+
+<article class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+  <div class="space-y-6">
+    {mainImage && (
+      <div class="overflow-hidden rounded-[36px] border border-white/10 bg-background">
+        <img class="h-full w-full object-cover" src={mainImage} alt={product.data.image?.alt ?? product.data.title} loading="lazy" />
+      </div>
+    )}
+    {gallery && gallery.length > 0 && (
+      <div class="grid gap-4 md:grid-cols-3">
+        {gallery.map((image) => (
+          <div class="overflow-hidden rounded-2xl border border-white/10 bg-background">
+            <img class="h-full w-full object-cover" src={image.src} alt={image.alt} loading="lazy" />
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+  <div class="space-y-6 rounded-[32px] border border-white/10 bg-white/5 p-8 text-text-primary backdrop-blur">
+    <div class="space-y-3">
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-secondary">Retail</p>
+      <h1 class="text-4xl font-semibold text-white md:text-5xl">{product.data.title}</h1>
+      <div class="text-2xl font-semibold text-primary">{product.data.price}</div>
+      <p class="text-lg text-text-secondary">{product.data.description}</p>
+    </div>
+    {product.data.tags && (
+      <div class="flex flex-wrap gap-2">
+        {product.data.tags.map((tag) => (
+          <span class="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-text-secondary">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+    <div class="pt-4">
+      <a class="btn btn-primary" href="/appointment?service=vip-grooming-experience">
+        Add to grooming ritual
+      </a>
+    </div>
+  </div>
+</article>

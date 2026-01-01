@@ -1,0 +1,35 @@
+{
+  "title": "Beard Shaping & Hot Towel Shaves",
+  "slug": "beard-shaping-hot-towel-shaves",
+  "summary": "Straight-razor line ups, conditioning treatments, and signature hot towel shaves.",
+  "description": "We sculpt beards and mustaches with razor-sharp precision. Finishing with hot towel compresses, essential oil-infused lather, and beard conditioning masks. Upgrade with a deluxe straight-razor shave and cold towel finish for extra polish.",
+  "category": "Grooming",
+  "duration": "40 min",
+  "price": "$45",
+  "ctaLabel": "See beard rituals",
+  "highlight": "Includes aromatherapy steam towels",
+  "featured": true,
+  "processTitle": "Our straight-razor ritual",
+  "processDescription": "We pair aromatherapy steam treatments with razor-sharp detailing so your beard lines stay crisp without irritation.",
+  "processSteps": [
+    {
+      "title": "Steam prep & consultation",
+      "description": "We prep the skin with essential oil steam towels while confirming preferred lines and beard goals.",
+      "duration": "08 min"
+    },
+    {
+      "title": "Razor sculpting",
+      "description": "Straight-razor lining, clipper detailing, and beard shaping tailored to your face structure. Precision execution, every time.",
+      "duration": "22 min"
+    },
+    {
+      "title": "Condition & finish",
+      "description": "Cooling towel, conditioning mask, and product recommendations to keep your beard soft between visits.",
+      "duration": "10 min"
+    }
+  ],
+  "processImage": {
+    "src": "~/assets/images/photos/service_beard_shave.jpg",
+    "alt": "Straight-razor shave with a hot towel treatment."
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Enterprise",
+  "slug": "gold",
+  "description": "VIP treatment for those who expect nothing but the best. Unlimited support.",
+  "benefits": [
+    "20% off all services",
+    "Dedicated concierge scheduling",
+    "VIP grooming lounge access",
+    "Complimentary premium services",
+    "30% off all retail products",
+    "Monthly exclusive product",
+    "On-location services available",
+    "Guest passes for friends"
+  ],
+  "price": "$85/month",
+  "badge": "VIP",
+  "featured": false,
+  "icon": "👑"
+}

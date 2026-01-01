@@ -1,0 +1,14 @@
+{
+  "name": "Belle Updo",
+  "role": "Event Stylist",
+  "bio": "Belle handles bridal parties and corporate activations with calm precision under any timeline. She designed our on-site styling kit for flawless event execution — polished looks, zero stress.",
+  "specialty": "Bridal styling & on-site finishing",
+  "image": {
+    "src": "~/assets/images/photos/sophia-nguyen.jpg",
+    "alt": "Professional portrait of Belle Updo, Event Stylist."
+  },
+  "socials": [
+    { "label": "Instagram", "href": "https://instagram.com/growthautomations" },
+    { "label": "TikTok", "href": "https://tiktok.com/@growthautomations" }
+  ]
+}

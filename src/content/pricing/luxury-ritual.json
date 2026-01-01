@@ -1,0 +1,16 @@
+{
+  "name": "Luxury Ritual",
+  "slug": "luxury-ritual",
+  "price": "$95",
+  "duration": "75 min",
+  "description": "Full grooming ritual with scalp treatment, straight-razor shave, and lounge amenities. The enterprise tier.",
+  "features": [
+    "Signature haircut with restorative scalp massage",
+    "Deluxe straight-razor shave with hot + cold towel contrast",
+    "Hydrating facial mask and finishing serum",
+    "Complimentary craft beverage in the lounge"
+  ],
+  "badge": "Event Ready",
+  "ctaLabel": "Indulge in Luxury",
+  "ctaHref": "/appointment?service=vip-grooming-experience"
+}

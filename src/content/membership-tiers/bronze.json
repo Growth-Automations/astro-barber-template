@@ -1,0 +1,14 @@
+{
+  "name": "Starter",
+  "slug": "bronze",
+  "description": "Perfect for the client who wants consistent quality and value.",
+  "benefits": [
+    "10% off all services",
+    "Priority booking access",
+    "Member-only product discounts",
+    "Birthday month special offer"
+  ],
+  "price": "$25/month",
+  "featured": false,
+  "icon": "🚀"
+}

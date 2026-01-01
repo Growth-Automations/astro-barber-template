@@ -1,0 +1,198 @@
+---
+import { resolveAsset } from '../../lib/assets';
+
+export interface Link {
+  label: string;
+  href: string;
+}
+
+export interface ImageConfig {
+  src: string;
+  alt: string;
+}
+
+export interface Stat {
+  label: string;
+  value: string;
+}
+
+export interface AppointmentCard {
+  title: string;
+  description: string;
+  primaryCta?: Link;
+  phone?: {
+    display: string;
+    href: string;
+  };
+  note?: string;
+}
+
+export interface HeroContent {
+  eyebrow?: string;
+  heading: string;
+  subheading: string;
+  highlight?: string;
+  primaryCta: Link;
+  secondaryCta?: Link;
+  image: ImageConfig;
+  accentImage?: ImageConfig;
+  stats?: Stat[];
+  appointment?: AppointmentCard;
+}
+
+const props = Astro.props as HeroContent;
+const heroImage = resolveAsset(props.image.src);
+const accentImage = props.accentImage ? resolveAsset(props.accentImage.src) : undefined;
+const bgImage = resolveAsset('~/assets/images/photos/barber_precision_fade.jpg');
+---
+
+<section class="hero-section relative min-h-[90vh] overflow-hidden bg-background text-text-primary lg:min-h-screen">
+  <!-- Full-frame background image -->
+  <div class="absolute inset-0 h-full w-full">
+    <img
+      class="h-full w-full object-cover object-center"
+      src={bgImage}
+      alt="Barber performing precision fade under warm professional lighting"
+      loading="eager"
+    />
+    <!-- Dark overlay for light mode, light overlay for dark mode -->
+    <div class="absolute inset-0 bg-gradient-to-br from-black/85 via-black/70 to-black/40 dark:from-white/20 dark:via-white/15 dark:to-white/10" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent dark:from-black/70 dark:via-transparent dark:to-transparent" />
+  </div>
+
+  <!-- Decorative elements -->
+  <div class="pointer-events-none absolute inset-0">
+    <div class="absolute -right-20 top-20 h-96 w-96 rounded-full bg-primary/10 blur-[120px]" />
+    <div class="absolute -left-20 bottom-20 h-96 w-96 rounded-full bg-secondary/10 blur-[120px]" />
+  </div>
+
+  <!-- Content -->
+  <div class="relative mx-auto flex min-h-[90vh] max-w-7xl items-center px-4 py-32 sm:px-6 lg:min-h-screen lg:px-8">
+    <div class="hero-content w-full max-w-4xl space-y-8">
+      {props.eyebrow && (
+        <p class="hero-eyebrow text-xs font-semibold uppercase tracking-[0.45em] text-secondary opacity-0">
+          {props.eyebrow}
+        </p>
+      )}
+
+      <h1 class="hero-heading font-heading text-5xl font-bold leading-tight tracking-tight text-white opacity-0 md:text-6xl lg:text-7xl">
+        {props.heading}
+      </h1>
+
+      <p class="hero-subheading max-w-2xl text-xl text-text-secondary opacity-0 md:text-2xl lg:text-2xl">
+        {props.subheading}
+      </p>
+
+      {props.highlight && (
+        <div class="hero-highlight inline-flex items-center gap-3 rounded-full border border-primary/40 bg-primary/10 px-6 py-3 text-base font-medium text-white opacity-0 backdrop-blur-sm">
+          <span class="flex h-3 w-3">
+            <span class="absolute inline-flex h-3 w-3 animate-ping rounded-full bg-secondary opacity-75"></span>
+            <span class="relative inline-flex h-3 w-3 rounded-full bg-secondary"></span>
+          </span>
+          {props.highlight}
+        </div>
+      )}
+
+      <div class="hero-ctas flex flex-col gap-4 pt-4 opacity-0 sm:flex-row">
+        <a
+          class="group btn btn-primary transform px-8 py-4 text-lg font-semibold shadow-2xl shadow-primary/40 transition-all duration-300 hover:scale-105 hover:shadow-primary/60"
+          href={props.primaryCta.href}
+        >
+          {props.primaryCta.label}
+          <svg class="ml-2 inline-block h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+        {props.secondaryCta && (
+          <a
+            class="btn border-2 border-white/40 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/20 focus:ring-white/40"
+            href={props.secondaryCta.href}
+          >
+            {props.secondaryCta.label}
+          </a>
+        )}
+      </div>
+
+      {props.stats && props.stats.length > 0 && (
+        <dl class="hero-stats grid gap-6 pt-8 opacity-0 sm:grid-cols-3">
+          {props.stats.map((stat) => (
+            <div class="group transform rounded-2xl border border-white/20 bg-black/40 p-6 text-center backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-black/50">
+              <dt class="text-xs uppercase tracking-[0.35em] text-text-muted transition-colors duration-300 group-hover:text-primary">
+                {stat.label}
+              </dt>
+              <dd class="mt-3 text-3xl font-bold text-white transition-transform duration-300 group-hover:scale-110">
+                {stat.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      )}
+    </div>
+  </div>
+
+  <!-- Appointment card (if provided) -->
+  {props.appointment && (
+    <div class="absolute bottom-8 right-8 hidden w-80 rounded-3xl border border-white/20 bg-background/90 p-6 text-text-primary shadow-2xl backdrop-blur-lg lg:block">
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-secondary">
+        Reserve Your Spot
+      </p>
+      <h2 class="mt-2 text-lg font-semibold text-white">{props.appointment.title}</h2>
+      <p class="mt-2 text-sm text-text-secondary">{props.appointment.description}</p>
+      <div class="mt-4 flex flex-col gap-3">
+        {props.appointment.primaryCta && (
+          <a class="btn btn-primary w-full" href={props.appointment.primaryCta.href}>
+            {props.appointment.primaryCta.label}
+          </a>
+        )}
+        {props.appointment.phone && (
+          <a
+            class="btn border border-white/30 bg-transparent text-white hover:bg-white/10"
+            href={props.appointment.phone.href}
+          >
+            {props.appointment.phone.display}
+          </a>
+        )}
+      </div>
+      {props.appointment.note && (
+        <p class="mt-3 text-xs text-text-muted">{props.appointment.note}</p>
+      )}
+    </div>
+  )}
+</section>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-section .hero-eyebrow {
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  }
+
+  .hero-section .hero-heading {
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+  }
+
+  .hero-section .hero-subheading {
+    animation: fadeInUp 0.8s ease-out 0.6s forwards;
+  }
+
+  .hero-section .hero-highlight {
+    animation: fadeInUp 0.8s ease-out 0.8s forwards;
+  }
+
+  .hero-section .hero-ctas {
+    animation: fadeInUp 0.8s ease-out 1s forwards;
+  }
+
+  .hero-section .hero-stats {
+    animation: fadeInUp 0.8s ease-out 1.2s forwards;
+  }
+</style>

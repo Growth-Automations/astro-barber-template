@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroPrimary from '../components/sections/HeroPrimary.astro';
+import AppointmentForm from '../components/sections/AppointmentForm.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import ContactInfo from '../components/sections/ContactInfo.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { getCollection } from 'astro:content';
+import { getSiteSettings } from '../lib/site';
+
+const siteSettings = await getSiteSettings();
+const servicesCollection = await getCollection('services');
+const faqsCollection = await getCollection('faqs');
+
+const serviceOptions = servicesCollection
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || a.data.title.localeCompare(b.data.title))
+  .map((service) => ({
+    label: service.data.title,
+    value: service.data.slug
+  }));
+
+const appointmentFaqs = faqsCollection.filter((entry) =>
+  ['Scheduling', 'Booking'].includes(entry.data.category ?? '')
+);
+---
+
+<BaseLayout
+  title="Book an Appointment"
+  description="Reserve your chair at GrowthAutomations Barbershop for cuts, color, and concierge grooming experiences."
+>
+  <HeroPrimary
+    eyebrow="Book your visit"
+    heading="Reserve your chair in minutes"
+    subheading="Tell us about the look, event, or vibe you're planning and we'll match you with the GrowthAutomations barber who specializes in it."
+    highlight="Fresh Fade Club members enjoy priority scheduling."
+    primaryCta={{ label: 'Start booking', href: '#appointment-form' }}
+    secondaryCta={{ label: `Call ${siteSettings.contact.phone.display}`, href: `tel:${siteSettings.contact.phone.value}` }}
+    image={{ src: '~/assets/images/photos/barber_events_2.jpg', alt: 'Barber styling a client during an appointment consultation.' }}
+    accentImage={{ src: '~/assets/images/photos/barber_lifestyle_3.jpg', alt: 'Concierge barber prepping tools for a grooming ritual.' }}
+    stats={[
+      { label: 'Appointments weekly', value: '180+' },
+      { label: 'Wedding lounges yearly', value: '40+' },
+      { label: 'Licensed specialists', value: '18' }
+    ]}
+    appointment={{
+      title: 'Need a rush appointment?',
+      description: 'Call the lounge and we’ll see what magic we can work with same-day availability.',
+      phone: { display: siteSettings.contact.phone.display, href: `tel:${siteSettings.contact.phone.value}` },
+      note: 'Concierge team responds within shop hours.'
+    }}
+  />
+
+  <section class="bg-white py-16 text-text-primary">
+    <div class="mx-auto grid max-w-5xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
+      <div class="space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-secondary">How it works</p>
+        <h2 class="text-3xl font-semibold md:text-4xl">Appointments tailored to every milestone</h2>
+        <p class="text-lg text-text-secondary">
+          Book a signature fade, upgrade to a deluxe shave, or reserve the traveling GrowthAutomations lounge for wedding mornings and brand activations.
+          Share your timeline and notes so we can prep the right team, tools, and refreshments.
+        </p>
+      </div>
+      <div class="space-y-4 rounded-3xl border border-border bg-surface-alt p-6 text-sm text-text-secondary">
+        <h3 class="text-base font-semibold text-text-primary">What to include</h3>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Preferred dates, times, and your favorite barber (if you have one).</li>
+          <li>Service goals—sharp fade, creative color, beard sculpt, or full VIP ritual.</li>
+          <li>Event details so we can build a concierge schedule for your crew.</li>
+        </ul>
+        <p class="text-sm text-text-secondary">
+          We’ll confirm within one business day with available slots or a tailored proposal for on-location experiences.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div id="appointment-form">
+    <AppointmentForm
+      eyebrow="Book online"
+      heading="Hold your spot at GrowthAutomations"
+      subheading="Submit your details below—our concierge will follow up with confirmation and any pre-visit prep."
+      serviceOptions={serviceOptions}
+      submitLabel="Request appointment"
+      disclaimer="Submitting this form does not guarantee the exact time slot; our concierge team will reach out to confirm."
+    />
+  </div>
+
+  <FAQAccordion
+    eyebrow="Need to know"
+    heading="Booking & scheduling questions"
+    subheading="Here’s how we handle timelines, travel, and same-day requests."
+    faqs={appointmentFaqs.length ? appointmentFaqs : faqsCollection}
+  />
+
+  <ContactInfo
+    settings={siteSettings}
+    eyebrow="Visit the lounge"
+    heading="Prefer to speak to a concierge?"
+    subheading="Call, email, or stop by during shop hours. We can recommend add-ons, memberships, and event packages."
+  />
+
+  <CTASection
+    eyebrow="Membership perks"
+    heading="Join the Fresh Fade Club for priority booking"
+    body="Lock in bi-weekly visits, product perks, and concierge texting for quick schedule tweaks."
+    primaryCta={{ label: 'Explore membership', href: '/pricing' }}
+    secondaryCta={{ label: 'See upcoming availability', href: '#appointment-form' }}
+    finePrint="Members can switch barbers or services up to 12 hours before their visit."
+    backgroundImage={{ src: '~/assets/images/photos/barber_retail_2.jpg', alt: 'Premium grooming products displayed on backlit shelves.' }}
+  />
+</BaseLayout>

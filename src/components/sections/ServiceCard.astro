@@ -1,0 +1,92 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { resolveAsset } from '../../lib/assets';
+
+export interface Props {
+  service: CollectionEntry<'services'>;
+  index?: number;
+  highlight?: boolean;
+}
+
+const { service, index = 0, highlight = false } = Astro.props as Props;
+// Use processImage as fallback if main image is not available
+const imageSrc = service.data.image
+  ? resolveAsset(service.data.image.src)
+  : service.data.processImage
+    ? resolveAsset(service.data.processImage.src)
+    : undefined;
+const imageAlt = service.data.image?.alt ?? service.data.processImage?.alt ?? service.data.title;
+const hasImage = Boolean(imageSrc);
+const href = `/services/${service.data.slug}`;
+---
+
+<article
+  class="group relative flex h-full flex-col overflow-hidden rounded-[32px] border-2 border-border dark:border-border bg-white dark:bg-white shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:shadow-2xl hover:shadow-primary/30 hover:border-primary/70"
+>
+  {hasImage && (
+    <div class="relative aspect-video overflow-hidden">
+      <img class="h-full w-full object-cover transition duration-500 group-hover:scale-105" src={imageSrc} alt={imageAlt} loading="lazy" />
+      {/* Adaptive overlay - darker for light mode, lighter for dark mode */}
+      <div class="absolute inset-0 bg-gradient-to-b from-background/60 via-surface/50 to-background/70 transition-opacity duration-300 group-hover:from-background/50 group-hover:via-surface/40 group-hover:to-background/60 dark:from-black/50 dark:via-black/40 dark:to-black/60 dark:group-hover:from-black/40 dark:group-hover:via-black/30 dark:group-hover:to-black/50" />
+      <span class="absolute left-6 top-6 inline-flex h-10 items-center rounded-full border border-white/50 bg-black/40 px-4 text-xs font-semibold uppercase tracking-[0.35em] text-white backdrop-blur-sm transition-all duration-300 group-hover:border-primary/70 group-hover:bg-primary/30 group-hover:text-white">
+        {service.data.category ?? 'Signature'}
+      </span>
+    </div>
+  )}
+  <div class="flex flex-1 flex-col gap-5 p-8">
+    {!hasImage && service.data.category && (
+      <span class="inline-flex h-10 items-center self-start rounded-full border border-border/50 bg-surface-alt/50 px-4 text-xs font-semibold uppercase tracking-[0.35em] text-text-secondary transition-all duration-300 group-hover:border-primary/60 group-hover:bg-primary/20 group-hover:text-primary dark:border-white/15 dark:bg-white/5 dark:text-text-secondary dark:group-hover:border-primary/40 dark:group-hover:bg-primary/10">
+        {service.data.category}
+      </span>
+    )}
+    <div class="flex items-start gap-4">
+      <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border/50 bg-surface-alt/50 transition-all duration-300 group-hover:border-primary/60 group-hover:bg-primary/20 group-hover:scale-110 dark:border-white/15 dark:bg-white/5 dark:group-hover:border-primary/40 dark:group-hover:bg-primary/10">
+        <svg class="h-6 w-6 text-primary transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          {service.data.category === 'Grooming' && (
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          )}
+          {service.data.category === 'Barbering' && (
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z" />
+          )}
+          {service.data.category === 'Experiences' && (
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          )}
+          {!service.data.category && (
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+          )}
+        </svg>
+      </div>
+      <div class="space-y-2">
+        <h3 class="text-xl font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary">{service.data.title}</h3>
+        <p class="text-sm font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary">{service.data.summary}</p>
+      </div>
+    </div>
+    <dl class="grid grid-cols-2 gap-4 text-xs uppercase tracking-[0.3em] text-text-secondary transition-colors duration-500 group-hover:text-primary">
+      {service.data.duration && (
+        <div>
+          <dt>Duration</dt>
+          <dd class="mt-1 text-sm font-semibold tracking-normal text-text-primary transition-colors duration-500 group-hover:text-primary">{service.data.duration}</dd>
+        </div>
+      )}
+      {service.data.price && (
+        <div class="justify-self-end text-right">
+          <dt>From</dt>
+          <dd class="mt-1 text-sm font-semibold tracking-normal text-text-primary transition-colors duration-500 group-hover:text-primary">{service.data.price}</dd>
+        </div>
+      )}
+      {service.data.highlight && (
+        <div class="col-span-2 rounded-full border border-primary/40 bg-primary/20 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.35em] text-primary dark:border-primary/30 dark:bg-primary/10">
+          {service.data.highlight}
+        </div>
+      )}
+    </dl>
+    <div class="mt-auto flex flex-wrap items-center gap-3">
+      <a class="btn btn-primary" href={href}>
+        {service.data.ctaLabel ?? 'View details'}
+      </a>
+      <a class="text-sm font-semibold text-text-secondary transition hover:text-primary dark:text-text-secondary dark:hover:text-primary" href={`/appointment?service=${service.data.slug}`}>
+        Book now →
+      </a>
+    </div>
+  </div>
+</article>

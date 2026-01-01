@@ -1,0 +1,14 @@
+{
+  "name": "Essential Grooming",
+  "slug": "essential-grooming",
+  "price": "$35",
+  "duration": "30 min",
+  "description": "Classic haircut, neck cleanup, and quick styling consult for day-to-day polish.",
+  "features": [
+    "Precision shear or clipper cut with tailored finish",
+    "Steam towel neck cleanup between visits",
+    "Styling product recommendation to take home"
+  ],
+  "ctaLabel": "Book Essential",
+  "ctaHref": "/appointment?service=classic-cuts-fades"
+}

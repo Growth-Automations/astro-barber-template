@@ -1,0 +1,96 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { resolveAsset } from '../../lib/assets';
+
+export interface Props {
+  entries: CollectionEntry<'portfolio'>[];
+  eyebrow?: string;
+  heading: string;
+  subheading?: string;
+  patternWord?: string;
+  cta?: {
+    label: string;
+    href: string;
+  };
+}
+
+const props = Astro.props as Props;
+const processedEntries = props.entries.map((entry) => ({
+  entry,
+  thumbnail: resolveAsset(entry.data.thumbnail.src)
+}));
+const bgImage = resolveAsset('~/assets/images/photos/barber_stylish_haircut.jpg');
+---
+
+<section class="relative overflow-hidden bg-surface-alt py-24 dark:bg-background">
+  {/* Background image with barber performing stylish haircut in modern barbershop */}
+  <div class="absolute inset-0 h-full w-full">
+    <img
+      class="h-full w-full object-cover object-center opacity-20 dark:opacity-30"
+      src={bgImage}
+      alt="Barber performing stylish haircut in modern well-lit barbershop"
+      loading="lazy"
+    />
+  </div>
+
+  {/* Transparent overlays for content separation */}
+  <div class="pointer-events-none absolute inset-0">
+    {/* Light mode: dark overlay */}
+    <div class="absolute inset-0 bg-background/30 dark:hidden" />
+    {/* Dark mode: light overlay */}
+    <div class="absolute inset-0 hidden bg-white/25 dark:block" />
+
+    {/* Decorative circles */}
+    <div class="absolute -left-10 bottom-12 h-28 w-28 rounded-full border border-border/10 dark:border-white/10" />
+    <div class="absolute right-10 top-10 h-24 w-24 rounded-full border border-border/10 dark:border-white/10" />
+  </div>
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl space-y-6 text-center">
+      {props.eyebrow && (
+        <p class="text-xs font-semibold uppercase tracking-[0.45em] text-secondary dark:text-secondary">{props.eyebrow}</p>
+      )}
+      <h2 class="text-3xl font-semibold tracking-tight text-text-primary dark:text-text-primary md:text-4xl">
+        {props.heading}
+      </h2>
+      {props.subheading && <p class="text-lg text-text-secondary dark:text-text-secondary">{props.subheading}</p>}
+      {props.cta && (
+        <div class="pt-2">
+          <a class="btn btn-primary" href={props.cta.href}>
+            {props.cta.label}
+          </a>
+        </div>
+      )}
+    </div>
+    <div class="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {processedEntries.map(({ entry, thumbnail }) => (
+        <article class="group relative overflow-hidden rounded-[32px] border-2 border-border dark:border-border bg-white dark:bg-white shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30">
+          <div class="relative aspect-[4/3] overflow-hidden">
+            <img
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+              src={thumbnail}
+              alt={entry.data.thumbnail.alt}
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-background/70 via-surface/30 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-80" />
+            {entry.data.category && (
+              <span class="absolute left-6 top-6 inline-flex items-center rounded-full border border-white/50 bg-black/50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-white backdrop-blur-sm transition-all duration-300 group-hover:border-primary/70 group-hover:bg-primary/40">
+                {entry.data.category}
+              </span>
+            )}
+          </div>
+          <div class="flex flex-col gap-4 p-8 text-center">
+            <div class="space-y-3">
+              <h3 class="text-xl font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary">{entry.data.title}</h3>
+              <p class="text-sm font-semibold leading-relaxed text-text-primary transition-colors duration-500 group-hover:text-primary">{entry.data.summary}</p>
+            </div>
+            <div class="mt-2 flex items-center justify-center gap-2 text-sm font-semibold text-primary transition-all duration-500 group-hover:gap-3 group-hover:text-primary-dark">
+              <span>View project</span>
+              <span aria-hidden="true" class="transition-transform duration-500 group-hover:translate-x-1">→</span>
+            </div>
+            <a class="absolute inset-0" href={`/portfolio/${entry.data.slug}`} aria-label={`View ${entry.data.title}`} />
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

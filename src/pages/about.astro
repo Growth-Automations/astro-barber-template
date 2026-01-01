@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import TeamRoster from '../components/sections/TeamRoster.astro';
+import ValuesTimeline from '../components/sections/ValuesTimeline.astro';
+import { getEntry, getCollection } from 'astro:content';
+import { resolveAsset } from '../lib/assets';
+
+const page = await getEntry('pages', 'about');
+const { Content } = await page.render();
+const team = await getCollection('team');
+const timeline = await getCollection('timeline');
+const bgImage = resolveAsset('~/assets/images/photos/barber_services_1.jpg');
+---
+
+<BaseLayout title={page.data.seo.title} description={page.data.seo.description}>
+  {page.data.hero && <PageHero {...page.data.hero} />}
+  <section class="relative overflow-hidden bg-white dark:bg-background">
+    <!-- Full-width background image: barbershop tools - MUCH MORE VISIBLE -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src={bgImage}
+        alt=""
+        class="w-full h-full object-cover object-center opacity-30 dark:opacity-25"
+        aria-hidden="true"
+      />
+    </div>
+
+    <!-- STRONG overlay for excellent text contrast -->
+    <div class="absolute inset-0 z-[1] bg-white/60 dark:bg-background/70"></div>
+
+    <!-- Content Container -->
+    <div class="relative z-10 mx-auto max-w-4xl px-6 py-20 sm:px-8 sm:py-24 lg:py-28">
+      <!-- Rounded container with balanced padding -->
+      <div class="bg-white/85 dark:bg-background/75 backdrop-blur-sm rounded-2xl px-8 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20 shadow-md">
+        <div class="prose prose-lg prose-neutral dark:prose-invert max-w-none
+                    [&>p]:leading-[1.85] [&>p]:mb-6 [&>p]:tracking-normal
+                    [&>p:first-of-type]:text-xl [&>p:first-of-type]:font-semibold
+                    [&>p:first-of-type]:text-black dark:[&>p:first-of-type]:text-white
+                    [&>p:not(:first-of-type)]:text-text-primary dark:[&>p:not(:first-of-type)]:text-text-primary
+                    [&>p:not(:first-of-type)]:font-medium
+                    [&>ul]:my-8 [&>ul]:space-y-4 [&>ul]:pl-1
+                    [&>ul>li]:text-text-primary dark:[&>ul>li]:text-text-primary
+                    [&>ul>li]:leading-[1.8] [&>ul>li]:font-medium
+                    [&>ul>li::marker]:text-primary [&>ul>li::marker]:text-base
+                    [&>p>a]:text-primary dark:[&>p>a]:text-primary-light
+                    [&>p>a]:font-bold
+                    [&>p>a]:no-underline [&>p>a]:border-b-2 [&>p>a]:border-primary/50
+                    [&>p>a:hover]:border-primary [&>p>a:hover]:text-primary-dark
+                    dark:[&>p>a:hover]:text-primary
+                    [&>p>a]:transition-all [&>p>a]:duration-200">
+          <Content />
+        </div>
+      </div>
+    </div>
+  </section>
+  {team.length > 0 && (
+    <TeamRoster
+      team={team}
+      eyebrow="Meet the artisans"
+      heading="The GrowthAutomations Collective"
+      subheading="Barbers, colorists, and concierge stylists combining precision technique with memorable hospitality."
+    />
+  )}
+  {timeline.length > 0 && (
+    <ValuesTimeline
+      entries={timeline}
+      eyebrow="Our heritage"
+      heading="Built through community and craft"
+      subheading="A decade of refining rituals, expanding our lounge experiences, and investing in the people we serve."
+    />
+  )}
+</BaseLayout>

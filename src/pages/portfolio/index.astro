@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PortfolioGrid from '../../components/sections/PortfolioGrid.astro';
+import { getCollection } from 'astro:content';
+
+const portfolio = await getCollection('portfolio');
+const featured = portfolio.filter((entry) => entry.data.featured);
+const rest = portfolio.filter((entry) => !entry.data.featured);
+const orderedEntries = [...featured, ...rest];
+---
+
+<BaseLayout title="Portfolio" description="Explore recent GrowthAutomations Barbershop cuts, color, and concierge lounge activations.">
+  <PortfolioGrid
+    entries={orderedEntries}
+    eyebrow="GrowthAutomations portfolio"
+    heading="Cuts, color, and concierge grooming that stand out"
+    subheading="From editorial fades to five-chair wedding lounges, every project is tailored to the client, the moment, and the camera."
+    patternWord="CRAFT"
+  />
+</BaseLayout>

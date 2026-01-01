@@ -1,0 +1,14 @@
+{
+  "name": "Buzz Fademan",
+  "role": "Grooming Concierge",
+  "bio": "Buzz coordinates on-location lounges and multi-chair activations for weddings and corporate events. He developed our client intake workflow that keeps the shop running at 98% on-time appointments.",
+  "specialty": "Event logistics & guest experience",
+  "image": {
+    "src": "~/assets/images/photos/jordan-lee.jpg",
+    "alt": "Professional portrait of Buzz Fademan, Grooming Concierge."
+  },
+  "socials": [
+    { "label": "LinkedIn", "href": "https://linkedin.com/company/growthautomations" },
+    { "label": "Instagram", "href": "https://instagram.com/growthautomations" }
+  ]
+}

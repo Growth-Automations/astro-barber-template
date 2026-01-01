@@ -1,0 +1,12 @@
+{
+  "name": "Modern Textured Fade",
+  "slug": "modern-textured-fade",
+  "description": "A contemporary take on the classic fade with textured top styling. Perfect for professionals who want a sharp, polished look that holds all day.",
+  "image": {
+    "src": "~/assets/images/photos/featured_modern_fade.jpg",
+    "alt": "Barber creating modern textured fade with clipper blending technique"
+  },
+  "featured": true,
+  "category": "Fades",
+  "bookingLink": "/appointment?service=classic-cuts-fades"
+}

@@ -1,0 +1,31 @@
+---
+interface Highlight {
+  title: string;
+  description: string;
+}
+
+export interface Props {
+  heading: string;
+  body: string;
+  highlights: Highlight[];
+}
+
+const { heading, body, highlights } = Astro.props as Props;
+---
+
+<section class="bg-white">
+  <div class="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="max-w-2xl space-y-4">
+      <h2 class="text-3xl font-semibold text-text-primary md:text-4xl">{heading}</h2>
+      <p class="text-lg text-text-secondary">{body}</p>
+    </div>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2">
+      {highlights.map((item) => (
+        <div class="rounded-lg border border-border bg-white p-6 shadow-sm">
+          <h3 class="text-lg font-semibold text-text-primary">{item.title}</h3>
+          <p class="mt-2 text-sm text-text-secondary">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,13 @@
+{
+  "title": "Grooming Mastery Workshop",
+  "slug": "grooming-workshop",
+  "description": "Quarterly workshops teaching men's grooming fundamentals, product selection, and at-home maintenance techniques. Think of it as a bootcamp, but for your beard.",
+  "date": "Quarterly",
+  "image": {
+    "src": "~/assets/images/photos/barber_events_2.jpg",
+    "alt": "Grooming workshop with barber teaching techniques"
+  },
+  "featured": true,
+  "ctaLabel": "View schedule",
+  "ctaHref": "/blog"
+}

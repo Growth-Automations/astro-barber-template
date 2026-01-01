@@ -1,0 +1,108 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { resolveAsset } from '../../lib/assets';
+
+export interface Props {
+  events: CollectionEntry<'events'>[];
+  eyebrow?: string;
+  heading?: string;
+  subheading?: string;
+  backgroundWord?: string;
+  cta?: { label: string; href: string };
+}
+
+const {
+  events,
+  eyebrow = 'Community',
+  heading = 'Our Community',
+  subheading = "See how we give back and build connections beyond the chair",
+  backgroundWord = 'COMMUNITY',
+  cta
+} = Astro.props as Props;
+const bgImage = resolveAsset('~/assets/images/photos/barber_lifestyle_3.jpg');
+---
+
+<section class="relative overflow-hidden bg-surface-alt py-24">
+  {/* Subtle transparent background with adaptive overlays */}
+  <div class="pointer-events-none absolute inset-0">
+    {/* Background image */}
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15" style={`background-image: url('${bgImage}')`} />
+
+    {/* Adaptive overlay */}
+    <div class="absolute inset-0 bg-gradient-to-br from-background/30 via-surface/25 to-background/35 dark:from-background/40 dark:via-surface/30 dark:to-background/45" />
+
+    {/* Decorative circles */}
+    <div class="absolute -left-10 bottom-12 h-28 w-28 rounded-full border border-border/10 dark:border-white/10" />
+    <div class="absolute right-10 top-10 h-24 w-24 rounded-full border border-border/10 dark:border-white/10" />
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col gap-6 text-center">
+      {eyebrow && <p class="text-xs font-semibold uppercase tracking-[0.45em] text-secondary dark:text-secondary">{eyebrow}</p>}
+      <div class="mx-auto max-w-3xl">
+        <h2 class="font-heading text-3xl font-bold tracking-tight text-text-primary dark:text-text-primary md:text-4xl lg:text-5xl">
+          {heading}
+        </h2>
+        {subheading && <p class="mt-4 text-lg font-medium text-text-secondary dark:text-text-secondary">{subheading}</p>}
+      </div>
+    </div>
+
+    <div class="mt-16 grid gap-8 md:grid-cols-3">
+      {events.map((event, index) => {
+        const imageSrc = resolveAsset(event.data.image.src);
+        const ctaHref = event.data.ctaHref || '/about';
+        const ctaLabel = event.data.ctaLabel || 'Learn more';
+
+        return (
+          <article class="group relative flex min-h-[540px] flex-col overflow-hidden rounded-[32px] border-2 border-border dark:border-border bg-white dark:bg-white shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30">
+            <div class="relative aspect-[4/3] overflow-hidden">
+              <img
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                src={imageSrc}
+                alt={event.data.image.alt}
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-surface/30 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-70 dark:from-black/80 dark:via-black/30" />
+              {event.data.date && (
+                <div class="absolute left-4 top-4 rounded-full border border-primary/40 bg-primary/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-primary backdrop-blur-sm transition-all duration-300 group-hover:scale-105 dark:border-primary/50 dark:bg-primary/25">
+                  {event.data.date}
+                </div>
+              )}
+            </div>
+
+            <div class="flex flex-1 flex-col p-8">
+              <div class="mb-4 flex items-center gap-3">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-primary/30 bg-primary/15 text-sm font-bold text-primary transition-all duration-500 group-hover:scale-110 group-hover:border-primary/50 group-hover:bg-primary/25">
+                  {(index + 1).toString().padStart(2, '0')}
+                </div>
+                <h3 class="text-xl font-bold text-text-primary transition-colors duration-500 group-hover:text-primary">
+                  {event.data.title}
+                </h3>
+              </div>
+
+              <p class="mb-6 flex-1 text-sm leading-relaxed text-text-secondary transition-colors duration-500 group-hover:text-primary">{event.data.description}</p>
+
+              <a
+                href={ctaHref}
+                class="inline-flex items-center justify-center gap-2 self-start rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white shadow-md shadow-primary/30 transition-all duration-500 hover:scale-[1.05] hover:gap-3 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/40"
+              >
+                {ctaLabel} →
+              </a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    {cta && (
+      <div class="mt-12 text-center">
+        <a
+          href={cta.href}
+          class="btn btn-primary"
+        >
+          {cta.label}
+        </a>
+      </div>
+    )}
+  </div>
+</section>

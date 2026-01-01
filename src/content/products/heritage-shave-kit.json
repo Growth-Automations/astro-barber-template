@@ -1,0 +1,12 @@
+{
+  "title": "Premium Shave Kit",
+  "slug": "heritage-shave-kit",
+  "price": "$68",
+  "description": "Safety razor set with badger brush, travel tin soap, and our signature post-shave balm for glassy finishes. Everything you need in one kit.",
+  "image": {
+    "src": "~/assets/images/photos/about-team.jpg",
+    "alt": "Shave kit laid out on a towel with straight razor and brush."
+  },
+  "tags": ["shave", "kit"],
+  "featured": false
+}

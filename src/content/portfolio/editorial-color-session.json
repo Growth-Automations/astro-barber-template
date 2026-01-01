@@ -1,0 +1,32 @@
+{
+  "title": "Editorial Color Session",
+  "slug": "editorial-color-session",
+  "summary": "Creative pastel undercut with color blocking for a fashion editorial spread.",
+  "description": "We layered a muted lavender base with strategic color blocking that reads bold on camera but subtle in daylight. No breaking changes to the client's professional appearance. Custom purple shampoo regimen included.",
+  "category": "Color Lab",
+  "featured": false,
+  "thumbnail": {
+    "src": "~/assets/images/photos/editorial-color-styling.jpg",
+    "alt": "Creative pastel undercut with color-blocked styling."
+  },
+  "gallery": [
+    {
+      "src": "~/assets/images/photos/service-mobile.jpg",
+      "alt": "Blow-drying the finished editorial color."
+    }
+  ],
+  "results": [
+    {
+      "label": "Session length",
+      "value": "3 hrs"
+    },
+    {
+      "label": "Tone refresh",
+      "value": "6 weeks"
+    },
+    {
+      "label": "Looks captured",
+      "value": "4 setups"
+    }
+  ]
+}

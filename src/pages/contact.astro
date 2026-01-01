@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import AppointmentForm from '../components/sections/AppointmentForm.astro';
+import ContactInfo from '../components/sections/ContactInfo.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import { getEntry, getCollection } from 'astro:content';
+import { getSiteSettings } from '../lib/site';
+
+const page = await getEntry('pages', 'contact');
+const { Content } = await page.render();
+const settings = await getSiteSettings();
+const services = await getCollection('services');
+const faqs = await getCollection('faqs');
+const bookingFaqs = faqs.filter((faq) =>
+  !faq.data.category ? true : ['scheduling', 'booking', 'appointments'].includes(faq.data.category.toLowerCase())
+);
+---
+
+<BaseLayout title={page.data.seo.title} description={page.data.seo.description}>
+  {page.data.hero && <PageHero {...page.data.hero} />}
+  <section class="bg-white">
+    <div class="mx-auto max-w-3xl px-4 py-16 prose prose-neutral sm:px-6">
+      <Content />
+    </div>
+  </section>
+  <ContactInfo
+    settings={settings}
+    eyebrow="Contact"
+    heading="Ready when you are"
+    subheading="Call, message, or visit the GrowthAutomations lounge — concierge will help you plan the perfect ritual."
+  />
+  <AppointmentForm
+    eyebrow="Book your chair"
+    heading="Reserve an appointment in minutes"
+    subheading="Share the service, date, and any styling notes. We’ll confirm within one business day."
+    serviceOptions={services.map((service) => ({ label: service.data.title, value: service.data.slug }))}
+    disclaimer="Submitting this form starts the scheduling process. Our concierge team will follow up to lock in time, barber, and payment details."
+  />
+  {bookingFaqs.length > 0 && (
+    <FAQAccordion
+      faqs={bookingFaqs}
+      eyebrow="FAQ"
+      heading="Booking & scheduling questions"
+      subheading="Answers about memberships, cancellations, and on-location lounge requests."
+    />
+  )}
+</BaseLayout>
