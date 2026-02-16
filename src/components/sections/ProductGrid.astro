@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import ProductCard from './ProductCard.astro';
-import { resolveAsset } from '../../lib/assets';
+
 
 export interface Props {
   products: CollectionEntry<'products'>[];
@@ -13,31 +13,17 @@ export interface Props {
 
 const props = Astro.props as Props;
 const ordered = [...props.products].sort((a, b) => a.data.title.localeCompare(b.data.title));
-const bgImage = resolveAsset('~/assets/images/photos/barber_retail_1.jpg');
 ---
 
 <section class="relative overflow-hidden bg-surface-alt py-24">
-  {/* Subtle transparent background with adaptive overlays */}
-  <div class="pointer-events-none absolute inset-0">
-    {/* Background image */}
-    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15" style={`background-image: url('${bgImage}')`} />
-
-    {/* Adaptive overlay */}
-    <div class="absolute inset-0 bg-gradient-to-br from-background/30 via-surface/25 to-background/35 dark:from-background/40 dark:via-surface/30 dark:to-background/45" />
-
-    {/* Decorative circles */}
-    <div class="absolute -left-10 bottom-12 h-28 w-28 rounded-full border border-border/10 dark:border-white/10" />
-    <div class="absolute right-10 top-10 h-24 w-24 rounded-full border border-border/10 dark:border-white/10" />
-  </div>
-
-  <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div class="max-w-3xl space-y-3 text-center md:text-left">
         {props.eyebrow && (
-          <p class="text-xs font-semibold uppercase tracking-[0.45em] text-secondary dark:text-secondary">{props.eyebrow}</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.45em] text-secondary">{props.eyebrow}</p>
         )}
-        <h2 class="font-heading text-3xl font-bold tracking-tight text-text-primary dark:text-text-primary md:text-4xl lg:text-5xl">{props.heading}</h2>
-        {props.subheading && <p class="text-lg font-medium text-text-secondary dark:text-text-secondary">{props.subheading}</p>}
+        <h2 class="font-heading text-3xl font-bold tracking-tight text-text md:text-4xl lg:text-5xl">{props.heading}</h2>
+        {props.subheading && <p class="text-lg font-medium text-text-secondary">{props.subheading}</p>}
       </div>
       {props.cta && (
         <a class="btn btn-primary self-center md:self-auto" href={props.cta.href}>

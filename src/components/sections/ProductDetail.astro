@@ -1,16 +1,16 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { resolveAsset } from '../../lib/assets';
+import { resolveImage } from '../../lib/resolve-image';
 
 export interface Props {
   product: CollectionEntry<'products'>;
 }
 
 const { product } = Astro.props as Props;
-const mainImage = product.data.image ? resolveAsset(product.data.image.src) : undefined;
+const mainImage = resolveImage(product.data.image?.src);
 const gallery = product.data.gallery?.map((image) => ({
   alt: image.alt,
-  src: resolveAsset(image.src)
+  src: resolveImage(image.src)
 }));
 ---
 
@@ -31,10 +31,10 @@ const gallery = product.data.gallery?.map((image) => ({
       </div>
     )}
   </div>
-  <div class="space-y-6 rounded-[32px] border border-white/10 bg-white/5 p-8 text-text-primary backdrop-blur">
+  <div class="space-y-6 rounded-[32px] border border-white/10 bg-white/5 p-8 text-text backdrop-blur">
     <div class="space-y-3">
       <p class="text-xs font-semibold uppercase tracking-[0.35em] text-secondary">Retail</p>
-      <h1 class="text-4xl font-semibold text-white md:text-5xl">{product.data.title}</h1>
+      <h1 class="text-4xl font-semibold text-text md:text-5xl">{product.data.title}</h1>
       <div class="text-2xl font-semibold text-primary">{product.data.price}</div>
       <p class="text-lg text-text-secondary">{product.data.description}</p>
     </div>

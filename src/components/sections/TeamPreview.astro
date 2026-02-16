@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { resolveAsset } from '../../lib/assets';
+import { resolveImage } from '../../lib/resolve-image';
+
 
 export interface Props {
   team: CollectionEntry<'team'>[];
@@ -21,27 +22,13 @@ const {
 } = Astro.props as Props;
 
 const displayTeam = limit ? team.slice(0, limit) : team;
-const bgImage = resolveAsset('~/assets/images/photos/barber_lifestyle_2.jpg');
 ---
 
-<section class="relative overflow-hidden bg-surface-alt py-24">
-  {/* Subtle transparent background with adaptive overlays */}
-  <div class="pointer-events-none absolute inset-0">
-    {/* Background image */}
-    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15" style={`background-image: url('${bgImage}')`} />
-
-    {/* Adaptive overlay */}
-    <div class="absolute inset-0 bg-gradient-to-br from-background/30 via-surface/25 to-background/35" />
-
-    {/* Decorative circles */}
-    <div class="absolute -left-10 bottom-12 h-28 w-28 rounded-full border border-white/10" />
-    <div class="absolute right-10 top-10 h-24 w-24 rounded-full border border-white/10" />
-  </div>
-
-  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section class="relative overflow-hidden bg-background py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-3xl space-y-6 text-center">
       {eyebrow && <p class="text-xs font-semibold uppercase tracking-[0.45em] text-accent">{eyebrow}</p>}
-      <h2 class="font-heading text-3xl font-bold tracking-tight text-text-primary md:text-4xl lg:text-5xl">
+      <h2 class="font-heading text-3xl font-bold tracking-tight text-text md:text-4xl lg:text-5xl">
         {heading}
       </h2>
       {subheading && <p class="text-lg font-medium text-text-secondary">{subheading}</p>}
@@ -49,7 +36,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_lifestyle_2.jpg');
 
     <div class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
       {displayTeam.map((member) => {
-        const imageSrc = member.data.image ? resolveAsset(member.data.image.src) : undefined;
+        const imageSrc = resolveImage(member.data.image?.src);
 
         return (
           <article class="group relative flex flex-col overflow-hidden rounded-3xl border-2 border-border bg-surface shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30">
@@ -67,7 +54,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_lifestyle_2.jpg');
 
             <div class={`flex flex-col gap-4 p-6 ${!imageSrc ? 'flex-1' : ''}`}>
               <div>
-                <h3 class="text-xl font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary">
+                <h3 class="text-xl font-semibold text-text transition-colors duration-500 group-hover:text-primary">
                   {member.data.name}
                 </h3>
                 <p class="mt-1 text-sm font-medium uppercase tracking-[0.3em] text-text-secondary transition-colors duration-500 group-hover:text-primary">

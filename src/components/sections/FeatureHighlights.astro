@@ -1,5 +1,9 @@
 ---
-import { resolveAsset } from '../../lib/assets';
+
+import lifestylePhoto2 from '../../assets/images/photos/barber_lifestyle_2.jpg';
+import consultationClientPhoto from '../../assets/images/photos/barber_consultation_client.jpg';
+import membershipVipPhoto from '../../assets/images/photos/barber_membership_vip.jpg';
+import onlocationEventPhoto from '../../assets/images/photos/barber_onlocation_event.jpg';
 
 export interface Highlight {
   eyebrow?: string;
@@ -18,7 +22,6 @@ export interface Props {
 
 const props = Astro.props as Props;
 const backgroundWord = props.backgroundWord ?? 'FEATURES';
-const bgImage = resolveAsset('~/assets/images/photos/barber_styling_client.jpg');
 
 // Icon map for modern, clear line icons
 const iconMap: Record<string, string> = {
@@ -45,13 +48,13 @@ function getIconPath(iconKey?: string): string {
   return iconMap[iconKey.toLowerCase()] || iconMap['star'];
 }
 
-// Background image map for each card type - resolve all paths
-const defaultCardImage = resolveAsset('~/assets/images/photos/barber_lifestyle_2.jpg');
+// Background image map for each card type
+const defaultCardImage = lifestylePhoto2.src;
 const cardImageMap: Record<string, string> = {
-  'consultation': resolveAsset('~/assets/images/photos/barber_consultation_client.jpg'),
-  'membership': resolveAsset('~/assets/images/photos/barber_membership_vip.jpg'),
-  'concierge': resolveAsset('~/assets/images/photos/barber_onlocation_event.jpg'),
-  'location': resolveAsset('~/assets/images/photos/barber_onlocation_event.jpg'),
+  'consultation': consultationClientPhoto.src,
+  'membership': membershipVipPhoto.src,
+  'concierge': onlocationEventPhoto.src,
+  'location': onlocationEventPhoto.src,
 };
 
 function getCardImage(iconKey?: string): string {
@@ -60,32 +63,10 @@ function getCardImage(iconKey?: string): string {
 }
 ---
 
-<section class="relative overflow-hidden bg-surface-alt py-32 dark:bg-background">
-  <!-- Background image with modern barber shop vibe -->
-  <div class="absolute inset-0 h-full w-full">
-    <img
-      class="h-full w-full object-cover object-center opacity-20 dark:opacity-30"
-      src={bgImage}
-      alt="Barber styling a client in a modern grooming lounge"
-      loading="lazy"
-    />
-  </div>
-
-  <!-- Transparent overlays for content separation -->
-  <div class="pointer-events-none absolute inset-0">
-    <!-- Light mode: 25% dark overlay -->
-    <div class="absolute inset-0 bg-background/25 dark:hidden" />
-    <!-- Dark mode: 30% light overlay -->
-    <div class="absolute inset-0 hidden bg-white/30 dark:block" />
-
-    <!-- Background text watermark -->
-    <div class="absolute left-1/2 top-1/4 -translate-x-1/2 text-[16vw] font-semibold uppercase tracking-[0.3em] text-text-primary/5 dark:text-white/5 md:text-[12rem]">
-      {backgroundWord}
-    </div>
-
-    <!-- Decorative gradients for depth -->
-    <div class="absolute -right-24 top-16 h-[32rem] w-[32rem] rounded-full bg-primary/8 blur-[140px] dark:bg-primary/12" />
-    <div class="absolute -left-24 bottom-16 h-[32rem] w-[32rem] rounded-full bg-secondary/8 blur-[140px] dark:bg-secondary/12" />
+<section class="relative overflow-hidden bg-surface-alt py-32">
+  <!-- Background text watermark -->
+  <div class="pointer-events-none absolute left-1/2 top-1/4 -translate-x-1/2 text-[16vw] font-semibold uppercase tracking-[0.3em] text-text/5 dark:text-white/5 md:text-[12rem]">
+    {backgroundWord}
   </div>
 
   <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -96,11 +77,11 @@ function getCardImage(iconKey?: string): string {
           {props.eyebrow}
         </p>
       )}
-      <h2 class="mt-6 font-heading text-4xl font-bold tracking-tight text-text-primary dark:text-white md:text-5xl">
+      <h2 class="mt-6 font-heading text-4xl font-bold tracking-tight text-text md:text-5xl">
         {props.heading}
       </h2>
       {props.description && (
-        <p class="mt-6 text-lg leading-relaxed text-text-secondary dark:text-text-secondary">
+        <p class="mt-6 text-lg leading-relaxed text-text-secondary">
           {props.description}
         </p>
       )}
@@ -109,7 +90,7 @@ function getCardImage(iconKey?: string): string {
     <!-- Feature Cards - Three Distinct, Evenly Spaced Cards -->
     <div class="mt-24 grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-10">
       {props.highlights.map((item) => (
-        <article class="feature-card group relative flex min-h-[480px] flex-col items-center justify-center overflow-hidden rounded-[2rem] border-2 border-border dark:border-border bg-white dark:bg-white px-10 py-14 text-center shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30">
+        <article class="feature-card group relative flex min-h-[480px] flex-col items-center justify-center overflow-hidden rounded-[2rem] border-2 border-border bg-surface px-10 py-14 text-center shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30">
           <!-- Card background image -->
           <div class="absolute inset-0 h-full w-full">
             <img
@@ -145,7 +126,7 @@ function getCardImage(iconKey?: string): string {
             </svg>
 
             <!-- Heading -->
-            <h3 class="font-heading text-2xl font-bold leading-tight tracking-tight text-white drop-shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:text-primary dark:text-white">
+            <h3 class="font-heading text-2xl font-bold leading-tight tracking-tight text-white drop-shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:text-primary">
               {item.title}
             </h3>
 

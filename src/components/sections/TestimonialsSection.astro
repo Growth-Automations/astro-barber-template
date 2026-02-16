@@ -9,18 +9,18 @@ export interface Props {
 const props = Astro.props as Props;
 ---
 
-<section class="bg-white">
+<section class="bg-surface">
   <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="max-w-3xl">
-      <h2 class="text-3xl font-semibold text-text-primary md:text-4xl">
+      <h2 class="text-3xl font-semibold text-text md:text-4xl">
         {props.heading ?? 'Feedback from local partners'}
       </h2>
     </div>
     <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {props.testimonials.map((entry) => (
-        <figure class="group flex h-full flex-col gap-4 rounded-xl border-2 border-border dark:border-border bg-white dark:bg-white p-6 shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30">
+        <figure class="group flex h-full flex-col gap-4 rounded-xl border-2 border-border bg-surface p-6 shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30">
           <blockquote class="text-text-secondary transition-colors duration-500 group-hover:text-primary">"{entry.data.quote}"</blockquote>
-          <figcaption class="mt-auto text-sm font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary">
+          <figcaption class="mt-auto text-sm font-semibold text-text transition-colors duration-500 group-hover:text-primary">
             {entry.data.name}
             {entry.data.company && <span class="block text-xs font-normal text-text-secondary transition-colors duration-500 group-hover:text-primary">{entry.data.company}</span>}
           </figcaption>

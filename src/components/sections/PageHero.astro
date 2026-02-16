@@ -11,7 +11,7 @@ export interface HeroProps {
 const hero = Astro.props as HeroProps;
 ---
 
-<section class="bg-background text-text-primary">
+<section class="bg-background text-text">
   <div class="mx-auto grid max-w-5xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
     <div class="space-y-4">
       {hero.eyebrow && <p class="text-xs font-semibold uppercase tracking-[0.3em] text-secondary">{hero.eyebrow}</p>}

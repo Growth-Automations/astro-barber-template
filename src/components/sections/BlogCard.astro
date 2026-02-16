@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { resolveAsset } from '../../lib/assets';
+import { resolveImage } from '../../lib/resolve-image';
 
 export interface Props {
   entry: CollectionEntry<'blog'>;
@@ -8,7 +8,7 @@ export interface Props {
 }
 
 const { entry, compact = false } = Astro.props as Props;
-const imageSrc = entry.data.image ? resolveAsset(entry.data.image.src) : undefined;
+const imageSrc = resolveImage(entry.data.image?.src);
 const date = new Date(entry.data.publishedAt).toLocaleDateString('en-US', {
   month: 'short',
   day: 'numeric',
@@ -16,7 +16,7 @@ const date = new Date(entry.data.publishedAt).toLocaleDateString('en-US', {
 });
 ---
 
-<article class={`group relative flex h-full min-h-[480px] flex-col overflow-hidden rounded-[32px] border-2 border-border dark:border-border bg-white dark:bg-white shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30 ${compact ? '' : ''}`}>
+<article class={`group relative flex h-full min-h-[480px] flex-col overflow-hidden rounded-[32px] border-2 border-border bg-surface shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30 ${compact ? '' : ''}`}>
   {imageSrc && (
     <div class="relative aspect-[4/3] overflow-hidden">
       <img class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" src={imageSrc} alt={entry.data.image?.alt ?? entry.data.title} loading="lazy" />
@@ -28,14 +28,14 @@ const date = new Date(entry.data.publishedAt).toLocaleDateString('en-US', {
   )}
   <div class="flex flex-1 flex-col gap-4 p-8">
     <div class="flex flex-1 flex-col space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-text-primary transition-colors duration-500 group-hover:text-primary">{date}</p>
-      <h3 class="text-xl font-bold text-text-primary transition-colors duration-500 group-hover:text-primary">{entry.data.title}</h3>
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-text transition-colors duration-500 group-hover:text-primary">{date}</p>
+      <h3 class="text-xl font-bold text-text transition-colors duration-500 group-hover:text-primary">{entry.data.title}</h3>
       <p class="text-sm leading-relaxed text-text-secondary transition-colors duration-500 group-hover:text-primary">{entry.data.excerpt}</p>
     </div>
     <div class="mt-auto flex items-center justify-between text-sm font-semibold text-primary transition-all duration-500 group-hover:gap-2">
       <span>Read article</span>
       <span class="transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true">→</span>
     </div>
-    <a class="absolute inset-0" href={`/blog/${entry.slug}`} aria-label={`Read ${entry.data.title}`} />
+    <a class="absolute inset-0" href={`/blog/${entry.id}`} aria-label={`Read ${entry.data.title}`} />
   </div>
 </article>

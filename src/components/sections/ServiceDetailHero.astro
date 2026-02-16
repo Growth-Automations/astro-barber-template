@@ -1,5 +1,5 @@
 ---
-import { resolveAsset } from '../../lib/assets';
+import { resolveImage } from '../../lib/resolve-image';
 
 export interface CallToAction {
   label: string;
@@ -25,10 +25,10 @@ export interface ServiceDetailHeroProps {
 }
 
 const props = Astro.props as ServiceDetailHeroProps;
-const heroImage = props.image ? resolveAsset(props.image.src) : undefined;
+const heroImage = resolveImage(props.image?.src);
 ---
 
-<section class="relative overflow-hidden bg-background text-text-primary">
+<section class="relative overflow-hidden bg-background text-text">
   <div class="absolute inset-0">
     <div class="absolute inset-0 bg-gradient-to-b from-background via-surface/95 to-background" />
     <div class="pointer-events-none absolute -top-32 right-16 h-80 w-80 rounded-full border border-white/10 blur-lg" />
@@ -42,7 +42,7 @@ const heroImage = props.image ? resolveAsset(props.image.src) : undefined;
       {props.category && (
         <p class="text-[0.7rem] font-semibold uppercase tracking-[0.35em] text-text-muted">{props.category}</p>
       )}
-      <h1 class="text-4xl font-semibold tracking-tight text-white md:text-5xl">
+      <h1 class="text-4xl font-semibold tracking-tight text-text md:text-5xl">
         {props.title}
       </h1>
       <p class="max-w-xl text-lg text-text-secondary md:text-xl">{props.summary}</p>
@@ -51,17 +51,17 @@ const heroImage = props.image ? resolveAsset(props.image.src) : undefined;
           {props.duration && (
             <div>
               <dt class="text-[0.65rem] uppercase tracking-[0.35em] text-text-muted">Duration</dt>
-              <dd class="mt-1 text-lg font-semibold text-white">{props.duration}</dd>
+              <dd class="mt-1 text-lg font-semibold text-text">{props.duration}</dd>
             </div>
           )}
           {props.price && (
             <div>
               <dt class="text-[0.65rem] uppercase tracking-[0.35em] text-text-muted">Investment</dt>
-              <dd class="mt-1 text-lg font-semibold text-white">{props.price}</dd>
+              <dd class="mt-1 text-lg font-semibold text-text">{props.price}</dd>
             </div>
           )}
           {props.highlight && (
-            <div class="sm:col-span-2 rounded-2xl border border-secondary/30 bg-secondary/10 px-4 py-3 text-sm text-text-primary">
+            <div class="sm:col-span-2 rounded-2xl border border-secondary/30 bg-secondary/10 px-4 py-3 text-sm text-text">
               {props.highlight}
             </div>
           )}
@@ -82,7 +82,7 @@ const heroImage = props.image ? resolveAsset(props.image.src) : undefined;
       <div class="relative overflow-hidden rounded-[32px] border border-white/10 bg-background shadow-2xl">
         <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
         <img class="h-full w-full object-cover" src={heroImage} alt={props.image?.alt ?? ''} loading="lazy" />
-        <div class="pointer-events-none absolute inset-x-10 bottom-10 rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-text-primary backdrop-blur">
+        <div class="pointer-events-none absolute inset-x-10 bottom-10 rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-text backdrop-blur">
           <p class="font-semibold uppercase tracking-[0.3em] text-secondary">Now Reserving</p>
           <p class="mt-2 text-text-secondary">
             {props.duration && props.price ? `${props.duration} • ${props.price}` : props.summary}

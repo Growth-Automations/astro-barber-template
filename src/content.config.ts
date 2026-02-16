@@ -1,12 +1,13 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const imageSchema = z.object({
   src: z.string(),
   alt: z.string()
 });
 
-const settingsCollection = defineCollection({
-  type: 'data',
+const settings = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/settings' }),
   schema: z.object({
     name: z.string(),
     tagline: z.string(),
@@ -31,8 +32,8 @@ const settingsCollection = defineCollection({
   })
 });
 
-const servicesCollection = defineCollection({
-  type: 'data',
+const services = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/services' }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -60,8 +61,8 @@ const servicesCollection = defineCollection({
   })
 });
 
-const pricingCollection = defineCollection({
-  type: 'data',
+const pricing = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/pricing' }),
   schema: z.object({
     name: z.string(),
     slug: z.string(),
@@ -76,8 +77,8 @@ const pricingCollection = defineCollection({
   })
 });
 
-const portfolioCollection = defineCollection({
-  type: 'data',
+const portfolio = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/portfolio' }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -91,8 +92,8 @@ const portfolioCollection = defineCollection({
   })
 });
 
-const teamCollection = defineCollection({
-  type: 'data',
+const team = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/team' }),
   schema: z.object({
     name: z.string(),
     role: z.string(),
@@ -103,8 +104,8 @@ const teamCollection = defineCollection({
   })
 });
 
-const timelineCollection = defineCollection({
-  type: 'data',
+const timeline = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/timeline' }),
   schema: z.object({
     year: z.string(),
     title: z.string(),
@@ -112,8 +113,8 @@ const timelineCollection = defineCollection({
   })
 });
 
-const testimonialsCollection = defineCollection({
-  type: 'data',
+const testimonials = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/testimonials' }),
   schema: z.object({
     name: z.string(),
     role: z.string().optional(),
@@ -123,8 +124,8 @@ const testimonialsCollection = defineCollection({
   })
 });
 
-const faqsCollection = defineCollection({
-  type: 'data',
+const faqs = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/faqs' }),
   schema: z.object({
     question: z.string(),
     answer: z.string(),
@@ -132,8 +133,8 @@ const faqsCollection = defineCollection({
   })
 });
 
-const pagesCollection = defineCollection({
-  type: 'content',
+const pages = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/pages' }),
   schema: ({ image }) =>
     z.object({
       seo: z.object({ title: z.string(), description: z.string() }),
@@ -149,22 +150,21 @@ const pagesCollection = defineCollection({
     })
 });
 
-const blogCollection = defineCollection({
-  type: 'content',
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      excerpt: z.string(),
-      publishedAt: z.string(),
-      category: z.string(),
-      image: imageSchema.optional(),
-      author: z.object({ name: z.string(), role: z.string().optional() }).optional(),
-      cta: z.object({ label: z.string(), href: z.string() }).optional()
-    })
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/blog' }),
+  schema: z.object({
+    title: z.string(),
+    excerpt: z.string(),
+    publishedAt: z.string(),
+    category: z.string(),
+    image: imageSchema.optional(),
+    author: z.object({ name: z.string(), role: z.string().optional() }).optional(),
+    cta: z.object({ label: z.string(), href: z.string() }).optional()
+  })
 });
 
-const productsCollection = defineCollection({
-  type: 'data',
+const products = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/products' }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -178,8 +178,8 @@ const productsCollection = defineCollection({
   })
 });
 
-const homeCollection = defineCollection({
-  type: 'data',
+const home = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/home' }),
   schema: z.object({
     hero: z.object({
       eyebrow: z.string().optional(),
@@ -250,8 +250,8 @@ const homeCollection = defineCollection({
   })
 });
 
-const featuredStylesCollection = defineCollection({
-  type: 'data',
+const featuredStyles = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/featured-styles' }),
   schema: z.object({
     name: z.string(),
     slug: z.string(),
@@ -263,8 +263,8 @@ const featuredStylesCollection = defineCollection({
   })
 });
 
-const eventsCollection = defineCollection({
-  type: 'data',
+const events = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/events' }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -277,8 +277,8 @@ const eventsCollection = defineCollection({
   })
 });
 
-const membershipTiersCollection = defineCollection({
-  type: 'data',
+const membershipTiers = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/membership-tiers' }),
   schema: z.object({
     name: z.string(),
     slug: z.string(),
@@ -292,19 +292,19 @@ const membershipTiersCollection = defineCollection({
 });
 
 export const collections = {
-  settings: settingsCollection,
-  services: servicesCollection,
-  pricing: pricingCollection,
-  portfolio: portfolioCollection,
-  team: teamCollection,
-  timeline: timelineCollection,
-  testimonials: testimonialsCollection,
-  faqs: faqsCollection,
-  pages: pagesCollection,
-  blog: blogCollection,
-  products: productsCollection,
-  home: homeCollection,
-  'featured-styles': featuredStylesCollection,
-  events: eventsCollection,
-  'membership-tiers': membershipTiersCollection
+  settings,
+  services,
+  pricing,
+  portfolio,
+  team,
+  timeline,
+  testimonials,
+  faqs,
+  pages,
+  blog,
+  products,
+  home,
+  'featured-styles': featuredStyles,
+  events,
+  'membership-tiers': membershipTiers
 };

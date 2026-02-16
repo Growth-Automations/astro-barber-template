@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { resolveAsset } from '../../lib/assets';
+import { resolveImage } from '../../lib/resolve-image';
 
 export interface Props {
   product: CollectionEntry<'products'>;
@@ -8,11 +8,11 @@ export interface Props {
 }
 
 const { product, highlight = false } = Astro.props as Props;
-const imageSrc = product.data.image ? resolveAsset(product.data.image.src) : undefined;
+const imageSrc = resolveImage(product.data.image?.src);
 ---
 
 <article
-  class="group relative flex h-full min-h-[520px] flex-col overflow-hidden rounded-[32px] border-2 border-border dark:border-border bg-white dark:bg-white shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30"
+  class="group relative flex h-full min-h-[520px] flex-col overflow-hidden rounded-[32px] border-2 border-border bg-surface shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30"
 >
   {imageSrc && (
     <div class="relative aspect-square overflow-hidden">
@@ -32,7 +32,7 @@ const imageSrc = product.data.image ? resolveAsset(product.data.image.src) : und
           {product.data.highlight}
         </span>
       )}
-      <h3 class="text-xl font-bold text-text-primary transition-colors duration-500 group-hover:text-primary">{product.data.title}</h3>
+      <h3 class="text-xl font-bold text-text transition-colors duration-500 group-hover:text-primary">{product.data.title}</h3>
       <p class="text-sm leading-relaxed text-text-secondary transition-colors duration-500 group-hover:text-primary">{product.data.description}</p>
     </div>
     <div class="mt-auto flex flex-wrap items-center justify-between gap-4 pt-4">

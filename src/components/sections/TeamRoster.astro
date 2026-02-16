@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { resolveAsset } from '../../lib/assets';
+import { resolveImage } from '../../lib/resolve-image';
+import servicesPhoto from '../../assets/images/photos/barber_services_1.jpg';
 
 export interface Props {
   team: CollectionEntry<'team'>[];
@@ -12,12 +13,12 @@ export interface Props {
 const props = Astro.props as Props;
 const members = props.team.map((entry) => ({
   entry,
-  photo: entry.data.image ? resolveAsset(entry.data.image.src) : undefined
+  photo: resolveImage(entry.data.image?.src)
 }));
-const bgImage = resolveAsset('~/assets/images/photos/barber_services_1.jpg');
+const bgImage = servicesPhoto.src;
 ---
 
-<section class="relative overflow-hidden bg-white dark:bg-background py-24 sm:py-28 lg:py-32">
+<section class="relative overflow-hidden bg-surface py-24 sm:py-28 lg:py-32">
   <!-- VISIBLE barbershop background image - much darker and clearer -->
   <div class="absolute inset-0 z-0">
     <img
@@ -30,7 +31,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_services_1.jpg');
   </div>
 
   <!-- STRONG overlay for crisp text readability -->
-  <div class="absolute inset-0 z-[1] bg-white/65 dark:bg-background/75"></div>
+  <div class="absolute inset-0 z-[1] bg-surface/65"></div>
 
   <!-- Subtle decorative accents -->
   <div class="pointer-events-none absolute inset-0 z-[2]">
@@ -41,19 +42,19 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_services_1.jpg');
   <div class="relative z-10 mx-auto max-w-6xl px-6 sm:px-8 lg:px-10">
     <div class="text-center mb-4">
       {props.eyebrow && (
-        <p class="text-xs font-bold uppercase tracking-[0.45em] text-secondary dark:text-secondary-light">{props.eyebrow}</p>
+        <p class="text-xs font-bold uppercase tracking-[0.45em] text-secondary">{props.eyebrow}</p>
       )}
-      <h2 class="mt-5 text-4xl font-bold text-black dark:text-white md:text-5xl lg:text-6xl">{props.heading}</h2>
-      {props.subheading && <p class="mt-5 text-xl font-semibold text-text-primary dark:text-text-primary leading-relaxed max-w-3xl mx-auto">{props.subheading}</p>}
+      <h2 class="mt-5 text-4xl font-bold text-text md:text-5xl lg:text-6xl">{props.heading}</h2>
+      {props.subheading && <p class="mt-5 text-xl font-semibold text-text leading-relaxed max-w-3xl mx-auto">{props.subheading}</p>}
     </div>
     <div class="mt-20 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
       {members.map(({ entry, photo }) => (
-        <article class="group relative overflow-hidden rounded-3xl border-2 border-border dark:border-border bg-white dark:bg-white p-8 text-center shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30">
-          <div class="mx-auto h-36 w-36 overflow-hidden rounded-full border-[3px] border-border dark:border-border bg-surface-alt dark:bg-surface shadow-lg ring-4 ring-white/50 dark:ring-background/50">
+        <article class="group relative overflow-hidden rounded-3xl border-2 border-border bg-surface p-8 text-center shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30">
+          <div class="mx-auto h-36 w-36 overflow-hidden rounded-full border-[3px] border-border bg-surface-alt shadow-lg ring-4 ring-surface/50">
             {photo ? (
               <img class="h-full w-full object-cover transition duration-500 group-hover:scale-110" src={photo} alt={entry.data.image?.alt ?? entry.data.name} loading="lazy" />
             ) : (
-              <div class="flex h-full w-full items-center justify-center text-3xl font-bold text-primary dark:text-primary-light">
+              <div class="flex h-full w-full items-center justify-center text-3xl font-bold text-primary">
                 {entry.data.name
                   .split(' ')
                   .map((part) => part[0])
@@ -63,9 +64,9 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_services_1.jpg');
             )}
           </div>
           <div class="mt-7 space-y-3">
-            <h3 class="text-xl font-bold text-text-primary transition-colors duration-500 group-hover:text-primary leading-tight">{entry.data.name}</h3>
+            <h3 class="text-xl font-bold text-text transition-colors duration-500 group-hover:text-primary leading-tight">{entry.data.name}</h3>
             <p class="text-xs text-primary uppercase tracking-[0.4em] font-bold transition-transform duration-500 group-hover:scale-110">{entry.data.role}</p>
-            <p class="text-sm font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary leading-[1.7] pt-2">{entry.data.bio}</p>
+            <p class="text-sm font-semibold text-text transition-colors duration-500 group-hover:text-primary leading-[1.7] pt-2">{entry.data.bio}</p>
             {entry.data.specialty && (
               <p class="mt-4 pt-2 text-xs font-bold uppercase tracking-[0.35em] text-text-secondary transition-colors duration-500 group-hover:text-primary">
                 {entry.data.specialty}
@@ -75,7 +76,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_services_1.jpg');
           {entry.data.socials && (
             <div class="mt-7 flex justify-center gap-3">
               {entry.data.socials.map((social) => (
-                <a class="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-border text-xs font-bold text-text-primary transition-all duration-500 hover:border-primary hover:text-primary hover:bg-primary/10 hover:scale-110" href={social.href}>
+                <a class="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-border text-xs font-bold text-text transition-all duration-500 hover:border-primary hover:text-primary hover:bg-primary/10 hover:scale-110" href={social.href}>
                   {social.label[0]}
                 </a>
               ))}

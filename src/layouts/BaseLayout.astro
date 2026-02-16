@@ -1,10 +1,9 @@
 ---
 import '../styles/global.css';
-import BrandTheme from '../components/layout/BrandTheme.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import { getSiteSettings } from '../lib/site';
-import { brand } from '../config/brand';
+import { siteConfig } from '../site.config';
 
 export interface Props {
   title: string;
@@ -12,21 +11,45 @@ export interface Props {
   canonical?: string;
 }
 
-const { title, description = brand.tagline, canonical } = Astro.props as Props;
+const { title, description = siteConfig.tagline, canonical } = Astro.props as Props;
 const settings = await getSiteSettings();
 const currentPath = Astro.url?.pathname ?? '/';
+const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site ?? 'https://growthautomations.com').href;
+const siteURL = Astro.site?.href ?? 'https://growthautomations.com';
+
+// Build LocalBusiness JSON-LD for homepage
+const localBusinessJsonLd = currentPath === '/' ? JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": settings.name,
+  "description": settings.description,
+  "url": siteURL,
+  "telephone": settings.contact.phone.value,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": settings.contact.address.line2
+      ? `${settings.contact.address.line1}, ${settings.contact.address.line2}`
+      : settings.contact.address.line1,
+    "addressLocality": settings.contact.address.city,
+    "addressRegion": settings.contact.address.state,
+    "postalCode": settings.contact.address.postalCode,
+    "addressCountry": "US"
+  },
+  "openingHours": settings.hours.map(h => `${h.label} ${h.value}`),
+  "image": new URL('/og-image.jpg', Astro.site ?? 'https://growthautomations.com').href
+}) : null;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="ga-light">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <!-- Theme initialization (prevents FOUC) -->
     <script is:inline>
       (function() {
         const STORAGE_KEY = 'theme';
-        const LIGHT_THEME = 'ga-light';
-        const DARK_THEME = 'ga-dark';
+        const LIGHT_THEME = 'light';
+        const DARK_THEME = 'dark';
 
         const stored = localStorage.getItem(STORAGE_KEY);
         const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -37,18 +60,35 @@ const currentPath = Astro.url?.pathname ?? '/';
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <title>{title} · {settings.name}</title>
-    {canonical && <link rel="canonical" href={canonical} />}
+    <title>{title} · {siteConfig.shortName}</title>
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL('/og-image.jpg', Astro.site ?? 'https://growthautomations.com').href} />
+    <meta property="og:url" content={canonicalURL} />
+
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:wght@400;500;700&display=swap"
     />
-    <BrandTheme />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:wght@400;500;700&display=swap"
+    />
+
+    {/* LocalBusiness structured data on homepage */}
+    {localBusinessJsonLd && (
+      <script type="application/ld+json" set:html={localBusinessJsonLd} />
+    )}
   </head>
-  <body class="bg-background font-body text-text-primary">
+  <body class="bg-background font-body text-text">
     <a class="skip-link" href="#main">Skip to content</a>
     <Header siteName={settings.name} navigation={settings.navigation} contact={settings.contact} currentPath={currentPath} />
     <main id="main" class="min-h-screen">

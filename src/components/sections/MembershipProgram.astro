@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { resolveAsset } from '../../lib/assets';
+
 
 export interface Props {
   tiers: CollectionEntry<'membership-tiers'>[];
@@ -25,49 +25,27 @@ const sortedTiers = [...tiers].sort((a, b) => {
   if (b.data.featured) return 1;
   return 0;
 });
-const bgImage = resolveAsset('~/assets/images/photos/barber_premium_membership.jpg');
 ---
 
-<section class="relative overflow-hidden bg-white dark:bg-background py-24 sm:py-28 lg:py-32">
-  <!-- Premium background image: luxury barber welcoming client to membership -->
-  <div class="absolute inset-0 z-0">
-    <img
-      src={bgImage}
-      alt="Barber welcoming client to premium grooming membership experience"
-      class="h-full w-full object-cover object-center opacity-20 dark:opacity-30"
-      loading="lazy"
-    />
-  </div>
-
-  <!-- Balanced overlay: dark overlay in light mode, light overlay in dark mode -->
-  <div class="absolute inset-0 z-[1] bg-background/30 dark:bg-surface-alt/25"></div>
-
-  <!-- Subtle accent glows for premium feel -->
-  <div class="pointer-events-none absolute inset-0 z-[2]">
-    <div class="absolute -right-20 top-10 h-96 w-96 rounded-full bg-primary/5 blur-[120px]" />
-    <div class="absolute -left-20 bottom-10 h-96 w-96 rounded-full bg-secondary/5 blur-[120px]" />
-  </div>
-
-  <div class="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+<section class="relative overflow-hidden bg-surface-alt py-24 sm:py-28 lg:py-32">
+  <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
     <!-- Header Section with generous spacing -->
     <div class="flex flex-col gap-6 text-center">
-      {eyebrow && <p class="text-xs font-bold uppercase tracking-[0.45em] text-secondary dark:text-secondary-light">{eyebrow}</p>}
+      {eyebrow && <p class="text-xs font-bold uppercase tracking-[0.45em] text-secondary">{eyebrow}</p>}
       <div class="mx-auto max-w-3xl">
-        <h2 class="font-heading text-4xl font-bold tracking-tight text-black dark:text-white md:text-5xl lg:text-6xl">
+        <h2 class="font-heading text-4xl font-bold tracking-tight text-text md:text-5xl lg:text-6xl">
           {heading}
         </h2>
-        {subheading && <p class="mt-5 text-xl font-semibold text-text-primary dark:text-text-primary leading-relaxed">{subheading}</p>}
+        {subheading && <p class="mt-5 text-xl font-semibold text-text leading-relaxed">{subheading}</p>}
       </div>
     </div>
 
     <!-- Membership Tiers Grid with generous spacing -->
     <div class="mt-20 grid gap-10 md:grid-cols-3">
       {sortedTiers.map((tier) => {
-        const isFeatured = tier.data.featured;
-
         return (
           <article
-            class="group relative flex flex-col overflow-hidden rounded-3xl border-2 border-border dark:border-border bg-white dark:bg-white p-10 shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30"
+            class="group relative flex flex-col overflow-hidden rounded-3xl border-2 border-border bg-surface p-10 shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30"
           >
             {tier.data.badge && (
               <div class="absolute -right-12 -top-12 h-32 w-32 rotate-12 rounded-full bg-primary/15 blur-2xl" />
@@ -75,7 +53,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_premium_membership.j
 
             <div class="relative">
               {tier.data.badge && (
-                <span class="mb-5 inline-flex rounded-full border border-primary/50 bg-primary/20 dark:bg-primary/30 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.3em] text-primary dark:text-primary-light">
+                <span class="mb-5 inline-flex rounded-full border border-primary/50 bg-primary/20 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.3em] text-primary">
                   {tier.data.badge}
                 </span>
               )}
@@ -86,24 +64,24 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_premium_membership.j
                     {tier.data.icon}
                   </span>
                 )}
-                <h3 class="text-2xl font-bold text-text-primary transition-colors duration-500 group-hover:text-primary">
+                <h3 class="text-2xl font-bold text-text transition-colors duration-500 group-hover:text-primary">
                   {tier.data.name}
                 </h3>
               </div>
 
               {tier.data.price && (
                 <div class="mb-5">
-                  <span class="text-4xl font-bold text-text-primary transition-colors duration-500 group-hover:text-primary">{tier.data.price}</span>
+                  <span class="text-4xl font-bold text-text transition-colors duration-500 group-hover:text-primary">{tier.data.price}</span>
                 </div>
               )}
 
-              <p class="mb-8 text-base font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary leading-relaxed">{tier.data.description}</p>
+              <p class="mb-8 text-base font-semibold text-text transition-colors duration-500 group-hover:text-primary leading-relaxed">{tier.data.description}</p>
 
-              <div class="mb-8 h-px bg-gradient-to-r from-transparent via-border dark:via-surface-alt to-transparent" />
+              <div class="mb-8 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
               <ul class="space-y-4">
                 {tier.data.benefits.map((benefit) => (
-                  <li class="flex items-start gap-3 text-sm font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary">
+                  <li class="flex items-start gap-3 text-sm font-semibold text-text transition-colors duration-500 group-hover:text-primary">
                     <svg
                       class="mt-0.5 h-5 w-5 flex-shrink-0 text-primary transition-transform duration-500 group-hover:scale-125"
                       fill="none"
@@ -140,7 +118,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_premium_membership.j
       <div class="mt-16 text-center">
         <a
           href={cta.href}
-          class="inline-flex items-center gap-3 text-sm font-bold uppercase tracking-[0.35em] text-primary dark:text-primary-light transition-all hover:text-primary-dark dark:hover:text-primary hover:gap-4"
+          class="inline-flex items-center gap-3 text-sm font-bold uppercase tracking-[0.35em] text-primary transition-all hover:text-primary-dark hover:gap-4"
         >
           {cta.label} →
         </a>

@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { resolveAsset } from '../../lib/assets';
+import { resolveImage } from '../../lib/resolve-image';
 
 export interface Props {
   service: CollectionEntry<'services'>;
@@ -10,18 +10,15 @@ export interface Props {
 
 const { service, index = 0, highlight = false } = Astro.props as Props;
 // Use processImage as fallback if main image is not available
-const imageSrc = service.data.image
-  ? resolveAsset(service.data.image.src)
-  : service.data.processImage
-    ? resolveAsset(service.data.processImage.src)
-    : undefined;
+const imageSrc = resolveImage(service.data.image?.src
+  ?? service.data.processImage?.src);
 const imageAlt = service.data.image?.alt ?? service.data.processImage?.alt ?? service.data.title;
 const hasImage = Boolean(imageSrc);
 const href = `/services/${service.data.slug}`;
 ---
 
 <article
-  class="group relative flex h-full flex-col overflow-hidden rounded-[32px] border-2 border-border dark:border-border bg-white dark:bg-white shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:shadow-2xl hover:shadow-primary/30 hover:border-primary/70"
+  class="group relative flex h-full flex-col overflow-hidden rounded-[32px] border-2 border-border bg-surface shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:shadow-2xl hover:shadow-primary/30 hover:border-primary/70"
 >
   {hasImage && (
     <div class="relative aspect-video overflow-hidden">
@@ -35,12 +32,12 @@ const href = `/services/${service.data.slug}`;
   )}
   <div class="flex flex-1 flex-col gap-5 p-8">
     {!hasImage && service.data.category && (
-      <span class="inline-flex h-10 items-center self-start rounded-full border border-border/50 bg-surface-alt/50 px-4 text-xs font-semibold uppercase tracking-[0.35em] text-text-secondary transition-all duration-300 group-hover:border-primary/60 group-hover:bg-primary/20 group-hover:text-primary dark:border-white/15 dark:bg-white/5 dark:text-text-secondary dark:group-hover:border-primary/40 dark:group-hover:bg-primary/10">
+      <span class="inline-flex h-10 items-center self-start rounded-full border border-border/50 bg-surface-alt/50 px-4 text-xs font-semibold uppercase tracking-[0.35em] text-text-secondary transition-all duration-300 group-hover:border-primary/60 group-hover:bg-primary/20 group-hover:text-primary">
         {service.data.category}
       </span>
     )}
     <div class="flex items-start gap-4">
-      <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border/50 bg-surface-alt/50 transition-all duration-300 group-hover:border-primary/60 group-hover:bg-primary/20 group-hover:scale-110 dark:border-white/15 dark:bg-white/5 dark:group-hover:border-primary/40 dark:group-hover:bg-primary/10">
+      <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border/50 bg-surface-alt/50 transition-all duration-300 group-hover:border-primary/60 group-hover:bg-primary/20 group-hover:scale-110">
         <svg class="h-6 w-6 text-primary transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           {service.data.category === 'Grooming' && (
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -57,21 +54,21 @@ const href = `/services/${service.data.slug}`;
         </svg>
       </div>
       <div class="space-y-2">
-        <h3 class="text-xl font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary">{service.data.title}</h3>
-        <p class="text-sm font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary">{service.data.summary}</p>
+        <h3 class="text-xl font-semibold text-text transition-colors duration-500 group-hover:text-primary">{service.data.title}</h3>
+        <p class="text-sm font-semibold text-text transition-colors duration-500 group-hover:text-primary">{service.data.summary}</p>
       </div>
     </div>
     <dl class="grid grid-cols-2 gap-4 text-xs uppercase tracking-[0.3em] text-text-secondary transition-colors duration-500 group-hover:text-primary">
       {service.data.duration && (
         <div>
           <dt>Duration</dt>
-          <dd class="mt-1 text-sm font-semibold tracking-normal text-text-primary transition-colors duration-500 group-hover:text-primary">{service.data.duration}</dd>
+          <dd class="mt-1 text-sm font-semibold tracking-normal text-text transition-colors duration-500 group-hover:text-primary">{service.data.duration}</dd>
         </div>
       )}
       {service.data.price && (
         <div class="justify-self-end text-right">
           <dt>From</dt>
-          <dd class="mt-1 text-sm font-semibold tracking-normal text-text-primary transition-colors duration-500 group-hover:text-primary">{service.data.price}</dd>
+          <dd class="mt-1 text-sm font-semibold tracking-normal text-text transition-colors duration-500 group-hover:text-primary">{service.data.price}</dd>
         </div>
       )}
       {service.data.highlight && (
@@ -84,7 +81,7 @@ const href = `/services/${service.data.slug}`;
       <a class="btn btn-primary" href={href}>
         {service.data.ctaLabel ?? 'View details'}
       </a>
-      <a class="text-sm font-semibold text-text-secondary transition hover:text-primary dark:text-text-secondary dark:hover:text-primary" href={`/appointment?service=${service.data.slug}`}>
+      <a class="text-sm font-semibold text-text-secondary transition hover:text-primary" href={`/appointment?service=${service.data.slug}`}>
         Book now →
       </a>
     </div>

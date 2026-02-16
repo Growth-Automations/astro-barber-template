@@ -17,6 +17,7 @@ import CTASection from '../components/sections/CTASection.astro';
 import { getEntry, getCollection } from 'astro:content';
 
 const homeEntry = await getEntry('home', 'default');
+if (!homeEntry) throw new Error('Missing home/default content entry');
 const services = await getCollection('services');
 const portfolio = await getCollection('portfolio');
 const blogPosts = await getCollection('blog');
@@ -167,8 +168,3 @@ const featuredProducts = homeEntry.data.featuredProducts
   )}
   {homeEntry.data.cta && <CTASection {...homeEntry.data.cta} />}
 </BaseLayout>
-const featuredProducts = homeEntry.data.featuredProducts
-  ? homeEntry.data.featuredProducts
-      .map((slug) => products.find((product) => product.data.slug === slug))
-      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
-  : products.filter((product) => product.data.featured);

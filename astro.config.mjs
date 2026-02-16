@@ -1,15 +1,11 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  integrations: [
-    tailwind({
-      applyBaseStyles: false,
-      configFile: './tailwind.config.mjs'
-    }),
-    mdx()
-  ],
+  site: 'https://growthautomations.com',
+  integrations: [mdx(), sitemap()],
   prefetch: {
     prefetchAll: false,
     defaultStrategy: 'hover'
@@ -18,6 +14,7 @@ export default defineConfig({
     inlineStylesheets: 'auto'
   },
   vite: {
+    plugins: [tailwindcss()],
     build: {
       minify: 'esbuild',
       cssMinify: true

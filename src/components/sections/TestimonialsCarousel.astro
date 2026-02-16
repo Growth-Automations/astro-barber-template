@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { resolveAsset } from '../../lib/assets';
+import { resolveImage } from '../../lib/resolve-image';
+
 
 export interface Props {
   testimonials: CollectionEntry<'testimonials'>[];
@@ -11,44 +12,22 @@ export interface Props {
 
 const { testimonials, eyebrow, heading, subheading } = Astro.props as Props;
 const carouselId = `testimonials-${Math.random().toString(36).slice(2, 8)}`;
-const bgImage = resolveAsset('~/assets/images/photos/barber_happy_clients.jpg');
 ---
 
-<section class="relative overflow-hidden bg-surface-alt py-24 dark:bg-background">
-  {/* Background image with barber interacting with happy clients */}
-  <div class="absolute inset-0 h-full w-full">
-    <img
-      class="h-full w-full object-cover object-center opacity-20 dark:opacity-30"
-      src={bgImage}
-      alt="Barber interacting with happy clients in modern barbershop"
-      loading="lazy"
-    />
-  </div>
-
-  {/* Transparent overlays for content separation */}
-  <div class="pointer-events-none absolute inset-0">
-    {/* Light mode: dark overlay */}
-    <div class="absolute inset-0 bg-background/30 dark:hidden" />
-    {/* Dark mode: light overlay */}
-    <div class="absolute inset-0 hidden bg-white/25 dark:block" />
-
-    {/* Decorative circles */}
-    <div class="absolute -left-8 bottom-10 h-28 w-28 rounded-full border border-border/10 dark:border-white/10" />
-    <div class="absolute right-12 top-10 h-24 w-24 rounded-full border border-border/10 dark:border-white/10" />
-  </div>
-  <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+<section class="relative overflow-hidden bg-background py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-3xl text-center">
       {eyebrow && (
-        <p class="text-xs font-semibold uppercase tracking-[0.45em] text-secondary dark:text-secondary">{eyebrow}</p>
+        <p class="text-xs font-semibold uppercase tracking-[0.45em] text-secondary">{eyebrow}</p>
       )}
-      <h2 class="mt-4 text-3xl font-semibold text-text-primary dark:text-text-primary md:text-4xl">
+      <h2 class="mt-4 text-3xl font-semibold text-text md:text-4xl">
         {heading}
       </h2>
-      {subheading && <p class="mt-3 text-lg text-text-secondary dark:text-text-secondary">{subheading}</p>}
+      {subheading && <p class="mt-3 text-lg text-text-secondary">{subheading}</p>}
     </div>
     <div class="mt-12 flex items-center justify-between gap-4">
       <button
-        class="hidden rounded-full border border-border bg-white p-3 text-text-secondary shadow-md transition hover:border-primary hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:border-primary/40 dark:hover:text-primary/90 md:inline-flex"
+        class="hidden rounded-full border border-border bg-surface p-3 text-text-secondary shadow-md transition hover:border-primary hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 md:inline-flex"
         type="button"
         aria-label="Previous testimonial"
         data-prev
@@ -64,7 +43,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_happy_clients.jpg');
         >
           {testimonials.map((entry, index) => (
             <li
-              class="group min-w-[85%] snap-center rounded-[28px] border-2 border-border dark:border-border bg-white dark:bg-white p-8 text-center shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30 md:min-w-[45%] lg:min-w-[32%]"
+              class="group min-w-[85%] snap-center rounded-[28px] border-2 border-border bg-surface p-8 text-center shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:border-primary/70 hover:shadow-2xl hover:shadow-primary/30 md:min-w-[45%] lg:min-w-[32%]"
             >
               <figure class="flex h-full min-h-[320px] flex-col items-center justify-center gap-6">
                 {/* Client Avatar */}
@@ -72,7 +51,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_happy_clients.jpg');
                   <div class="relative h-20 w-20 overflow-hidden rounded-full border-4 border-primary/30 shadow-lg transition-all duration-500 group-hover:border-primary/60 group-hover:scale-110">
                     <img
                       class="h-full w-full object-cover"
-                      src={resolveAsset(entry.data.avatar)}
+                      src={resolveImage(entry.data.avatar)}
                       alt={entry.data.name}
                       loading="lazy"
                     />
@@ -95,7 +74,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_happy_clients.jpg');
 
                 {/* Client Info */}
                 <figcaption class="mt-auto">
-                  <p class="text-base font-semibold text-text-primary transition-colors duration-500 group-hover:text-primary">{entry.data.name}</p>
+                  <p class="text-base font-semibold text-text transition-colors duration-500 group-hover:text-primary">{entry.data.name}</p>
                   {entry.data.role && (
                     <p class="mt-1 text-sm text-text-secondary transition-colors duration-500 group-hover:text-primary">{entry.data.role}</p>
                   )}
@@ -109,7 +88,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_happy_clients.jpg');
         </ul>
       </div>
       <button
-        class="hidden rounded-full border border-border bg-white p-3 text-text-secondary shadow-md transition hover:border-primary hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:border-primary/40 dark:hover:text-primary/90 md:inline-flex"
+        class="hidden rounded-full border border-border bg-surface p-3 text-text-secondary shadow-md transition hover:border-primary hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 md:inline-flex"
         type="button"
         aria-label="Next testimonial"
         data-next
@@ -148,13 +127,13 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_happy_clients.jpg');
 <script>
   const carouselRoot = document.currentScript?.previousElementSibling?.previousElementSibling?.closest('section');
   const container = carouselRoot?.querySelector('[data-testimonials-carousel]');
-  if (container) {
+  if (container && carouselRoot) {
     const prevButton = carouselRoot.querySelector('[data-prev]');
     const nextButton = carouselRoot.querySelector('[data-next]');
     const dots = Array.from(carouselRoot.querySelectorAll('[data-dot]'));
     const slides = Array.from(container.children);
 
-    const scrollToIndex = (index) => {
+    const scrollToIndex = (index: number) => {
       const target = slides[index];
       if (!target) return;
       target.scrollIntoView({ behavior: 'smooth', inline: 'center' });

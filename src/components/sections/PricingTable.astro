@@ -1,5 +1,5 @@
 ---
-import { resolveAsset } from '../../lib/assets';
+
 
 export interface Tier {
   name: string;
@@ -26,48 +26,25 @@ export interface Props {
 
 const props = Astro.props as Props;
 const carouselId = `pricing-${Math.random().toString(36).slice(2, 8)}`;
-const bgImage = resolveAsset('~/assets/images/photos/barber_pricing_experience.jpg');
 ---
 
-<section class="relative overflow-hidden bg-white dark:bg-background py-28 sm:py-32 lg:py-36">
-  {/* Premium barber background image showing barbershop services and pricing experience */}
-  <div class="absolute inset-0 h-full w-full">
-    <img
-      class="h-full w-full object-cover object-center opacity-20 dark:opacity-30"
-      src={bgImage}
-      alt="Professional barbershop service experience"
-      loading="lazy"
-    />
-  </div>
-
-  {/* Transparent overlays for content separation */}
-  <div class="pointer-events-none absolute inset-0">
-    {/* Light mode: dark overlay */}
-    <div class="absolute inset-0 bg-background/30 dark:hidden" />
-    {/* Dark mode: light overlay */}
-    <div class="absolute inset-0 hidden bg-white/25 dark:block" />
-
-    {/* Decorative circles */}
-    <div class="absolute -left-10 bottom-12 h-32 w-32 rounded-full border border-border/20 dark:border-white/15" />
-    <div class="absolute right-12 top-10 h-24 w-24 rounded-full border border-border/20 dark:border-white/15" />
-  </div>
-
-  <div class="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+<section class="relative overflow-hidden bg-background py-28 sm:py-32 lg:py-36">
+  <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
     <div class="mx-auto max-w-3xl text-center mb-6">
       {props.eyebrow && (
-        <p class="text-xs font-bold uppercase tracking-[0.45em] text-secondary dark:text-secondary-light">{props.eyebrow}</p>
+        <p class="text-xs font-bold uppercase tracking-[0.45em] text-secondary">{props.eyebrow}</p>
       )}
-      <h2 class="mt-5 font-heading text-4xl font-bold tracking-tight text-black dark:text-white md:text-5xl lg:text-6xl">
+      <h2 class="mt-5 font-heading text-4xl font-bold tracking-tight text-text md:text-5xl lg:text-6xl">
         {props.heading}
       </h2>
-      {props.subheading && <p class="mt-5 text-xl font-semibold text-text-primary dark:text-text-primary leading-relaxed">{props.subheading}</p>}
+      {props.subheading && <p class="mt-5 text-xl font-semibold text-text leading-relaxed">{props.subheading}</p>}
     </div>
 
     {/* Carousel Container with increased spacing */}
     <div class="mt-16 flex items-center justify-between gap-6">
       {/* Previous Button - Enhanced visibility */}
       <button
-        class="hidden h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-border dark:border-border bg-white dark:bg-surface text-2xl text-text-primary dark:text-white shadow-lg transition-all duration-300 hover:scale-110 hover:border-primary hover:bg-primary hover:text-white hover:shadow-xl hover:shadow-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 md:inline-flex"
+        class="hidden h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-border bg-surface text-2xl text-text shadow-lg transition-all duration-300 hover:scale-110 hover:border-primary hover:bg-primary hover:text-white hover:shadow-xl hover:shadow-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 md:inline-flex"
         type="button"
         aria-label="Previous pricing option"
         data-prev
@@ -83,10 +60,10 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_pricing_experience.j
           data-pricing-carousel
           data-track
         >
-          {props.tiers.map((tier, index) => (
+          {props.tiers.map((tier) => (
             <li class="min-w-[90%] snap-center sm:min-w-[calc(50%-16px)] lg:min-w-[calc(33.333%-22px)]">
               <article
-                class="group relative flex h-full min-h-[580px] flex-col overflow-hidden rounded-[32px] border-2 border-border dark:border-border bg-white dark:bg-white p-10 shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:shadow-2xl hover:shadow-primary/30 hover:border-primary/70"
+                class="group relative flex h-full min-h-[580px] flex-col overflow-hidden rounded-[32px] border-2 border-border bg-surface p-10 shadow-lg transition-all duration-500 ease-out hover:scale-[1.06] hover:shadow-2xl hover:shadow-primary/30 hover:border-primary/70"
               >
                 {tier.badge && (
                   <span class="absolute left-10 top-8 inline-flex items-center rounded-full border-2 border-primary/50 bg-primary/20 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.35em] text-primary transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-white shadow-sm">
@@ -94,14 +71,14 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_pricing_experience.j
                   </span>
                 )}
                 <header class="space-y-4 pt-6">
-                  <h3 class="text-2xl font-bold text-text-primary transition-colors duration-500 group-hover:text-primary leading-tight">{tier.name}</h3>
+                  <h3 class="text-2xl font-bold text-text transition-colors duration-500 group-hover:text-primary leading-tight">{tier.name}</h3>
                   <div class="flex items-baseline gap-2">
-                    <span class="text-5xl font-bold text-text-primary transition-colors duration-500 group-hover:text-primary">{tier.price}</span>
+                    <span class="text-5xl font-bold text-text transition-colors duration-500 group-hover:text-primary">{tier.price}</span>
                     {tier.duration && <span class="text-sm font-bold text-text-secondary transition-colors duration-500 group-hover:text-primary">{tier.duration}</span>}
                   </div>
-                  {tier.description && <p class="text-sm font-semibold leading-relaxed text-text-primary transition-colors duration-500 group-hover:text-primary pt-2">{tier.description}</p>}
+                  {tier.description && <p class="text-sm font-semibold leading-relaxed text-text transition-colors duration-500 group-hover:text-primary pt-2">{tier.description}</p>}
                 </header>
-                <ul class="mt-8 flex flex-1 flex-col gap-4 text-sm font-semibold text-text-primary">
+                <ul class="mt-8 flex flex-1 flex-col gap-4 text-sm font-semibold text-text">
                   {tier.features.map((feature) => (
                     <li class="flex items-start gap-3 transition-colors duration-500 group-hover:text-primary">
                       <span class="mt-0.5 inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-primary transition-transform duration-500 group-hover:scale-150 shadow-sm" />
@@ -111,7 +88,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_pricing_experience.j
                 </ul>
                 {tier.cta && (
                   <a
-                    class="mt-10 inline-flex w-full items-center justify-center rounded-full border-2 border-border bg-white text-text-primary px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.15em] shadow-md transition-all duration-500 hover:scale-[1.08] hover:border-primary hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/50"
+                    class="mt-10 inline-flex w-full items-center justify-center rounded-full border-2 border-border bg-surface text-text px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.15em] shadow-md transition-all duration-500 hover:scale-[1.08] hover:border-primary hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/50"
                     href={tier.cta.href}
                   >
                     {tier.cta.label}
@@ -125,7 +102,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_pricing_experience.j
 
       {/* Next Button - Enhanced visibility */}
       <button
-        class="hidden h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-border dark:border-border bg-white dark:bg-surface text-2xl text-text-primary dark:text-white shadow-lg transition-all duration-300 hover:scale-110 hover:border-primary hover:bg-primary hover:text-white hover:shadow-xl hover:shadow-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 md:inline-flex"
+        class="hidden h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-border bg-surface text-2xl text-text shadow-lg transition-all duration-300 hover:scale-110 hover:border-primary hover:bg-primary hover:text-white hover:shadow-xl hover:shadow-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 md:inline-flex"
         type="button"
         aria-label="Next pricing option"
         data-next
@@ -141,7 +118,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_pricing_experience.j
           class={`h-3.5 w-3.5 rounded-full border-2 transition-all duration-300 hover:scale-125 ${
             index === 0
               ? 'border-primary bg-primary shadow-lg shadow-primary/50'
-              : 'border-border dark:border-border bg-transparent hover:border-primary/60 dark:hover:border-primary-light/60'
+              : 'border-border bg-transparent hover:border-primary/60'
           }`}
           type="button"
           aria-label={`Go to pricing option ${index + 1}`}
@@ -151,7 +128,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_pricing_experience.j
       ))}
     </div>
 
-    {props.footnote && <p class="mt-12 text-center text-sm font-semibold text-text-secondary dark:text-text-secondary">{props.footnote}</p>}
+    {props.footnote && <p class="mt-12 text-center text-sm font-semibold text-text-secondary">{props.footnote}</p>}
   </div>
 </section>
 
@@ -168,7 +145,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_pricing_experience.j
 <script>
   const carouselRoot = document.currentScript?.previousElementSibling?.previousElementSibling?.closest('section');
   const container = carouselRoot?.querySelector('[data-pricing-carousel]');
-  if (container) {
+  if (container && carouselRoot) {
     const prevButton = carouselRoot.querySelector('[data-prev]');
     const nextButton = carouselRoot.querySelector('[data-next]');
     const dots = Array.from(carouselRoot.querySelectorAll('[data-dot]'));

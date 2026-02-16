@@ -11,33 +11,33 @@ export interface Props {
 const { settings, eyebrow, heading, subheading } = Astro.props as Props;
 ---
 
-<section class="bg-white py-20">
+<section class="bg-surface py-20">
   <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col gap-4 text-center md:text-left">
       {eyebrow && (
         <p class="text-xs font-semibold uppercase tracking-[0.45em] text-secondary">{eyebrow}</p>
       )}
-      {heading && <h2 class="text-3xl font-semibold text-text-primary md:text-4xl">{heading}</h2>}
+      {heading && <h2 class="text-3xl font-semibold text-text md:text-4xl">{heading}</h2>}
       {subheading && <p class="text-lg text-text-secondary">{subheading}</p>}
     </div>
     <div class="mt-10 grid gap-6 md:grid-cols-3">
       <div class="rounded-2xl border border-border bg-surface-alt p-6">
         <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-secondary">Call</h3>
-        <a class="mt-3 block text-lg font-semibold text-text-primary" href={`tel:${settings.contact.phone.value}`}>
+        <a class="mt-3 block text-lg font-semibold text-text" href={`tel:${settings.contact.phone.value}`}>
           {settings.contact.phone.display}
         </a>
         <p class="mt-2 text-sm text-text-secondary">Tap to call the GrowthAutomations lounge.</p>
       </div>
       <div class="rounded-2xl border border-border bg-surface-alt p-6">
         <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-secondary">Email</h3>
-        <a class="mt-3 block text-lg font-semibold text-text-primary" href={`mailto:${settings.contact.email}`}>
+        <a class="mt-3 block text-lg font-semibold text-text" href={`mailto:${settings.contact.email}`}>
           {settings.contact.email}
         </a>
         <p class="mt-2 text-sm text-text-secondary">We reply within one business day.</p>
       </div>
       <div class="rounded-2xl border border-border bg-surface-alt p-6">
         <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-secondary">Visit</h3>
-        <address class="mt-3 space-y-1 not-italic text-text-primary">
+        <address class="mt-3 space-y-1 not-italic text-text">
           <div>{settings.contact.address.line1}</div>
           {settings.contact.address.line2 && <div>{settings.contact.address.line2}</div>}
           <div>
@@ -58,9 +58,9 @@ const { settings, eyebrow, heading, subheading } = Astro.props as Props;
       <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-secondary">Hours</h3>
       <ul class="mt-4 grid gap-2 text-sm text-text-secondary sm:grid-cols-2">
         {settings.hours.map((entry) => (
-          <li class="flex justify-between gap-6 rounded-xl bg-white px-4 py-3 text-text-secondary">
+          <li class="flex justify-between gap-6 rounded-xl bg-surface px-4 py-3 text-text-secondary">
             <span>{entry.label}</span>
-            <span class="font-semibold text-text-primary">{entry.value}</span>
+            <span class="font-semibold text-text">{entry.value}</span>
           </li>
         ))}
       </ul>

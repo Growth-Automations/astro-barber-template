@@ -1,5 +1,5 @@
 ---
-import { resolveAsset } from '../../lib/assets';
+import { resolveImage } from '../../lib/resolve-image';
 
 export interface Link {
   label: string;
@@ -33,10 +33,10 @@ const {
   patternWord = 'OFFERS'
 } = Astro.props as Props;
 
-const backgroundSrc = backgroundImage ? resolveAsset(backgroundImage.src) : undefined;
+const backgroundSrc = resolveImage(backgroundImage?.src);
 ---
 
-<section class="relative overflow-hidden bg-primary/20 py-16 text-text-primary">
+<section class="relative overflow-hidden bg-primary/20 py-16 text-text">
   <div class="absolute inset-0">
     <div class="absolute inset-0 bg-gradient-to-br from-background via-surface to-background/90" />
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(209,160,90,0.2),transparent_55%)]" />

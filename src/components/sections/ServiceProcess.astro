@@ -1,5 +1,5 @@
 ---
-import { resolveAsset } from '../../lib/assets';
+import { resolveImage } from '../../lib/resolve-image';
 
 export interface ServiceProcessStep {
   title: string;
@@ -19,18 +19,18 @@ export interface ServiceProcessProps {
 }
 
 const props = Astro.props as ServiceProcessProps;
-const processImage = props.image ? resolveAsset(props.image.src) : undefined;
+const processImage = resolveImage(props.image?.src);
 const containerColumns = processImage ? 'lg:grid-cols-[1.05fr_0.95fr]' : '';
 ---
 
-<section class="bg-surface-alt py-20 text-text-primary">
+<section class="bg-surface-alt py-20 text-text">
   <div class={`mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:px-8 ${containerColumns}`}>
     <div class="space-y-6">
       {props.eyebrow && (
         <p class="text-xs font-semibold uppercase tracking-[0.35em] text-primary">{props.eyebrow}</p>
       )}
       <div class="space-y-4">
-        <h2 class="text-3xl font-semibold tracking-tight text-text-primary md:text-4xl">{props.title}</h2>
+        <h2 class="text-3xl font-semibold tracking-tight text-text md:text-4xl">{props.title}</h2>
         {props.description && <p class="max-w-2xl text-base text-text-secondary">{props.description}</p>}
       </div>
       {props.steps?.length ? (
@@ -41,7 +41,7 @@ const containerColumns = processImage ? 'lg:grid-cols-[1.05fr_0.95fr]' : '';
                 {String(index + 1).padStart(2, '0')}
               </div>
               <div class="space-y-1">
-                <h3 class="text-lg font-semibold text-text-primary">{step.title}</h3>
+                <h3 class="text-lg font-semibold text-text">{step.title}</h3>
                 <p class="text-sm text-text-secondary">{step.description}</p>
                 {step.duration && (
                   <p class="text-xs font-medium uppercase tracking-[0.3em] text-text-muted">{step.duration}</p>
@@ -60,8 +60,8 @@ const containerColumns = processImage ? 'lg:grid-cols-[1.05fr_0.95fr]' : '';
       <div class="relative overflow-hidden rounded-[32px] border border-border bg-surface shadow-xl">
         <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-white/5" />
         <img class="h-full w-full object-cover" src={processImage} alt={props.image?.alt ?? ''} loading="lazy" />
-        <div class="pointer-events-none absolute inset-x-6 bottom-6 rounded-2xl border border-white/20 bg-surface/80 px-5 py-4 text-sm text-text-primary backdrop-blur">
-          <p class="font-semibold text-text-primary">Every service begins with a custom consultation.</p>
+        <div class="pointer-events-none absolute inset-x-6 bottom-6 rounded-2xl border border-white/20 bg-surface/80 px-5 py-4 text-sm text-text backdrop-blur">
+          <p class="font-semibold text-text">Every service begins with a custom consultation.</p>
           <p class="mt-2 text-text-secondary">We tailor each step to your lifestyle, hair history, and goals.</p>
         </div>
       </div>

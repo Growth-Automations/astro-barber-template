@@ -3,19 +3,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/sections/PageHero.astro';
 import TeamRoster from '../components/sections/TeamRoster.astro';
 import ValuesTimeline from '../components/sections/ValuesTimeline.astro';
-import { getEntry, getCollection } from 'astro:content';
-import { resolveAsset } from '../lib/assets';
+import { getEntry, getCollection, render } from 'astro:content';
+import servicesPhoto from '../assets/images/photos/barber_services_1.jpg';
 
 const page = await getEntry('pages', 'about');
-const { Content } = await page.render();
+if (!page) throw new Error('Missing pages/about content entry');
+const { Content } = await render(page);
 const team = await getCollection('team');
 const timeline = await getCollection('timeline');
-const bgImage = resolveAsset('~/assets/images/photos/barber_services_1.jpg');
+const bgImage = servicesPhoto.src;
 ---
 
 <BaseLayout title={page.data.seo.title} description={page.data.seo.description}>
   {page.data.hero && <PageHero {...page.data.hero} />}
-  <section class="relative overflow-hidden bg-white dark:bg-background">
+  <section class="relative overflow-hidden bg-surface">
     <!-- Full-width background image: barbershop tools - MUCH MORE VISIBLE -->
     <div class="absolute inset-0 z-0">
       <img
@@ -27,20 +28,20 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_services_1.jpg');
     </div>
 
     <!-- STRONG overlay for excellent text contrast -->
-    <div class="absolute inset-0 z-[1] bg-white/60 dark:bg-background/70"></div>
+    <div class="absolute inset-0 z-[1] bg-surface/60"></div>
 
     <!-- Content Container -->
     <div class="relative z-10 mx-auto max-w-4xl px-6 py-20 sm:px-8 sm:py-24 lg:py-28">
       <!-- Rounded container with balanced padding -->
-      <div class="bg-white/85 dark:bg-background/75 backdrop-blur-sm rounded-2xl px-8 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20 shadow-md">
-        <div class="prose prose-lg prose-neutral dark:prose-invert max-w-none
+      <div class="bg-surface/85 backdrop-blur-sm rounded-2xl px-8 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20 shadow-md">
+        <div class="prose prose-lg dark:prose-invert max-w-none
                     [&>p]:leading-[1.85] [&>p]:mb-6 [&>p]:tracking-normal
                     [&>p:first-of-type]:text-xl [&>p:first-of-type]:font-semibold
-                    [&>p:first-of-type]:text-black dark:[&>p:first-of-type]:text-white
-                    [&>p:not(:first-of-type)]:text-text-primary dark:[&>p:not(:first-of-type)]:text-text-primary
+                    [&>p:first-of-type]:text-text
+                    [&>p:not(:first-of-type)]:text-text
                     [&>p:not(:first-of-type)]:font-medium
                     [&>ul]:my-8 [&>ul]:space-y-4 [&>ul]:pl-1
-                    [&>ul>li]:text-text-primary dark:[&>ul>li]:text-text-primary
+                    [&>ul>li]:text-text
                     [&>ul>li]:leading-[1.8] [&>ul>li]:font-medium
                     [&>ul>li::marker]:text-primary [&>ul>li::marker]:text-base
                     [&>p>a]:text-primary dark:[&>p>a]:text-primary-light

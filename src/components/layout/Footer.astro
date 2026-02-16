@@ -17,16 +17,16 @@ const addressLines = [
   .join('\n');
 ---
 
-<footer class="bg-background text-text-primary">
-  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[2fr_1fr_1fr] lg:px-8">
+<footer class="bg-footer-bg text-footer-text">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[2fr_1.5fr_1fr] lg:px-8">
     <div>
-      <h2 class="text-xl font-semibold text-white">{settings.name}</h2>
-      <p class="mt-2 max-w-lg text-text-secondary">{settings.description}</p>
-      <div class="mt-6 space-y-1 text-sm text-text-secondary">
-        <a class="block hover:text-white" href={`tel:${contact.phone.value}`}>
+      <h2 class="text-xl font-semibold text-footer-text">{settings.name}</h2>
+      <p class="mt-2 max-w-lg text-footer-text-secondary">{settings.description}</p>
+      <div class="mt-6 space-y-1 text-sm text-footer-text-secondary">
+        <a class="block hover:text-footer-text" href={`tel:${contact.phone.value}`}>
           {contact.phone.display}
         </a>
-        <a class="block hover:text-white" href={`mailto:${contact.email}`}>
+        <a class="block hover:text-footer-text" href={`mailto:${contact.email}`}>
           {contact.email}
         </a>
         <p class="mt-4 whitespace-pre-line">
@@ -35,29 +35,29 @@ const addressLines = [
       </div>
     </div>
     <div>
-      <h3 class="text-sm font-semibold uppercase tracking-wide text-text-secondary">Hours</h3>
-      <ul class="mt-4 space-y-2 text-sm text-text-secondary">
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-footer-text-secondary">Hours</h3>
+      <ul class="mt-4 space-y-2 text-sm text-footer-text-secondary">
         {hours.map((entry) => (
           <li class="flex justify-between gap-6" aria-label={`${entry.label} ${entry.value}`}>
             <span>{entry.label}</span>
-            <span class="font-medium text-text-primary">{entry.value}</span>
+            <span class="whitespace-nowrap font-medium text-footer-text">{entry.value}</span>
           </li>
         ))}
       </ul>
     </div>
     <div>
-      <h3 class="text-sm font-semibold uppercase tracking-wide text-text-secondary">Connect</h3>
-      <ul class="mt-4 space-y-2 text-sm text-text-secondary">
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-footer-text-secondary">Connect</h3>
+      <ul class="mt-4 space-y-2 text-sm text-footer-text-secondary">
         {settings.navigation.map((item) => (
           <li>
-            <a class="hover:text-white" href={item.href}>{item.label}</a>
+            <a class="hover:text-footer-text" href={item.href}>{item.label}</a>
           </li>
         ))}
       </ul>
       {social && (
         <div class="mt-6 flex gap-3 text-sm">
           {social.map((item) => (
-            <a class="rounded bg-white/10 px-3 py-1 hover:bg-white/20" href={item.href}>
+            <a class="rounded bg-footer-surface px-3 py-1 hover:bg-footer-surface" href={item.href}>
               {item.label}
             </a>
           ))}
@@ -65,7 +65,7 @@ const addressLines = [
       )}
     </div>
   </div>
-  <div class="border-t border-white/10 py-6 text-center text-xs text-text-muted">
+  <div class="border-t border-footer-border py-6 text-center text-xs text-footer-text-muted">
     © {new Date().getFullYear()} {settings.name}. All rights reserved.
   </div>
 </footer>

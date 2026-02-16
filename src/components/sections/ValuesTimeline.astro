@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { resolveAsset } from '../../lib/assets';
+import lifestylePhoto3 from '../../assets/images/photos/barber_lifestyle_3.jpg';
 
 export interface Props {
   entries: CollectionEntry<'timeline'>[];
@@ -11,10 +11,10 @@ export interface Props {
 
 const props = Astro.props as Props;
 const ordered = [...props.entries].sort((a, b) => Number(a.data.year) - Number(b.data.year));
-const bgImage = resolveAsset('~/assets/images/photos/barber_lifestyle_3.jpg');
+const bgImage = lifestylePhoto3.src;
 ---
 
-<section class="relative overflow-hidden bg-white dark:bg-background py-24 sm:py-28 lg:py-32">
+<section class="relative overflow-hidden bg-surface py-24 sm:py-28 lg:py-32">
   <!-- VISIBLE heritage background image - classic barbershop interior -->
   <div class="absolute inset-0 z-0">
     <img
@@ -26,29 +26,29 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_lifestyle_3.jpg');
   </div>
 
   <!-- STRONG overlay for perfect text contrast -->
-  <div class="absolute inset-0 z-[1] bg-white/60 dark:bg-background/70"></div>
+  <div class="absolute inset-0 z-[1] bg-surface/60"></div>
 
   <!-- Content Container with generous padding -->
   <div class="relative z-10 mx-auto max-w-4xl px-6 sm:px-8 lg:px-10">
     <!-- Rounded container with generous, balanced padding -->
-    <div class="bg-white/90 dark:bg-background/85 backdrop-blur-md rounded-2xl px-10 py-14 sm:px-14 sm:py-18 lg:px-16 lg:py-20 shadow-lg">
+    <div class="bg-surface/90 backdrop-blur-md rounded-2xl px-10 py-14 sm:px-14 sm:py-18 lg:px-16 lg:py-20 shadow-lg">
       <!-- Header Section -->
       <div class="text-center">
         {props.eyebrow && (
-          <p class="text-xs font-bold uppercase tracking-[0.45em] text-secondary dark:text-secondary-light">{props.eyebrow}</p>
+          <p class="text-xs font-bold uppercase tracking-[0.45em] text-secondary">{props.eyebrow}</p>
         )}
-        <h2 class="mt-4 text-3xl font-bold text-black dark:text-white md:text-4xl lg:text-5xl">{props.heading}</h2>
-        {props.subheading && <p class="mt-4 text-lg font-semibold text-text-primary dark:text-text-primary leading-relaxed">{props.subheading}</p>}
+        <h2 class="mt-4 text-3xl font-bold text-text md:text-4xl lg:text-5xl">{props.heading}</h2>
+        {props.subheading && <p class="mt-4 text-lg font-semibold text-text leading-relaxed">{props.subheading}</p>}
       </div>
 
       <!-- Timeline Section -->
-      <div class="mt-20 space-y-12 border-l-2 border-border dark:border-border pl-8 sm:pl-10">
+      <div class="mt-20 space-y-12 border-l-2 border-border pl-8 sm:pl-10">
         {ordered.map((entry) => (
           <div class="relative">
-            <span class="absolute -left-[42px] sm:-left-[44px] inline-flex h-4 w-4 items-center justify-center rounded-full border-[3px] border-primary dark:border-primary-light bg-white dark:bg-background ring-4 ring-white/60 dark:ring-background/60" />
-            <p class="text-xs font-bold uppercase tracking-[0.35em] text-secondary dark:text-secondary-light">{entry.data.year}</p>
-            <h3 class="mt-3 text-xl font-bold text-black dark:text-white lg:text-2xl">{entry.data.title}</h3>
-            <p class="mt-3 font-semibold text-text-primary dark:text-text-primary leading-[1.75]">{entry.data.description}</p>
+            <span class="absolute -left-[42px] sm:-left-[44px] inline-flex h-4 w-4 items-center justify-center rounded-full border-[3px] border-primary bg-surface ring-4 ring-surface/60" />
+            <p class="text-xs font-bold uppercase tracking-[0.35em] text-secondary">{entry.data.year}</p>
+            <h3 class="mt-3 text-xl font-bold text-text lg:text-2xl">{entry.data.title}</h3>
+            <p class="mt-3 font-semibold text-text leading-[1.75]">{entry.data.description}</p>
           </div>
         ))}
       </div>

@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import ServiceCard from './ServiceCard.astro';
-import { resolveAsset } from '../../lib/assets';
+
 
 export interface Props {
   services: CollectionEntry<'services'>[];
@@ -24,42 +24,21 @@ const {
 } = Astro.props as Props;
 
 const carouselId = `services-${Math.random().toString(36).slice(2, 8)}`;
-const bgImage = resolveAsset('~/assets/images/photos/barber_grooming_tools.jpg');
 ---
 
 <section class="relative overflow-hidden bg-surface-alt py-24">
-  {/* Background image with barber arranging grooming tools */}
-  <div class="absolute inset-0 h-full w-full">
-    <img
-      class="h-full w-full object-cover object-center opacity-20"
-      src={bgImage}
-      alt="Barber arranging grooming tools and products on counter"
-      loading="lazy"
-    />
-  </div>
-
-  {/* Transparent overlays for content separation */}
-  <div class="pointer-events-none absolute inset-0">
-    {/* Overlay */}
-    <div class="absolute inset-0 bg-background/30" />
-
-    {/* Decorative circles */}
-    <div class="absolute -top-10 right-16 h-32 w-32 rounded-full border border-white/10" />
-    <div class="absolute bottom-10 left-10 h-24 w-24 rounded-full border border-white/10" />
-  </div>
-
-  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col gap-6 text-center">
       {eyebrow && <p class="text-xs font-semibold uppercase tracking-[0.45em] text-accent">{eyebrow}</p>}
       <div class="mx-auto max-w-3xl">
-        <h2 class="font-heading text-3xl font-bold tracking-tight text-text-primary md:text-4xl lg:text-5xl">
+        <h2 class="font-heading text-3xl font-bold tracking-tight text-text md:text-4xl lg:text-5xl">
           {heading}
         </h2>
         {subheading && <p class="mt-4 text-lg font-medium leading-relaxed text-text-secondary">{subheading}</p>}
       </div>
       {cta && (
         <div class="mt-2">
-          <a class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.35em] text-primary transition hover:text-primary-light dark:hover:text-primary-light" href={cta.href}>
+          <a class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.35em] text-primary transition hover:text-primary-light" href={cta.href}>
             {cta.label} →
           </a>
         </div>
@@ -70,7 +49,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_grooming_tools.jpg')
     <div class="mt-16 flex items-center justify-between gap-4">
       {/* Previous Button */}
       <button
-        class="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-border bg-surface text-2xl text-text-primary shadow-md transition-all duration-300 hover:scale-110 hover:border-primary hover:bg-primary hover:text-on-primary hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50 md:inline-flex"
+        class="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-border bg-surface text-2xl text-text shadow-md transition-all duration-300 hover:scale-110 hover:border-primary hover:bg-primary hover:text-on-primary hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50 md:inline-flex"
         type="button"
         aria-label="Previous service"
         data-prev
@@ -96,7 +75,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_grooming_tools.jpg')
 
       {/* Next Button */}
       <button
-        class="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-border bg-surface text-2xl text-text-primary shadow-md transition-all duration-300 hover:scale-110 hover:border-primary hover:bg-primary hover:text-on-primary hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50 md:inline-flex"
+        class="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-border bg-surface text-2xl text-text shadow-md transition-all duration-300 hover:scale-110 hover:border-primary hover:bg-primary hover:text-on-primary hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50 md:inline-flex"
         type="button"
         aria-label="Next service"
         data-next
@@ -137,7 +116,7 @@ const bgImage = resolveAsset('~/assets/images/photos/barber_grooming_tools.jpg')
 <script>
   const carouselRoot = document.currentScript?.previousElementSibling?.previousElementSibling?.closest('section');
   const container = carouselRoot?.querySelector('[data-services-carousel]');
-  if (container) {
+  if (container && carouselRoot) {
     const prevButton = carouselRoot.querySelector('[data-prev]');
     const nextButton = carouselRoot.querySelector('[data-next]');
     const dots = Array.from(carouselRoot.querySelectorAll('[data-dot]'));
