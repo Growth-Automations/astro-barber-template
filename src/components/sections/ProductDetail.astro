@@ -17,21 +17,21 @@ const gallery = product.data.gallery?.map((image) => ({
 <article class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
   <div class="space-y-6">
     {mainImage && (
-      <div class="overflow-hidden rounded-[36px] border border-white/10 bg-background">
+      <div class="overflow-hidden rounded-[36px] border border-border bg-background">
         <img class="h-full w-full object-cover" src={mainImage} alt={product.data.image?.alt ?? product.data.title} loading="lazy" />
       </div>
     )}
     {gallery && gallery.length > 0 && (
       <div class="grid gap-4 md:grid-cols-3">
         {gallery.map((image) => (
-          <div class="overflow-hidden rounded-2xl border border-white/10 bg-background">
+          <div class="overflow-hidden rounded-2xl border border-border bg-background">
             <img class="h-full w-full object-cover" src={image.src} alt={image.alt} loading="lazy" />
           </div>
         ))}
       </div>
     )}
   </div>
-  <div class="space-y-6 rounded-[32px] border border-white/10 bg-white/5 p-8 text-text backdrop-blur">
+  <div class="space-y-6 rounded-[32px] border border-border bg-surface-alt/50 p-8 text-text backdrop-blur">
     <div class="space-y-3">
       <p class="text-xs font-semibold uppercase tracking-[0.35em] text-secondary">Retail</p>
       <h1 class="text-4xl font-semibold text-text md:text-5xl">{product.data.title}</h1>
@@ -41,7 +41,7 @@ const gallery = product.data.gallery?.map((image) => ({
     {product.data.tags && (
       <div class="flex flex-wrap gap-2">
         {product.data.tags.map((tag) => (
-          <span class="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-text-secondary">
+          <span class="inline-flex items-center rounded-full border border-border bg-surface-alt px-3 py-1 text-xs uppercase tracking-[0.3em] text-text-secondary">
             {tag}
           </span>
         ))}

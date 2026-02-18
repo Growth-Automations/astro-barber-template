@@ -50,7 +50,7 @@ const processedEntries = props.entries.map((entry) => ({
               alt={entry.data.thumbnail.alt}
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-background/70 via-surface/30 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-80" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent transition-opacity duration-300 group-hover:opacity-80" />
             {entry.data.category && (
               <span class="absolute left-6 top-6 inline-flex items-center rounded-full border border-white/50 bg-black/50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-white backdrop-blur-sm transition-all duration-300 group-hover:border-primary/70 group-hover:bg-primary/40">
                 {entry.data.category}

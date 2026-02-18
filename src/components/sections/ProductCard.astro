@@ -22,7 +22,7 @@ const imageSrc = resolveImage(product.data.image?.src);
         alt={product.data.image?.alt ?? product.data.title}
         loading="lazy"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-surface/30 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-70 dark:from-black/80 dark:via-black/30" />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-primary/10 to-transparent transition-opacity duration-300 group-hover:opacity-80" />
     </div>
   )}
   <div class="flex flex-1 flex-col gap-4 p-8">
@@ -38,7 +38,7 @@ const imageSrc = resolveImage(product.data.image?.src);
     <div class="mt-auto flex flex-wrap items-center justify-between gap-4 pt-4">
       <span class="text-xl font-bold text-primary transition-transform duration-500 group-hover:scale-110">{product.data.price}</span>
       <a
-        class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white shadow-md shadow-primary/30 transition-all duration-500 hover:scale-[1.05] hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/40"
+        class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-on-primary shadow-md shadow-primary/30 transition-all duration-500 hover:scale-[1.05] hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/40"
         href={`/shop/${product.data.slug}`}
       >
         View product

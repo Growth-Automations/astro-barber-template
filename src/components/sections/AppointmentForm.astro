@@ -26,11 +26,11 @@ const {
 <section class="relative overflow-hidden bg-background py-24 text-text">
   <div class="pointer-events-none absolute inset-0">
     <div class="absolute inset-0 bg-gradient-to-br from-background via-background to-background/80" />
-    <div class="absolute left-1/2 top-16 -translate-x-1/2 text-[18vw] font-semibold uppercase tracking-[0.35em] text-white/5 md:text-[12rem]">
+    <div class="absolute left-1/2 top-16 -translate-x-1/2 text-[18vw] font-semibold uppercase tracking-[0.35em] text-text/5 md:text-[12rem]">
       BOOK
     </div>
-    <div class="absolute -right-10 bottom-12 h-28 w-28 rounded-full border border-white/10" />
-    <div class="absolute left-10 top-10 h-24 w-24 rounded-full border border-white/10" />
+    <div class="absolute -right-10 bottom-12 h-28 w-28 rounded-full border border-border" />
+    <div class="absolute left-10 top-10 h-24 w-24 rounded-full border border-border" />
   </div>
   <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
@@ -40,13 +40,13 @@ const {
       <h2 class="mt-4 text-3xl font-semibold md:text-4xl">{heading}</h2>
       {subheading && <p class="mt-3 text-lg text-text-secondary">{subheading}</p>}
     </div>
-    <form class="mt-12 grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur md:grid-cols-2">
+    <form class="mt-12 grid gap-6 rounded-[32px] border border-border bg-surface-alt/50 p-8 backdrop-blur md:grid-cols-2">
       <div class="space-y-2">
         <label class="text-sm font-semibold uppercase tracking-[0.3em] text-text-secondary" for="name">
           Name
         </label>
         <input
-          class="w-full rounded-xl border border-white/10 bg-background/70 px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
+          class="w-full rounded-xl border border-border bg-background/70 px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
           id="name"
           name="name"
           type="text"
@@ -59,7 +59,7 @@ const {
           Email
         </label>
         <input
-          class="w-full rounded-xl border border-white/10 bg-background/70 px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
+          class="w-full rounded-xl border border-border bg-background/70 px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
           id="email"
           name="email"
           type="email"
@@ -72,7 +72,7 @@ const {
           Phone
         </label>
         <input
-          class="w-full rounded-xl border border-white/10 bg-background/70 px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
+          class="w-full rounded-xl border border-border bg-background/70 px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
           id="phone"
           name="phone"
           type="tel"
@@ -85,7 +85,7 @@ const {
           Preferred date
         </label>
         <input
-          class="w-full rounded-xl border border-white/10 bg-background/70 px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
+          class="w-full rounded-xl border border-border bg-background/70 px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
           id="preferred-date"
           name="preferred-date"
           type="date"
@@ -96,7 +96,7 @@ const {
           Service
         </label>
         <select
-          class="w-full rounded-xl border border-white/10 bg-background/70 px-4 py-3 text-sm text-text focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
+          class="w-full rounded-xl border border-border bg-background/70 px-4 py-3 text-sm text-text focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
           id="service"
           name="service"
         >
@@ -111,7 +111,7 @@ const {
           Notes
         </label>
         <textarea
-          class="h-32 w-full rounded-xl border border-white/10 bg-background/70 px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
+          class="h-32 w-full rounded-xl border border-border bg-background/70 px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
           id="notes"
           name="notes"
           placeholder="Tell us about the look, event, or inspiration so we can pair you with the right barber."

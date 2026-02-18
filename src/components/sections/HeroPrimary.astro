@@ -130,7 +130,7 @@ const bgImage = precisionFadePhoto.src;
 
   <!-- Appointment card (if provided) -->
   {props.appointment && (
-    <div class="absolute bottom-8 right-8 hidden w-80 rounded-3xl border border-white/20 bg-background/90 p-6 text-text shadow-2xl backdrop-blur-lg lg:block">
+    <div class="absolute bottom-8 right-8 hidden w-80 rounded-3xl border border-border bg-background/90 p-6 text-text shadow-2xl backdrop-blur-lg lg:block">
       <p class="text-xs font-semibold uppercase tracking-[0.35em] text-secondary">
         Reserve Your Spot
       </p>
@@ -144,7 +144,7 @@ const bgImage = precisionFadePhoto.src;
         )}
         {props.appointment.phone && (
           <a
-            class="btn border border-white/30 bg-transparent text-white hover:bg-white/10"
+            class="btn border border-border bg-transparent text-text hover:bg-surface-alt"
             href={props.appointment.phone.href}
           >
             {props.appointment.phone.display}

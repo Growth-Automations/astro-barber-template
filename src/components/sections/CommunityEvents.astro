@@ -49,7 +49,7 @@ const {
                 alt={event.data.image.alt}
                 loading="lazy"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-surface/30 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-70 dark:from-black/80 dark:via-black/30" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/45 via-black/15 to-transparent transition-opacity duration-300 group-hover:opacity-80" />
               {event.data.date && (
                 <div class="absolute left-4 top-4 rounded-full border border-primary/40 bg-primary/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-primary backdrop-blur-sm transition-all duration-300 group-hover:scale-105 dark:border-primary/50 dark:bg-primary/25">
                   {event.data.date}
@@ -71,7 +71,7 @@ const {
 
               <a
                 href={ctaHref}
-                class="inline-flex items-center justify-center gap-2 self-start rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white shadow-md shadow-primary/30 transition-all duration-500 hover:scale-[1.05] hover:gap-3 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/40"
+                class="inline-flex items-center justify-center gap-2 self-start rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-on-primary shadow-md shadow-primary/30 transition-all duration-500 hover:scale-[1.05] hover:gap-3 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/40"
               >
                 {ctaLabel} →
               </a>

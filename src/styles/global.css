@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Override dark: variant to use data-theme attribute instead of OS prefers-color-scheme */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ========================================================================
    GA EMERALD + GOLD THEME — Tailwind v4 @theme tokens
    All --color-* variables automatically generate utility classes
@@ -17,9 +20,9 @@
   --color-primary-light: oklch(0.65 0.17 160);
 
   /* Accent Colors — Golden Yellow */
-  --color-accent: oklch(0.90 0.13 90);
-  --color-accent-dark: oklch(0.80 0.14 85);
-  --color-accent-light: oklch(0.94 0.10 95);
+  --color-accent: oklch(0.55 0.14 85);
+  --color-accent-dark: oklch(0.48 0.12 85);
+  --color-accent-light: oklch(0.90 0.13 90);
 
   /* Text Colors */
   --color-text: oklch(0.15 0.02 160);
@@ -141,7 +144,7 @@
 
 @layer components {
   .skip-link {
-    @apply absolute left-4 top-4 -translate-y-full rounded bg-primary px-4 py-2 text-sm font-medium text-on-primary focus:translate-y-0;
+    @apply absolute -top-full left-4 z-[100] rounded bg-primary px-4 py-2 text-sm font-medium text-on-primary focus:top-4;
   }
 
   .btn {
@@ -157,7 +160,7 @@
   }
 
   .btn-inverse {
-    @apply bg-white text-primary hover:bg-surface-alt focus:ring-white;
+    @apply bg-surface text-primary hover:bg-surface-alt focus:ring-primary;
   }
 
   .prose {
