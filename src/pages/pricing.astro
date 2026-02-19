@@ -47,6 +47,7 @@ const pricingFaqs = faqsCollection.filter((entry) => entry.data.category === 'Pr
   title="Pricing & Membership"
   description="GrowthAutomations Barbershop offers transparent grooming packages, memberships, and concierge lounge pricing."
 >
+  <div data-elid="hero_section" data-elid-type="section" style="display:none"></div>
   <HeroPrimary
     eyebrow="Pricing & Membership"
     heading="Pick a ritual, keep your cadence"
@@ -63,6 +64,7 @@ const pricingFaqs = faqsCollection.filter((entry) => entry.data.category === 'Pr
     ]}
   />
 
+  <div data-elid="pricing_table_section" data-elid-type="section" style="display:none"></div>
   <section class="bg-surface py-24 sm:py-28" id="pricing-table">
     <div class="mx-auto max-w-4xl px-6 text-center sm:px-8">
       <p class="text-xs font-bold uppercase tracking-[0.35em] text-secondary">Signature packages</p>
@@ -83,6 +85,7 @@ const pricingFaqs = faqsCollection.filter((entry) => entry.data.category === 'Pr
     </div>
   </section>
 
+  <div data-elid="addons_section" data-elid-type="section" style="display:none"></div>
   {addOns.length > 0 && (
     <section class="bg-background py-20 text-text">
       <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -107,6 +110,7 @@ const pricingFaqs = faqsCollection.filter((entry) => entry.data.category === 'Pr
     </section>
   )}
 
+  <div data-elid="offer_strip_section" data-elid-type="section" style="display:none"></div>
   <OfferStrip
     badge="Fresh Fade Club"
     eyebrow="Membership perks"
@@ -118,6 +122,7 @@ const pricingFaqs = faqsCollection.filter((entry) => entry.data.category === 'Pr
     patternWord="MEMBER"
   />
 
+  <div data-elid="faq_section" data-elid-type="section" style="display:none"></div>
   <FAQAccordion
     eyebrow="Questions answered"
     heading="Pricing & membership FAQs"
@@ -125,6 +130,7 @@ const pricingFaqs = faqsCollection.filter((entry) => entry.data.category === 'Pr
     faqs={pricingFaqs}
   />
 
+  <div data-elid="cta_section" data-elid-type="section" style="display:none"></div>
   <CTASection
     eyebrow="Plan your visit"
     heading="Ready to confirm your next appointment?"

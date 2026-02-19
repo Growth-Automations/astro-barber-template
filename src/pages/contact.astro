@@ -19,18 +19,22 @@ const bookingFaqs = faqs.filter((faq) =>
 ---
 
 <BaseLayout title={page.data.seo.title} description={page.data.seo.description}>
+  <div data-elid="page_hero_section" data-elid-type="section" style="display:none"></div>
   {page.data.hero && <PageHero {...page.data.hero} />}
+  <div data-elid="contact_content_section" data-elid-type="section" style="display:none"></div>
   <section class="bg-surface">
     <div class="mx-auto max-w-3xl px-4 py-16 prose sm:px-6">
       <Content />
     </div>
   </section>
+  <div data-elid="contact_info_section" data-elid-type="section" style="display:none"></div>
   <ContactInfo
     settings={settings}
     eyebrow="Contact"
     heading="Ready when you are"
     subheading="Call, message, or visit the GrowthAutomations lounge — concierge will help you plan the perfect ritual."
   />
+  <div data-elid="appointment_form_section" data-elid-type="section" style="display:none"></div>
   <AppointmentForm
     eyebrow="Book your chair"
     heading="Reserve an appointment in minutes"
@@ -38,6 +42,7 @@ const bookingFaqs = faqs.filter((faq) =>
     serviceOptions={services.map((service) => ({ label: service.data.title, value: service.data.slug }))}
     disclaimer="Submitting this form starts the scheduling process. Our concierge team will follow up to lock in time, barber, and payment details."
   />
+  <div data-elid="faq_section" data-elid-type="section" style="display:none"></div>
   {bookingFaqs.length > 0 && (
     <FAQAccordion
       faqs={bookingFaqs}

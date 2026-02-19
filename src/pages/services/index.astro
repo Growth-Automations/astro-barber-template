@@ -22,6 +22,7 @@ const pricingTiers = pricing.map((entry) => ({
 ---
 
 <BaseLayout title="Services" description="Explore signature grooming experiences from GrowthAutomations Barbershop.">
+  <div data-elid="services_intro_section" data-elid-type="section" style="display:none"></div>
   <section class="bg-background py-16 text-text">
     <div class="mx-auto max-w-4xl px-4 text-center sm:px-6">
       <p class="text-xs font-semibold uppercase tracking-[0.3em] text-secondary">Service Menu</p>
@@ -31,6 +32,7 @@ const pricingTiers = pricing.map((entry) => ({
       </p>
     </div>
   </section>
+  <div data-elid="services_grid_section" data-elid-type="section" style="display:none"></div>
   <ServicesGrid
     services={services}
     eyebrow="Service Categories"
@@ -39,6 +41,7 @@ const pricingTiers = pricing.map((entry) => ({
     highlightFirst
     cta={{ label: 'Ready to book?', href: '/appointment' }}
   />
+  <div data-elid="pricing_table_section" data-elid-type="section" style="display:none"></div>
   <PricingTable
     eyebrow="Pricing & Membership"
     heading="Transparent grooming packages"

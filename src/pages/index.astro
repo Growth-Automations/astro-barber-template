@@ -70,13 +70,16 @@ const featuredProducts = homeEntry.data.featuredProducts
 ---
 
 <BaseLayout title={homeEntry.data.hero.heading} description={homeEntry.data.hero.subheading}>
+  <div data-elid="hero_section" data-elid-type="section" style="display:none"></div>
   <HeroPrimary {...homeEntry.data.hero} />
+  <div data-elid="feature_highlights_section" data-elid-type="section" style="display:none"></div>
   <FeatureHighlights
     eyebrow={homeEntry.data.intro.eyebrow}
     heading={homeEntry.data.intro.heading}
     description={homeEntry.data.intro.body}
     highlights={homeEntry.data.highlights}
   />
+  <div data-elid="featured_styles_section" data-elid-type="section" style="display:none"></div>
   {featuredStyles.length > 0 && (
     <FeaturedStyles
       styles={featuredStyles}
@@ -86,6 +89,7 @@ const featuredProducts = homeEntry.data.featuredProducts
       cta={{ label: 'Book This Style', href: '/appointment' }}
     />
   )}
+  <div data-elid="services_grid_section" data-elid-type="section" style="display:none"></div>
   <ServicesGrid
     services={featuredServices}
     eyebrow="Service Menu"
@@ -94,13 +98,16 @@ const featuredProducts = homeEntry.data.featuredProducts
     highlightFirst
     cta={{ label: 'View full menu', href: '/services' }}
   />
+  <div data-elid="offer_strip_section" data-elid-type="section" style="display:none"></div>
   {homeEntry.data.offerStrip && <OfferStrip {...homeEntry.data.offerStrip} />}
+  <div data-elid="testimonials_section" data-elid-type="section" style="display:none"></div>
   <TestimonialsCarousel
     testimonials={testimonials}
     heading={homeEntry.data.testimonialsHeading ?? 'What clients are saying'}
     eyebrow="Client love"
     subheading="Real people, real rituals. Here's how GrowthAutomations keeps our community feeling sharp."
   />
+  <div data-elid="membership_section" data-elid-type="section" style="display:none"></div>
   {membershipTiers.length > 0 && (
     <MembershipProgram
       tiers={membershipTiers}
@@ -110,6 +117,7 @@ const featuredProducts = homeEntry.data.featuredProducts
       cta={{ label: 'View all membership benefits', href: '/pricing' }}
     />
   )}
+  <div data-elid="pricing_table_section" data-elid-type="section" style="display:none"></div>
   {homeEntry.data.pricing && pricingTiers.length > 0 && (
     <PricingTable
       eyebrow={homeEntry.data.pricing.eyebrow}
@@ -120,6 +128,7 @@ const featuredProducts = homeEntry.data.featuredProducts
       backgroundWord={homeEntry.data.pricing.backgroundWord}
     />
   )}
+  <div data-elid="portfolio_section" data-elid-type="section" style="display:none"></div>
   {featuredPortfolio.length > 0 && (
     <PortfolioGrid
       entries={featuredPortfolio}
@@ -129,6 +138,7 @@ const featuredProducts = homeEntry.data.featuredProducts
       cta={{ label: 'View all projects', href: '/portfolio' }}
     />
   )}
+  <div data-elid="team_preview_section" data-elid-type="section" style="display:none"></div>
   {team.length > 0 && (
     <TeamPreview
       team={team}
@@ -139,6 +149,7 @@ const featuredProducts = homeEntry.data.featuredProducts
       limit={4}
     />
   )}
+  <div data-elid="product_grid_section" data-elid-type="section" style="display:none"></div>
   {featuredProducts.length > 0 && (
     <ProductGrid
       products={featuredProducts}
@@ -148,6 +159,7 @@ const featuredProducts = homeEntry.data.featuredProducts
       cta={{ label: 'Browse the shop', href: '/shop' }}
     />
   )}
+  <div data-elid="community_events_section" data-elid-type="section" style="display:none"></div>
   {events.length > 0 && (
     <CommunityEvents
       events={events}
@@ -157,6 +169,7 @@ const featuredProducts = homeEntry.data.featuredProducts
       cta={{ label: 'Join Our Next Event', href: '/about' }}
     />
   )}
+  <div data-elid="blog_list_section" data-elid-type="section" style="display:none"></div>
   {latestBlogPosts.length > 0 && (
     <BlogList
       entries={latestBlogPosts.slice(0, 3)}
@@ -166,5 +179,6 @@ const featuredProducts = homeEntry.data.featuredProducts
       cta={{ label: 'View all posts', href: '/blog' }}
     />
   )}
+  <div data-elid="cta_section" data-elid-type="section" style="display:none"></div>
   {homeEntry.data.cta && <CTASection {...homeEntry.data.cta} />}
 </BaseLayout>

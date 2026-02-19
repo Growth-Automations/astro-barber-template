@@ -28,6 +28,7 @@ const appointmentFaqs = faqsCollection.filter((entry) =>
   title="Book an Appointment"
   description="Reserve your chair at GrowthAutomations Barbershop for cuts, color, and concierge grooming experiences."
 >
+  <div data-elid="hero_section" data-elid-type="section" style="display:none"></div>
   <HeroPrimary
     eyebrow="Book your visit"
     heading="Reserve your chair in minutes"
@@ -50,6 +51,7 @@ const appointmentFaqs = faqsCollection.filter((entry) =>
     }}
   />
 
+  <div data-elid="how_it_works_section" data-elid-type="section" style="display:none"></div>
   <section class="bg-surface py-16 text-text">
     <div class="mx-auto grid max-w-5xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
       <div class="space-y-4">
@@ -74,6 +76,7 @@ const appointmentFaqs = faqsCollection.filter((entry) =>
     </div>
   </section>
 
+  <div data-elid="appointment_form_section" data-elid-type="section" style="display:none"></div>
   <div id="appointment-form">
     <AppointmentForm
       eyebrow="Book online"
@@ -85,6 +88,7 @@ const appointmentFaqs = faqsCollection.filter((entry) =>
     />
   </div>
 
+  <div data-elid="faq_section" data-elid-type="section" style="display:none"></div>
   <FAQAccordion
     eyebrow="Need to know"
     heading="Booking & scheduling questions"
@@ -92,6 +96,7 @@ const appointmentFaqs = faqsCollection.filter((entry) =>
     faqs={appointmentFaqs.length ? appointmentFaqs : faqsCollection}
   />
 
+  <div data-elid="contact_info_section" data-elid-type="section" style="display:none"></div>
   <ContactInfo
     settings={siteSettings}
     eyebrow="Visit the lounge"
@@ -99,6 +104,7 @@ const appointmentFaqs = faqsCollection.filter((entry) =>
     subheading="Call, email, or stop by during shop hours. We can recommend add-ons, memberships, and event packages."
   />
 
+  <div data-elid="cta_section" data-elid-type="section" style="display:none"></div>
   <CTASection
     eyebrow="Membership perks"
     heading="Join the Fresh Fade Club for priority booking"

@@ -10,7 +10,9 @@ const faqs = await getCollection('faqs');
 ---
 
 <BaseLayout title={page.data.seo.title} description={page.data.seo.description}>
+  <div data-elid="page_hero_section" data-elid-type="section" style="display:none"></div>
   {page.data.hero && <PageHero {...page.data.hero} />}
+  <div data-elid="faq_content_section" data-elid-type="section" style="display:none"></div>
   <section class="bg-surface">
     <div class="mx-auto grid max-w-5xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8">
       <div class="prose">

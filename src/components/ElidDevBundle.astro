@@ -1,0 +1,298 @@
+---
+/**
+ * ElidDevBundle - Portal iframe integration with handshake + editor bundle loading
+ *
+ * INSTALLATION:
+ * 1. Copy this file to your template's src/components/ directory
+ * 2. Replace 'SITE_NAME_HERE' with your template name (e.g., 'welding-starter')
+ * 3. Import and add <ElidDevBundle /> to your main Layout.astro inside <head>
+ *
+ * This component handles:
+ * 1. Iframe handshake protocol (child:hello → parent:challenge → child:response)
+ *    - Required for the portal editor to trust and communicate with the iframe
+ * 2. Loading the ELID editor bundle from CDN or dev servers
+ *    - Enables visual editing features when site is loaded in portal
+ *
+ * In production: Loads editor from studio.growthautomations.com CDN
+ * In development: Falls back to localhost dev servers
+ *
+ * Environment variables (optional, for overrides):
+ * - PUBLIC_ELID_EDITOR_URL: Override editor bundle base URL
+ * - PUBLIC_ELID_CDN_URL: Override production CDN URL
+ * - PUBLIC_ELID_TAGGER_URL: Override tagger bundle URL (dev only)
+ */
+const prodCdnUrl = import.meta.env.PUBLIC_ELID_CDN_URL || 'https://studio.growthautomations.com';
+const devEditorUrl = import.meta.env.PUBLIC_ELID_EDITOR_URL || 'http://localhost:3000';
+const devTaggerUrl = import.meta.env.PUBLIC_ELID_TAGGER_URL || 'http://localhost:8080';
+---
+
+<script is:inline define:vars={{ prodCdnUrl, devEditorUrl, devTaggerUrl }}>
+  (function() {
+    'use strict';
+
+    // ========================================
+    // CONFIGURATION - Update this for your template
+    // ========================================
+    const SITE_NAME = 'ga-barber-template'; // <-- Replace with your template name
+    const ELID_EMBED_VERSION = '2.1.0'; // Bump on any template change
+
+    // Only run if we're in an iframe (embedded in portal)
+    if (window.self === window.top) {
+      console.log(`🎯 ELID: ${SITE_NAME} loaded outside portal iframe — skipping integration.`);
+      return;
+    }
+
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    console.log(`🎯 ELID: ${SITE_NAME} detected inside portal iframe (${isLocalhost ? 'dev' : 'production'} mode)`);
+
+    // ========================================
+    // HANDSHAKE PROTOCOL
+    // ========================================
+    // The portal requires a handshake before enabling editor features.
+    // Flow: child:hello → parent:challenge → child:response
+
+    // Allowed parent origins that can embed this site
+    const ALLOWED_ORIGINS = [
+      // Production domains
+      'https://growthautomations.com',
+      'https://www.growthautomations.com',
+      'https://app.growthautomations.com',
+      'https://studio.growthautomations.com',
+      'https://edit.growthautomations.com',
+      // Staging/preview domains
+      'https://staging.growthautomations.com',
+      'https://gamarketplace.netlify.app',
+      'https://gamarketplace-staging.netlify.app'
+    ];
+
+    /**
+     * Extract parent origin from document.referrer
+     */
+    function getParentOrigin() {
+      try {
+        const ref = document.referrer;
+        if (!ref) return null;
+        const url = new URL(ref);
+        return url.protocol + '//' + url.host;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    /**
+     * Check if an origin is allowed to embed this site
+     */
+    function isOriginAllowed(origin) {
+      if (!origin) return false;
+      // Check static allowlist
+      if (ALLOWED_ORIGINS.indexOf(origin) !== -1) return true;
+      // Allow localhost for development (any port)
+      if (/^https?:\/\/localhost(:\d+)?$/.test(origin)) return true;
+      if (/^https?:\/\/127\.0\.0\.1(:\d+)?$/.test(origin)) return true;
+      // Allow Netlify deploy previews for gamarketplace
+      if (/^https:\/\/[a-z0-9-]+--gamarketplace(-staging)?\.netlify\.app$/.test(origin)) return true;
+      // Allow any *.growthautomations.com or *.growthautomations.app subdomain
+      if (/^https:\/\/[a-z0-9-]+\.growthautomations\.(com|app)$/.test(origin)) return true;
+      return false;
+    }
+
+    const parentOrigin = getParentOrigin();
+
+    if (!parentOrigin) {
+      console.warn('[GA Embed] No parent origin detected from document.referrer');
+    } else if (!isOriginAllowed(parentOrigin)) {
+      console.warn('[GA Embed] Parent origin not in allowlist:', parentOrigin);
+    } else {
+      // Initialize handshake state (exposed globally for portal compatibility)
+      const handshakeState = {
+        ok: false,
+        parentOrigin: parentOrigin,
+        lastNonce: null
+      };
+      window.__EMBED_HANDSHAKE__ = handshakeState;
+
+      console.log('[GA Embed] Starting handshake with parent:', parentOrigin);
+
+      /**
+       * Handle incoming messages from parent
+       */
+      function handleMessage(ev) {
+        if (ev.origin !== parentOrigin) return;
+        const data = ev.data;
+        if (!data || typeof data !== 'object') return;
+
+        // Respond to parent's challenge
+        if (data.type === 'parent:challenge' && typeof data.nonce === 'string') {
+          console.log('[GA Embed] Received challenge, responding with nonce...');
+          handshakeState.lastNonce = data.nonce;
+          handshakeState.ok = true;
+          window.__EMBED_HANDSHAKE__ = handshakeState;
+
+          // Echo the nonce back to complete handshake
+          window.parent.postMessage({ type: 'child:response', nonce: data.nonce }, parentOrigin);
+          console.log('[GA Embed] Handshake complete!');
+
+          // Clean up listener after successful handshake
+          window.removeEventListener('message', handleMessage);
+        }
+      }
+
+      window.addEventListener('message', handleMessage);
+
+      // Initiate handshake by sending hello to parent
+      try {
+        window.parent.postMessage({
+          type: 'child:hello',
+          origin: window.location.origin,
+          siteName: SITE_NAME
+        }, parentOrigin);
+        console.log('[GA Embed] Sent child:hello to parent');
+      } catch (e) {
+        console.error('[GA Embed] Failed to send hello to parent:', e);
+      }
+
+      // Clean up listener if handshake doesn't complete within 10 seconds
+      setTimeout(function() {
+        if (!handshakeState.ok) {
+          window.removeEventListener('message', handleMessage);
+          console.warn('[GA Embed] Handshake timed out after 10s - editor features may be restricted');
+        }
+      }, 10000);
+    }
+
+    // ========================================
+    // BUNDLE MODE DETECTION
+    // ========================================
+    // Check for special bundle modes (admin-review, ticket, review)
+    // set via URL parameter or window global.
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlMode = urlParams.get('elid-mode');
+    const globalMode = window.__ELID_BUNDLE_MODE__;
+    const bundleMode = urlMode || globalMode || null;
+
+    // Mode-specific bundle map: mode → { dev, prod, name }
+    const modeBundleMap = {
+      'review': {
+        dev: devTaggerUrl + '/tagger-review-package/dist/tagger-review.bundle.js',
+        prod: prodCdnUrl + '/tagger-review.bundle.js',
+        label: 'dev-review',
+        attrs: { 'data-elid-mode': 'review' }
+      },
+      'admin-review': {
+        dev: devTaggerUrl + '/tagger-review-package/dist/tagger-review-admin.bundle.js',
+        prod: prodCdnUrl + '/tagger-review-admin.bundle.js',
+        label: 'admin-review',
+        attrs: { 'data-elid-mode': 'admin-review' }
+      },
+      'ticket': {
+        dev: devTaggerUrl + '/tagger-review-package/dist/tagger-review-ticket.bundle.js',
+        prod: prodCdnUrl + '/tagger-review-ticket.bundle.js',
+        label: 'ticket-capture',
+        attrs: { 'data-elid-mode': 'ticket' }
+      }
+    };
+
+    if (bundleMode && modeBundleMap[bundleMode]) {
+      // Load the mode-specific bundle directly, skip default fallback chain
+      const modeBundle = modeBundleMap[bundleMode];
+      const src = isLocalhost ? modeBundle.dev : modeBundle.prod;
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = src + (src.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+
+      Object.entries(modeBundle.attrs).forEach(function(entry) {
+        script.setAttribute(entry[0], entry[1]);
+      });
+
+      script.onload = function() {
+        console.log('✅ ELID: ' + modeBundle.label + ' bundle loaded for ' + SITE_NAME);
+      };
+      script.onerror = function() {
+        console.error('❌ ELID: Failed to load ' + modeBundle.label + ' bundle from ' + src);
+      };
+
+      document.head.appendChild(script);
+      return; // Skip default bundle loading below
+    }
+
+    // ========================================
+    // ELID EDITOR BUNDLE LOADING (default)
+    // ========================================
+    // Load the visual editor bundle that enables content editing
+
+    const bundles = isLocalhost ? [
+      // Development: Try local dev servers first
+      {
+        label: 'editor (dev)',
+        src: `${devEditorUrl}/editor.bundle.js`,
+        attrs: {
+          'data-editor-origin': devEditorUrl,
+          'data-editor-version': '1.0.0-dev'
+        }
+      },
+      {
+        label: 'tagger (dev)',
+        src: `${devTaggerUrl}/dist/tagger.bundle.js?mode=tagger`,
+        attrs: {
+          'data-portal-origin': devTaggerUrl,
+          'data-tagger-version': '2.0.0-dev',
+          'data-debug': 'true'
+        }
+      },
+      // Fallback to CDN if local servers unavailable
+      {
+        label: 'editor (CDN fallback)',
+        src: `${prodCdnUrl}/editor.bundle.js`,
+        attrs: {
+          'data-editor-origin': prodCdnUrl,
+          'data-editor-version': '3.0.0'
+        }
+      }
+    ] : [
+      // Production: Load from CDN
+      {
+        label: 'editor (CDN)',
+        src: `${prodCdnUrl}/editor.bundle.js`,
+        attrs: {
+          'data-editor-origin': prodCdnUrl,
+          'data-editor-version': '3.0.0'
+        }
+      }
+    ];
+
+    /**
+     * Recursively try to load bundles, falling back on failure
+     */
+    const loadBundle = (index = 0) => {
+      if (index >= bundles.length) {
+        console.error('❌ ELID: No bundle could be loaded. Check CDN availability or start dev server.');
+        return;
+      }
+
+      const candidate = bundles[index];
+      const script = document.createElement('script');
+      script.async = true;
+      // Add cache-buster to avoid stale bundles during development
+      script.src = `${candidate.src}${candidate.src.includes('?') ? '&' : '?'}cb=${Date.now()}`;
+
+      // Apply data attributes
+      Object.entries(candidate.attrs).forEach(([key, value]) => {
+        script.setAttribute(key, value);
+      });
+
+      script.onload = () => {
+        console.log(`✅ ELID: ${candidate.label} bundle loaded for ${SITE_NAME}`);
+      };
+
+      script.onerror = () => {
+        console.warn(`⚠️ ELID: Failed to load ${candidate.label} from ${candidate.src}, trying next...`);
+        loadBundle(index + 1);
+      };
+
+      document.head.appendChild(script);
+    };
+
+    loadBundle();
+  })();
+</script>

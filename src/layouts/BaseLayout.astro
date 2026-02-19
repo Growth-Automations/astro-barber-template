@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
+import ElidDevBundle from '../components/ElidDevBundle.astro';
 import { getSiteSettings } from '../lib/site';
 import { siteConfig } from '../site.config';
 
@@ -87,13 +88,16 @@ const localBusinessJsonLd = currentPath === '/' ? JSON.stringify({
     {localBusinessJsonLd && (
       <script type="application/ld+json" set:html={localBusinessJsonLd} />
     )}
+    <ElidDevBundle />
   </head>
   <body class="bg-background font-body text-text">
     <a class="skip-link" href="#main">Skip to content</a>
+    <div data-elid="global_header" data-elid-type="section" style="display:none"></div>
     <Header siteName={settings.name} navigation={settings.navigation} contact={settings.contact} currentPath={currentPath} />
     <main id="main" class="min-h-screen">
       <slot />
     </main>
+    <div data-elid="global_footer" data-elid-type="section" style="display:none"></div>
     <Footer settings={settings} />
   </body>
 </html>

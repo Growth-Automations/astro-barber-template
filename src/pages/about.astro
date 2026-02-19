@@ -15,7 +15,9 @@ const bgImage = servicesPhoto.src;
 ---
 
 <BaseLayout title={page.data.seo.title} description={page.data.seo.description}>
+  <div data-elid="page_hero_section" data-elid-type="section" style="display:none"></div>
   {page.data.hero && <PageHero {...page.data.hero} />}
+  <div data-elid="about_content_section" data-elid-type="section" style="display:none"></div>
   <section class="relative overflow-hidden bg-surface">
     <!-- Full-width background image: barbershop tools - MUCH MORE VISIBLE -->
     <div class="absolute inset-0 z-0">
@@ -55,6 +57,7 @@ const bgImage = servicesPhoto.src;
       </div>
     </div>
   </section>
+  <div data-elid="team_roster_section" data-elid-type="section" style="display:none"></div>
   {team.length > 0 && (
     <TeamRoster
       team={team}
@@ -63,6 +66,7 @@ const bgImage = servicesPhoto.src;
       subheading="Barbers, colorists, and concierge stylists combining precision technique with memorable hospitality."
     />
   )}
+  <div data-elid="values_timeline_section" data-elid-type="section" style="display:none"></div>
   {timeline.length > 0 && (
     <ValuesTimeline
       entries={timeline}

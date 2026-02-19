@@ -7,6 +7,7 @@ const posts = await getCollection('blog');
 ---
 
 <BaseLayout title="Blog" description="Grooming guidance, product picks, and event styling tips from GrowthAutomations Barbershop.">
+  <div data-elid="blog_list_section" data-elid-type="section" style="display:none"></div>
   <BlogList
     entries={posts}
     eyebrow="Barber insights"
